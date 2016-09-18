@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INSPIRE View Service &#8212; MapServer 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/mapserver.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 7.0.0 documentation" href="../index.html" />
+    <link rel="up" title="OGC Support and Configuration" href="index.html" />
+    <link rel="next" title="WMS Client" href="wms_client.html" />
+    <link rel="prev" title="WMS Server" href="wms_server.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+<table width="100%" style="width: 100%; background-color: white;">
+  <tr>
+    <td rowspan="2" style="padding: 10px 0px 10px 10px;">
+      <a href="../index.html" title="Home"><img src="../_static/banner.png" alt="MapServer banner" border="0" /></a>
+    </td>
+    <td style="padding: 10px 10px 0px 0px; text-align: right; vertical-align: top;">
+      <a href="../index.html" title="Home">Home</a> |
+      <a href="../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
+      <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
+      <a href="../faq.html" title="FAQ">FAQ</a> |
+      <a href="../download.html" title="Download">Download </a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0px 10px 0px 0px; text-align: right; vertical-align: bottom;">
+        <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+        
+          <a href="../de/ogc/inspire.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+        
+        
+          <a href="../es/ogc/inspire.html"><img src="../_static/flagicons/es.png" alt="es" title="es" border="0" /></a>
+        
+        
+          <a href="../zh_cn/ogc/inspire.html"><img src="../_static/flagicons/zh_cn.png" alt="zh_cn" title="zh_cn" border="0" /></a>
+        
+
+    </td>
+  </tr>
+</table>
+
+
+
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="inspire-view-service">
+<span id="index-0"></span><span id="id1"></span><h1><a class="toc-backref" href="#table-of-contents">INSPIRE View Service</a><a class="headerlink" href="#inspire-view-service" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Stephan Meissl</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Contact:</th><td class="field-body">stephan.meissl at eox.at</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Last Updated:</th><td class="field-body">2012-03-19</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="table-of-contents">
+<p class="topic-title first">Table of Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#inspire-view-service" id="id2">INSPIRE View Service</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#activation-of-inspire-support" id="id4">Activation of INSPIRE support</a></li>
+<li><a class="reference internal" href="#multi-language-support-for-certain-capabilities-fields" id="id5">Multi-language support for certain capabilities fields</a></li>
+<li><a class="reference internal" href="#provision-of-inspire-specific-metadata" id="id6">Provision of INSPIRE specific metadata</a></li>
+<li><a class="reference internal" href="#named-group-layers" id="id7">Named group layers</a></li>
+<li><a class="reference internal" href="#style-section-for-root-layer-and-possibly-existing-group-layers" id="id8">Style section for root layer and possibly existing group layers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#table-of-contents">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>INSPIRE is the name of an <a class="reference external" href="http://inspire.jrc.ec.europa.eu/">European directive</a>, establishing an infrastructure
+for spatial information in Europe to support Community environmental policies,
+and policies or activities which may have an impact on the environment.</p>
+<p>The INSPIRE View Service is an implementation of the <a class="reference external" href="http://INSPIRE.jrc.ec.europa.eu/documents/Network_Services/TechnicalGuidance_ViewServices_v3.0.pdf">INSPIRE Technical
+Guidance document</a> on top of the <a class="reference internal" href="wms_server.html#wms-server"><span class="std std-ref">WMS Server</span></a> implementation explained in
+the previous chapter.</p>
+<p>In order to achieve INSPIRE View Service compliance, the following enhancements
+have been implemented in MapServer:</p>
+<ul class="simple">
+<li>Activation of INSPIRE support (two scenarios)</li>
+<li>Multi-language support for certain capabilities fields</li>
+<li>Provision of INSPIRE specific metadata</li>
+<li>Named group layers</li>
+<li>Style section for root layer and possibly existing group layers</li>
+</ul>
+<p>Support for INSPIRE View Service in MapServer uses a syntax identical to
+the one used for <a class="reference internal" href="inspire_dl.html#inspire-download-service"><span class="std std-ref">INSPIRE Download Service</span></a>. Consequently, it is possible to
+define shared metadata items between Download and View services by using the <code class="docutils literal"><span class="pre">ows_</span></code>
+prefix instead of <code class="docutils literal"><span class="pre">wms_</span></code>.</p>
+</div>
+<div class="section" id="activation-of-inspire-support">
+<h2><a class="toc-backref" href="#table-of-contents">Activation of INSPIRE support</a><a class="headerlink" href="#activation-of-inspire-support" title="Permalink to this headline">¶</a></h2>
+<p>INSPIRE specific metadata can either be referenced in an external INSPIRE
+service metadata document (scenario 1) or can be directly embedded in the
+capabilities document (scenario 2). MapServer supports both scenarios.</p>
+<p>Activation of the corresponding scenario for INSPIRE support takes place in
+the <code class="docutils literal"><span class="pre">WEB.METADATA</span></code> section of the mapfile through
+<code class="docutils literal"><span class="pre">wms_inspire_capabilities</span></code>. If activated, the corresponding INSPIRE
+namespace as well as appropriate validation warnings are generated in the
+capabilities document.</p>
+<p>Scenario 1 - activate INSPIRE support using a reference to external service
+metadata:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="s2">&quot;wms_inspire_capabilities&quot;</span> <span class="s2">&quot;url&quot;</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+<p>Scenario 2 - activate INSPIRE support using embedded service metadata:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="s2">&quot;wms_inspire_capabilities&quot;</span> <span class="s2">&quot;embed&quot;</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="multi-language-support-for-certain-capabilities-fields">
+<span id="inspire-multi-language-support"></span><h2><a class="toc-backref" href="#table-of-contents">Multi-language support for certain capabilities fields</a><a class="headerlink" href="#multi-language-support-for-certain-capabilities-fields" title="Permalink to this headline">¶</a></h2>
+<p>INSPIRE requires multi-language support and requests a list of all supported
+languages as well as the default language in the capabilities document. Based
+on the language parameter in the GetCapabilities request, certain specific
+metadata values, namely</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">wms_title</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_abstract</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_rootlayer_title</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_rootlayer_abstract</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_group_title</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_group_abstract</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_style_title</span></code></li>
+<li><code class="docutils literal"><span class="pre">wms_style_&lt;name&gt;_title</span></code></li>
+</ul>
+<p>as well as language dependent reference data like</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">DATA</span> <span class="pre">&quot;road_eng&quot;</span></code></li>
+<li><code class="docutils literal"><span class="pre">CONNECTION</span> <span class="pre">&quot;db_ger&quot;</span></code></li>
+</ul>
+<p>need to be provided in the requested language. If the language is not supported
+(or no language parameter is present), the default language has to be used.</p>
+<p>All supported languages have to be specified as comma separated list (first
+language is default) through <code class="docutils literal"><span class="pre">wms_languages</span></code> in the <code class="docutils literal"><span class="pre">WEB.METADATA</span></code>
+section of the mapfile. This language parameter is also added to the
+<code class="docutils literal"><span class="pre">OnlineResource</span></code> in the GetCapabilities output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="o">...</span>
+  <span class="s2">&quot;wms_languages&quot;</span> <span class="s2">&quot;eng,ger&quot;</span>       <span class="c1">#first default, values according ISO 639-2/B</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+<p>For language specific metadata values, a key extension method is applied:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="o">...</span>
+  <span class="s2">&quot;wms_title.eng&quot;</span> <span class="s2">&quot;myservicetitle&quot;</span>
+  <span class="s2">&quot;wms_title.ger&quot;</span> <span class="s2">&quot;myservicetitleger&quot;</span>
+  <span class="s2">&quot;wms_abstract&quot;</span> <span class="s2">&quot;mylayerabstract&quot;</span>        <span class="c1">#fallback</span>
+  <span class="s2">&quot;wms_abstract.ger&quot;</span> <span class="s2">&quot;mylayerabstractger&quot;</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+<p>For language dependent reference data, a similar approach like the
+<a class="reference internal" href="../cgi/runsub.html#runsub"><span class="std std-ref">run-time substitution</span></a> feature of MapServer has been followed
+(only <code class="docutils literal"><span class="pre">DATA</span></code> and <code class="docutils literal"><span class="pre">CONNECTION</span></code> values with %language% are substituted):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+  <span class="n">LAYER</span>
+   <span class="n">NAME</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadLink</span>
+   <span class="n">DATA</span> <span class="s2">&quot;road_%language%&quot;</span>
+   <span class="o">...</span>
+  <span class="n">END</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>If the language is not supported (or no language parameter is present), the
+default language is substituted.</p>
+</div>
+<div class="section" id="provision-of-inspire-specific-metadata">
+<h2><a class="toc-backref" href="#table-of-contents">Provision of INSPIRE specific metadata</a><a class="headerlink" href="#provision-of-inspire-specific-metadata" title="Permalink to this headline">¶</a></h2>
+<p>Depending on the scenario, additional metadata information is required to
+support the specification. The INSPIRE related fields are provided below.</p>
+<p>Scenario 1 - INSPIRE related fields using referenced external service metadata:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="s2">&quot;wms_inspire_capabilities&quot;</span> <span class="s2">&quot;url&quot;</span>
+  <span class="s2">&quot;wms_languages&quot;</span> <span class="s2">&quot;eng,ger&quot;</span>               <span class="c1">#first default, values according ISO 639-2/B</span>
+  <span class="s2">&quot;wms_inspire_metadataurl_href&quot;</span> <span class="s2">&quot;http://INSPIRE.service/metadata&quot;</span>
+  <span class="s2">&quot;wms_inspire_metadataurl_format&quot;</span> <span class="s2">&quot;application/vnd.ogc.csw.capabilities.response_xml&quot;</span>
+  <span class="s2">&quot;wms_keywordlist_ISO_items&quot;</span> <span class="s2">&quot;infoMapAccessService&quot;</span> <span class="c1">#value according &quot;classification of spatial data services&quot;</span>
+  <span class="s2">&quot;wms_keywordlist_vocabulary&quot;</span> <span class="s2">&quot;ISO&quot;</span>
+  <span class="s2">&quot;wms_title&quot;</span> <span class="s2">&quot;myservicetitle&quot;</span>
+  <span class="s2">&quot;wms_abstract&quot;</span> <span class="s2">&quot;myabstract&quot;</span>
+  <span class="s2">&quot;wms_fees&quot;</span> <span class="s2">&quot;conditions unknown&quot;</span>         <span class="c1">#value either &quot;no conditions apply&quot;|default &quot;conditions unknown&quot;|&lt;specific conditions&gt;</span>
+  <span class="s2">&quot;wms_accessconstraints&quot;</span> <span class="s2">&quot;None&quot;</span>          <span class="c1">#value according ISO 19115 (MD_RestrictionCode codelist) or default &quot;None&quot;</span>
+  <span class="s2">&quot;wms_contactorganization&quot;</span> <span class="s2">&quot;MapServer&quot;</span>   <span class="c1">#responsible organization</span>
+  <span class="s2">&quot;wms_contactposition&quot;</span> <span class="s2">&quot;owner&quot;</span>           <span class="c1">#responsible organization, value according &quot;INSPIRE Metadata Regulation&quot; (part D6)</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+<p>Scenario 2 - INSPIRE related fields using embedded service metadata:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">WEB</span>
+ <span class="n">METADATA</span>
+  <span class="s2">&quot;wms_inspire_capabilities&quot;</span> <span class="s2">&quot;embed&quot;</span>
+  <span class="s2">&quot;wms_languages&quot;</span> <span class="s2">&quot;eng,ger&quot;</span>               <span class="c1">#first default, values according ISO 639-2/B</span>
+  <span class="s2">&quot;wms_inspire_temporal_reference&quot;</span> <span class="s2">&quot;2011-09-19&quot;</span> <span class="c1">#date of last revision, value according YYYY-MM-DD</span>
+  <span class="s2">&quot;wms_inspire_mpoc_name&quot;</span> <span class="s2">&quot;mympocname&quot;</span>    <span class="c1">#point of contact</span>
+  <span class="s2">&quot;wms_inspire_mpoc_email&quot;</span> <span class="s2">&quot;mympoc@e.mail&quot;</span> <span class="c1">#point of contact</span>
+  <span class="s2">&quot;wms_inspire_metadatadate&quot;</span> <span class="s2">&quot;2011-09-19&quot;</span> <span class="c1">#value according YYYY-MM-DD</span>
+  <span class="s2">&quot;wms_inspire_resourcelocator&quot;</span> <span class="s2">&quot;http://myinspireresource&quot;</span> <span class="c1">#URL for ResourceLocator</span>
+  <span class="s2">&quot;wms_inspire_keyword&quot;</span> <span class="s2">&quot;infoMapAccessService&quot;</span> <span class="c1">#value according &quot;classification of spatial data services&quot;</span>
+  <span class="s2">&quot;wms_keywordlist_ISO_items&quot;</span> <span class="s2">&quot;infoMapAccessService&quot;</span>
+  <span class="s2">&quot;wms_keywordlist_vocabulary&quot;</span> <span class="s2">&quot;ISO&quot;</span>
+  <span class="s2">&quot;wms_title&quot;</span> <span class="s2">&quot;myservicetitle&quot;</span>
+  <span class="s2">&quot;wms_abstract&quot;</span> <span class="s2">&quot;myabstract&quot;</span>
+  <span class="s2">&quot;wms_fees&quot;</span> <span class="s2">&quot;conditions unknown&quot;</span>         <span class="c1">#value either &quot;no conditions apply&quot;|default &quot;conditions unknown&quot;|&lt;specific conditions&gt;</span>
+  <span class="s2">&quot;wms_accessconstraints&quot;</span> <span class="s2">&quot;None&quot;</span>          <span class="c1">#value according ISO 19115 (MD_RestrictionCode codelist) or default &quot;None&quot;</span>
+  <span class="s2">&quot;wms_contactorganization&quot;</span> <span class="s2">&quot;MapServer&quot;</span>   <span class="c1">#responsible organization</span>
+  <span class="s2">&quot;wms_contactposition&quot;</span> <span class="s2">&quot;owner&quot;</span>           <span class="c1">#responsible organization, value according &quot;INSPIRE Metadata Regulation&quot; (part D6)</span>
+  <span class="o">...</span>
+ <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li>several fields require certain values, these values are not validated by
+MapServer itself, instead a manual validation against the <a class="reference external" href="http://inspire.ec.europa.eu/schemas/inspire_vs/1.0/inspire_vs.xsd">INSPIRE schemas</a>
+and the <a class="reference external" href="http://inspire_tester.neogeo-online.net/">WMS INSPIRE tester</a> is recommended</li>
+<li>as suggested in this <a class="reference external" href="http://www.neogeo-online.net/blog/wp-content/uploads/2011/04/MAPSERVER_INSPIRE.pdf">document</a> regarding scenario 2,
+<code class="docutils literal"><span class="pre">&lt;inspire_common:ResourceType&gt;</span></code> is always set to service and
+<code class="docutils literal"><span class="pre">&lt;inspire_common:SpatialDataServiceType&gt;</span></code> is always set to view, both
+values can&#8217;t be altered through the mapfile</li>
+<li>conformity is always set to not evaluated, based on the latest
+<a class="reference external" href="http://inspire.jrc.ec.europa.eu/documents/Metadata/Changes_to_MD_Guidelines_from_v1-1_to_v1-2_20100616-1.pdf">INSPIRE Metadata Implementing Rules</a> (page 7), a specification document,
+the specification date and a specification URI or URL need to be provided for
+degree conformant/not conformant, which is currently not implemented</li>
+</ul>
+</div>
+<div class="section" id="named-group-layers">
+<h2><a class="toc-backref" href="#table-of-contents">Named group layers</a><a class="headerlink" href="#named-group-layers" title="Permalink to this headline">¶</a></h2>
+<p>INSPIRE mandates usage of named group layers. Thus the functionality of
+<code class="docutils literal"><span class="pre">wms_layer_group</span></code> is extended to support named group layers. If a layer with
+the same name as used in <code class="docutils literal"><span class="pre">wms_layer_group</span></code> is found it is treated as named
+group and if no layer with this name is found as unnamed group as before.</p>
+<p>Provided that ability, a hierarchy of any level can be achieved. See for
+example the grouping used in the <a class="reference external" href="https://svn.osgeo.org/mapserver/sandbox/inspire_soc2011/msautotest/wxs/wms_inspire.map">wms_inspire.map</a> mapfile in msautotest:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TN</span>
+<span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span><span class="o">.</span><span class="n">TransportArea</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span><span class="o">.</span><span class="n">TransportLink</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span><span class="o">.</span><span class="n">TransportNode</span>
+<span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">VehicleTrafficArea</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadServiceArea</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadArea</span>
+<span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayLink</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayStationArea</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayYardArea</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayArea</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="style-section-for-root-layer-and-possibly-existing-group-layers">
+<h2><a class="toc-backref" href="#table-of-contents">Style section for root layer and possibly existing group layers</a><a class="headerlink" href="#style-section-for-root-layer-and-possibly-existing-group-layers" title="Permalink to this headline">¶</a></h2>
+<p>For regular layers, the concept of GROUP and CLASSGROUP can be used to set
+the layer style name to the according value. Additionally the layer style
+titles can be overwritten through <code class="docutils literal"><span class="pre">wms_style_&lt;stylename&gt;_title</span></code> and the
+layer style legendURLs through <code class="docutils literal"><span class="pre">wms_style_&lt;stylename&gt;_legendurl_*</span></code> (width,
+height, format, and href need to be provided):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+  <span class="n">LAYER</span>
+   <span class="n">NAME</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadLink</span>
+   <span class="n">DATA</span> <span class="s2">&quot;road&quot;</span>
+   <span class="n">METADATA</span>
+    <span class="s2">&quot;wms_title.eng&quot;</span> <span class="s2">&quot;Transport networks: Road Link&quot;</span>
+    <span class="s2">&quot;wms_title.ger&quot;</span> <span class="s2">&quot;Verkehrsnetze: Strassensegment&quot;</span>
+    <span class="o">...</span>
+    <span class="s2">&quot;wms_style_inspire_common:DEFAULT_title&quot;</span> <span class="s2">&quot;mylayerstyletitle&quot;</span>     <span class="c1">#style title</span>
+    <span class="s2">&quot;wms_style_inspire_common:DEFAULT_legendurl_width&quot;</span> <span class="s2">&quot;85&quot;</span>          <span class="c1">#override style legendurl (mandatory: width, height, format, href)</span>
+    <span class="s2">&quot;wms_style_inspire_common:DEFAULT_legendurl_height&quot;</span> <span class="s2">&quot;40&quot;</span>
+    <span class="s2">&quot;wms_style_inspire_common:DEFAULT_legendurl_format&quot;</span> <span class="s2">&quot;image/png&quot;</span>
+    <span class="s2">&quot;wms_style_inspire_common:DEFAULT_legendurl_href&quot;</span> <span class="s2">&quot;http://path/to/onlineresource...roadlink&quot;</span>
+   <span class="n">END</span>
+   <span class="o">...</span>
+  <span class="n">END</span>
+  <span class="o">...</span>
+  <span class="n">CLASSGROUP</span> <span class="s2">&quot;inspire_common:DEFAULT&quot;</span>
+  <span class="n">CLASSITEM</span> <span class="s2">&quot;NAME_E&quot;</span>
+
+  <span class="n">CLASS</span>
+   <span class="n">NAME</span> <span class="s2">&quot;myclass1&quot;</span>
+   <span class="n">GROUP</span> <span class="s2">&quot;inspire_common:DEFAULT&quot;</span>
+   <span class="n">EXPRESSION</span> <span class="s2">&quot;Trans-Canada Highway&quot;</span>
+   <span class="n">COLOR</span> <span class="mi">255</span> <span class="mi">0</span> <span class="mi">0</span>
+  <span class="n">END</span>
+
+  <span class="n">CLASS</span>
+   <span class="n">NAME</span> <span class="s2">&quot;myclass2&quot;</span>
+   <span class="n">GROUP</span> <span class="s2">&quot;inspire_common:DEFAULT&quot;</span>
+   <span class="n">COLOR</span> <span class="mi">0</span> <span class="mi">255</span> <span class="mi">0</span>
+  <span class="n">END</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>The following method is implemented to support (customizable) style sections
+in the root layer:</p>
+<ul class="simple">
+<li>use <code class="docutils literal"><span class="pre">wms_style_name</span></code> in the <code class="docutils literal"><span class="pre">WEB.METADATA</span></code> section to add a style section
+to the root layer</li>
+<li>use <code class="docutils literal"><span class="pre">wms_style_title</span></code> to override the style title (optional)</li>
+<li>use <code class="docutils literal"><span class="pre">wms_style_legendurl_*</span></code> to override width, height, format and href of
+the legendURL (optional)</li>
+</ul>
+<p>and possibly existing group layers:</p>
+<ul class="simple">
+<li>use <code class="docutils literal"><span class="pre">wms_group_style_name</span></code> in the first corresponding <code class="docutils literal"><span class="pre">LAYER.METADATA</span></code>
+section to add a style section to the group layer</li>
+<li>use <code class="docutils literal"><span class="pre">wms_group_style_title</span></code> to override the style title (optional)</li>
+<li>use <code class="docutils literal"><span class="pre">wms_group_style_legendurl_*</span></code> to override width, height, format and
+href of the legendURL (optional)</li>
+</ul>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...</span>
+  <span class="n">WEB</span>
+   <span class="n">METADATA</span>
+    <span class="o">...</span>
+    <span class="s2">&quot;wms_style_name&quot;</span> <span class="s2">&quot;inspire_common:DEFAULT&quot;</span>      <span class="c1">#style name</span>
+    <span class="s2">&quot;wms_style_title&quot;</span> <span class="s2">&quot;myroadarealayerstyletitle&quot;</span>  <span class="c1">#style title</span>
+    <span class="s2">&quot;wms_style_legendurl_width&quot;</span> <span class="s2">&quot;85&quot;</span>               <span class="c1">#override style legendurl (mandatory: width, height, format, href)</span>
+    <span class="s2">&quot;wms_style_legendurl_height&quot;</span> <span class="s2">&quot;40&quot;</span>
+    <span class="s2">&quot;wms_style_legendurl_format&quot;</span> <span class="s2">&quot;image/png&quot;</span>
+    <span class="s2">&quot;wms_style_legendurl_href&quot;</span> <span class="s2">&quot;http://path/to/onlineresource...roadarea&quot;</span>
+   <span class="n">END</span>
+  <span class="n">END</span>
+
+  <span class="n">LAYER</span>
+   <span class="n">NAME</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayLink</span>
+   <span class="n">GROUP</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span><span class="o">.</span><span class="n">TransportLink</span>
+    <span class="n">DATA</span> <span class="s2">&quot;road&quot;</span>
+    <span class="n">METADATA</span>
+     <span class="s2">&quot;wms_group_title.eng&quot;</span> <span class="s2">&quot;Transport networks: Generic Transport Link&quot;</span>
+     <span class="s2">&quot;wms_group_title.ger&quot;</span> <span class="s2">&quot;Verkehrsnetze: Generisches Verkehrssegment&quot;</span>
+     <span class="s2">&quot;wms_group_abstract&quot;</span> <span class="s2">&quot;mygenerictransportlinklayerabstract&quot;</span> <span class="c1">#fallback</span>
+     <span class="s2">&quot;wms_group_abstract.ger&quot;</span> <span class="s2">&quot;mygenerictransportlinklayerabstract&quot;</span>
+     <span class="s2">&quot;wms_group_style_name&quot;</span> <span class="s2">&quot;inspire_common:DEFAULT&quot;</span> <span class="c1">#style name</span>
+     <span class="s2">&quot;wms_group_style_title&quot;</span> <span class="s2">&quot;mygenerictransportlinklayerstyletitle&quot;</span> <span class="c1">#style title</span>
+     <span class="s2">&quot;wms_group_style_legendurl_width&quot;</span> <span class="s2">&quot;85&quot;</span>        <span class="c1">#override style legendurl (mandatory: width, height, format, href)</span>
+     <span class="s2">&quot;wms_group_style_legendurl_height&quot;</span> <span class="s2">&quot;40&quot;</span>
+     <span class="s2">&quot;wms_group_style_legendurl_format&quot;</span> <span class="s2">&quot;image/png&quot;</span>
+     <span class="s2">&quot;wms_group_style_legendurl_href&quot;</span> <span class="s2">&quot;http://path/to/onlineresource...generictransportlink&quot;</span>
+     <span class="s2">&quot;wms_title.eng&quot;</span> <span class="s2">&quot;Transport networks: Railway Link&quot;</span>
+     <span class="s2">&quot;wms_title.ger&quot;</span> <span class="s2">&quot;Verkehrsnetze: Eisenbahnverbindung&quot;</span>
+     <span class="s2">&quot;wms_abstract&quot;</span> <span class="s2">&quot;myrailwaylinklayerabstract&quot;</span>   <span class="c1">#fallback</span>
+     <span class="s2">&quot;wms_abstract.ger&quot;</span> <span class="s2">&quot;myrailwaylinklayerabstractger&quot;</span>
+     <span class="o">...</span>
+    <span class="n">END</span>
+   <span class="o">...</span>
+  <span class="n">END</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Provided that ability, 3 levels of hierarchy can be achieved as done in the
+example mapfiles <a class="reference external" href="https://svn.osgeo.org/mapserver/sandbox/inspire_soc2011/msautotest/wxs/wms_inspire_scenario1.map">wms_inspire_scenario1.map</a> and <a class="reference external" href="https://svn.osgeo.org/mapserver/sandbox/inspire_soc2011/msautotest/wxs/wms_inspire_scenario2.map">wms_inspire_scenario2.map</a>
+in msautotest:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadArea</span>
+<span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RoadTransportNetwork</span><span class="o">.</span><span class="n">RoadLink</span>
+<span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">CommonTransportElements</span><span class="o">.</span><span class="n">TransportLink</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">RailTransportNetwork</span><span class="o">.</span><span class="n">RailwayLink</span>
+     <span class="o">+---</span> <span class="n">TN</span><span class="o">.</span><span class="n">AirTransportNetwork</span><span class="o">.</span><span class="n">AirLink</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p>
+<a href="../about.html" title="About">About</a><br>
+<a href="../products.html" title="Products">Products</a><br>
+<a href="../community/index.html" title="Community">Community</a><br>
+<a href="../development/index.html" title="Development">Development</a><br>
+<a href="../download.html" title="Downloads">Downloads</a><br>
+<a href="../documentation.html" title="Documentation">Documentation</a><br>
+<a href="../faq.html" title="FAQ">FAQ</a>
+</p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">INSPIRE View Service</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#activation-of-inspire-support">Activation of INSPIRE support</a></li>
+<li><a class="reference internal" href="#multi-language-support-for-certain-capabilities-fields">Multi-language support for certain capabilities fields</a></li>
+<li><a class="reference internal" href="#provision-of-inspire-specific-metadata">Provision of INSPIRE specific metadata</a></li>
+<li><a class="reference internal" href="#named-group-layers">Named group layers</a></li>
+<li><a class="reference internal" href="#style-section-for-root-layer-and-possibly-existing-group-layers">Style section for root layer and possibly existing group layers</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Open Source Geospatial Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

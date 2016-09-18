@@ -1,0 +1,16 @@
+.. _adv_output_formats:
+
+=======================
+Output Formats
+=======================
+
+..
+   The keyword IMAGETYPE is used to define which image format the
+   MapServer CGI program should use for output. In this case we are
+   using indexed color PNG (similar to GIF). This could be GIF, if we
+   compiled the GD library with GIF support, WBMP, or JPEG. We can
+   also specify other output options (PDF, SWF, GeoTIFF) provided that
+   we compiled support for them and specify them with the OUTPUTFORMAT
+   object. The OUTPUTFORMAT goes beyond the scope of this tutorial but
+   you can find out more about by reading through documentations in
+   the MapServer web site.

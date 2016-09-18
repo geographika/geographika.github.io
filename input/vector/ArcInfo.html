@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ArcInfo &#8212; MapServer 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/mapserver.ico"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 7.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="Vector Data" href="index.html" />
+    <link rel="next" title="ArcSDE" href="arcsde.html" />
+    <link rel="prev" title="Data Format Types" href="format_types.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+<table width="100%" style="width: 100%; background-color: white;">
+  <tr>
+    <td rowspan="2" style="padding: 10px 0px 10px 10px;">
+      <a href="../../index.html" title="Home"><img src="../../_static/banner.png" alt="MapServer banner" border="0" /></a>
+    </td>
+    <td style="padding: 10px 10px 0px 0px; text-align: right; vertical-align: top;">
+      <a href="../../index.html" title="Home">Home</a> |
+      <a href="../../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
+      <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
+      <a href="../../faq.html" title="FAQ">FAQ</a> |
+      <a href="../../download.html" title="Download">Download </a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0px 10px 0px 0px; text-align: right; vertical-align: bottom;">
+        <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+        
+          <a href="../../de/input/vector/ArcInfo.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+        
+        
+          <a href="../../es/input/vector/ArcInfo.html"><img src="../../_static/flagicons/es.png" alt="es" title="es" border="0" /></a>
+        
+        
+          <a href="../../zh_cn/input/vector/ArcInfo.html"><img src="../../_static/flagicons/zh_cn.png" alt="zh_cn" title="zh_cn" border="0" /></a>
+        
+
+    </td>
+  </tr>
+</table>
+
+
+
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="arcinfo">
+<span id="id1"></span><h1>ArcInfo<a class="headerlink" href="#arcinfo" title="Permalink to this headline">¶</a></h1>
+<p>ESRI ArcInfo Coverage Files are also known as simply as
+Coverages and less commonly as ADF files.</p>
+<div class="section" id="file-listing">
+<h2>File listing<a class="headerlink" href="#file-listing" title="Permalink to this headline">¶</a></h2>
+<p>Coverages are made up of a set of files within a folder.  The folder
+itself is the coverage name.  The files roughly represent
+different layers, usually representing different types of
+topology or feature types.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">coverage</span><span class="o">/</span><span class="n">brazil</span>
+<span class="n">aat</span><span class="o">.</span><span class="n">adf</span>  <span class="n">arc</span><span class="o">.</span><span class="n">adf</span>  <span class="n">arx</span><span class="o">.</span><span class="n">adf</span>  <span class="n">bnd</span><span class="o">.</span><span class="n">adf</span>  <span class="n">lab</span><span class="o">.</span><span class="n">adf</span>  <span class="n">prj</span><span class="o">.</span><span class="n">adf</span>  <span class="n">tic</span><span class="o">.</span><span class="n">adf</span>  <span class="n">tol</span><span class="o">.</span><span class="n">adf</span>
+</pre></div>
+</div>
+<p>A folder with the name INFO is also part of the coverage.  It sits at
+the same hierarchical level as the coverage folder itself.  Therefore,
+to copy a coverage (using regular file system tools) the coverage
+folder and the INFO folder must both be copied.  The INFO folder
+holds some catalogue information about the coverage.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="n">ls</span> <span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">coverage</span><span class="o">/</span><span class="n">info</span>
+<span class="n">arc0000</span><span class="o">.</span><span class="n">dat</span>  <span class="n">arc0001</span><span class="o">.</span><span class="n">dat</span>  <span class="n">arc0002</span><span class="o">.</span><span class="n">dat</span>  <span class="n">arc</span><span class="o">.</span><span class="n">dir</span>
+<span class="n">arc0000</span><span class="o">.</span><span class="n">nit</span>  <span class="n">arc0001</span><span class="o">.</span><span class="n">nit</span>  <span class="n">arc0002</span><span class="o">.</span><span class="n">nit</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-access-connection-method">
+<h2>Data Access / Connection Method<a class="headerlink" href="#data-access-connection-method" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>CONNECTIONTYPE OGR must be used.  The ability to use coverages
+is not built into MapServer.</li>
+<li>The path to the coverage folder name is required.</li>
+<li>The layer name (feature type) is specified in the DATA parameter</li>
+</ul>
+<div class="section" id="ogrinfo-examples">
+<h3>OGRINFO Examples<a class="headerlink" href="#ogrinfo-examples" title="Permalink to this headline">¶</a></h3>
+<p>The directory is the data source.  Layers are found within the directory.
+Using ogrinfo on a coverage directory:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; ogrinfo /data/coverage/brazil -summary
+INFO: Open of `brazil&#39;
+using driver `AVCBin&#39; successful.
+1: ARC (Line String)
+2: CNT (Point)
+3: LAB (Point)
+4: PAL (Polygon)
+</pre></div>
+</div>
+<p>Using ogrinfo to examine the structure of a layer:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>&gt; ogrinfo /data/coverage/brazil PAL -summary
+Had to open data source read-only.
+INFO: Open of `brazil&#39;
+using driver `AVCBin&#39; successful.
+
+Layer name: PAL
+Geometry: Polygon
+Feature Count: 1
+Extent: (1272793.274958, 795381.617050) - (1287078.382785, 807302.747284)
+Layer SRS WKT:
+(unknown)
+ArcIds: IntegerList (0.0)
+AREA: Real (18.5)
+PERIMETER: Real (18.5)
+F_OPER#: Integer (5.0)
+F_OPER-ID: Integer (5.0)
+OPER: String (2.0)
+FCODE: String (10.0)
+</pre></div>
+</div>
+<p>Map File Example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">LAYER</span>
+  <span class="n">NAME</span> <span class="n">Brazil_bounds</span>
+  <span class="n">TYPE</span> <span class="n">POLYGON</span>
+  <span class="n">STATUS</span> <span class="n">DEFAULT</span>
+  <span class="n">CONNECTIONTYPE</span> <span class="n">OGR</span>
+  <span class="n">CONNECTION</span> <span class="s2">&quot;/data/coverage/brazil&quot;</span>
+  <span class="n">DATA</span> <span class="s2">&quot;PAL&quot;</span>
+  <span class="n">CLASS</span>
+    <span class="n">NAME</span> <span class="s2">&quot;Brazil Admin Areas&quot;</span>
+    <span class="n">STYLE</span>
+      <span class="n">OUTLINECOLOR</span> <span class="mi">153</span> <span class="mi">102</span> <span class="mi">0</span>
+      <span class="n">SIZE</span> <span class="mi">2</span>
+    <span class="n">END</span>
+  <span class="n">END</span>
+<span class="n">END</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p>
+<a href="../../about.html" title="About">About</a><br>
+<a href="../../products.html" title="Products">Products</a><br>
+<a href="../../community/index.html" title="Community">Community</a><br>
+<a href="../../development/index.html" title="Development">Development</a><br>
+<a href="../../download.html" title="Downloads">Downloads</a><br>
+<a href="../../documentation.html" title="Documentation">Documentation</a><br>
+<a href="../../faq.html" title="FAQ">FAQ</a>
+</p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ArcInfo</a><ul>
+<li><a class="reference internal" href="#file-listing">File listing</a></li>
+<li><a class="reference internal" href="#data-access-connection-method">Data Access / Connection Method</a><ul>
+<li><a class="reference internal" href="#ogrinfo-examples">OGRINFO Examples</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Open Source Geospatial Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

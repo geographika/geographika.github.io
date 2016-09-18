@@ -1,0 +1,88 @@
+.. index::
+   single: Tutorial
+
+.. _tutorial:
+
+*****************************************************************************
+ MapServer Tutorials
+*****************************************************************************
+
+:Date:  2016/02
+:Author: Lars Lingner
+:Contact: lars at lingner.eu
+:Author: Seth Girvin
+:Contact: sgirvin at compass.ie
+:Author: Julien Enselme
+:Contact: julien.enselme at ioda.net
+:Author: Lars Schylberg
+:Contact: lars.schylberg at saabgroup.com
+:Status: Draft
+:Updated: 2016-02-24
+
+
+This tutorial was design to help new users start quickly with MapServer 7.0 and
+6.4. You should follow the order of the sections since they are sorted by
+difficulty and each section is built on the previous one. Each section presents
+a feature of MapServer, a MapFile illustrating the use of the feature and a
+small embed demonstration to show you how the result must look like.
+
+If you want to test the demo on your server, you'll need:
+
+- A working installation of MapServer. Go to the :ref:`installation section
+  <installation>` of the documentation to find out how to do that.
+- Data which can be found `here
+  <https://github.com/gislars/mapserver-tutorial-data>`__.
+
+
+Quickstart - Your First MapFiles
+++++++++++++++++++++++++++++++++
+
+.. toctree::
+   :maxdepth: 1
+   :numbered:
+
+   quickstart/single_layer
+   quickstart/two_layers
+   quickstart/test_mapfiles
+   quickstart/symbolizing
+   quickstart/labelling
+   quickstart/raster
+   quickstart/datasources
+   quickstart/projections
+   quickstart/vector
+   quickstart/anatomy
+
+..
+	* 1.1 - Map with a single layer
+	* 1.2 - Map with two layers
+	* 1.3 - Testing your Mapfiles with shp2img
+	* 1.4 - Symbolizing data (classes and expressions)
+	* 1.5 - Labeling Data
+	* 1.6 - Adding a raster layer
+	* 1.7 - Using different datasources (ShapeFile, PostGIS, SpatialLite, OGR)
+	* 1.8 - Projections
+	* 1.9 - Serving vector data
+        * 1.10 - Anatomy of a MapServer application
+
+	**In Depth Tutorials**
+
+	* 2.1 - Adding external layers
+	* 2.2 - Using different output formats
+	* 2.3 - Making the map interactive with UTFGrid
+	* 2.4 - Configure OGC Services (WMS, WFS, GetFeatureInfo)
+	* 2.5 - Advanced symbology
+	* 2.6 - Editors for creating map styles (ScribeUI, Magnacarto, Geany, Mapmanager, )
+	* 2.7 - Styling OpenStreetMap Data with MapServer (basemaps)
+	* 2.8 - Generate high resolution renderings for print
+        * 2.9 - Security
+
+
+	**Feature Tutorials**
+
+	* Layer masking
+	* Labels with leader lines
+	* Contour lines rendering
+	* Integration with client platforms (OpenLayers, Leaflet, Google Maps, Bing)
+	* Queries (modes query, nquery, itemquery) and templates (new style only)
+	* run-time configuration, parameter validation and setting defaults.1
+	* ...more features from RFCs

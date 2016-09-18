@@ -1,0 +1,62 @@
+:orphan:
+
+.. _qs_symbolizing:
+
+================
+Symbolizing Data
+================
+
+In this tutorial, you will add a layer representing various cities on
+earth. These cities will be represented on the map by small black circles.
+
+
+Live Example
+------------
+
+The results should look the same as below, which is running from a live demo
+server, with the data displayed in an `OpenLayers3 map
+<http://openlayers.org/>`_
+
+.. raw:: html
+	:file: symbolizing.html
+
+
+Symbols
+-------
+
+Your mapfile should look like that: :ref:`symbolizing.map <qs_symbolizing_map>`.
+
+You can add the *places* layer as you added the other layers:
+
+.. literalinclude:: symbolizing.map
+   :language: mapfile
+   :dedent: 4
+   :start-after: # START PLACES LAYER
+   :end-before: # END PLACES LAYER
+
+There are few differences with the previous layers:
+
+- It is of type ``POINT``.
+- In the ``STYLE`` object, we define which symbol to use, what its color will be
+  and how it will be filled.
+
+To make this layer work, you need to add at the top of the ``MAP`` object the
+following ``SYMBOL`` object:
+
+.. literalinclude:: symbolizing.map
+   :language: mapfile
+   :start-after: # START OF SYMBOL DEFINITION
+   :end-before: # END OF SYMBOL
+   :dedent: 4
+
+You give a name to the symbol so it can be used in any ``STYLE`` object. You
+must also give a ``TYPE`` to the symbol. This ``TYPE`` defines how the symbol
+will be rendered with the ``POINTS`` section.
+
+The ``FILLED`` attribute defines whether the symbol can be filled by a ``COLOR``
+attribute in a ``LAYER``.
+
+
+----
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_test_mapfiles>` | :ref:`Proceed to next tutorial <qs_labelling>`

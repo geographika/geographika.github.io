@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>5. Labelling Data &#8212; MapServer 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/mapserver.ico"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 7.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="MapServer Tutorials" href="../index.html" />
+    <link rel="next" title="6. Adding a Raster Layer" href="raster.html" />
+    <link rel="prev" title="4. Symbolizing Data" href="symbolizing.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+<table width="100%" style="width: 100%; background-color: white;">
+  <tr>
+    <td rowspan="2" style="padding: 10px 0px 10px 10px;">
+      <a href="../../index.html" title="Home"><img src="../../_static/banner.png" alt="MapServer banner" border="0" /></a>
+    </td>
+    <td style="padding: 10px 10px 0px 0px; text-align: right; vertical-align: top;">
+      <a href="../../index.html" title="Home">Home</a> |
+      <a href="../../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
+      <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
+      <a href="../../faq.html" title="FAQ">FAQ</a> |
+      <a href="../../download.html" title="Download">Download </a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0px 10px 0px 0px; text-align: right; vertical-align: bottom;">
+        <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+        
+          <a href="../../de/tutorial/quickstart/labelling.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+        
+        
+          <a href="../../es/tutorial/quickstart/labelling.html"><img src="../../_static/flagicons/es.png" alt="es" title="es" border="0" /></a>
+        
+        
+          <a href="../../zh_cn/tutorial/quickstart/labelling.html"><img src="../../_static/flagicons/zh_cn.png" alt="zh_cn" title="zh_cn" border="0" /></a>
+        
+
+    </td>
+  </tr>
+</table>
+
+
+
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="labelling-data">
+<span id="qs-labelling"></span><h1>5. Labelling Data<a class="headerlink" href="#labelling-data" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial, you will add a label with the name of the city to the <em>places</em>
+layer. You added this layer in the <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span class="std std-ref">previous tutorial</span></a> and
+each cities is represented by a black dot.</p>
+<div class="section" id="live-example">
+<h2>5.1. Live Example<a class="headerlink" href="#live-example" title="Permalink to this headline">¶</a></h2>
+<p>The results should look the same as below, which is running from a live demo server, with
+the data displayed in an <a class="reference external" href="http://openlayers.org/">OpenLayers3 map</a></p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mapserver OL3 viewer</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="http://openlayers.org/en/v3.14.0/css/ol.css" type="text/css">
+        <script src="http://openlayers.org/en/v3.14.0/build/ol.js"></script>
+    </head>
+    <body>
+        <form>
+            <label>
+                Mapserver location:
+                <input id="ms-tutorial-location" type="text" value="http://localhost/tutorial-ol3/mapserv" />
+            </label>
+            <label>
+                Map file path:
+                <input id="mapfile-path" type="text" value="/home/jenselme/Work/forks/mapserver-docs/en/tutorial/quickstart/labelling.map" />
+            </label>
+
+            <button id="validate-btn" type="submit">Validate</button>
+        </form>
+        <div id="map" class="map" style="margin: auto; height: 300px; width: 800px"></div>
+        <script>
+            var map = new ol.Map({
+                target: 'map',
+                view: new ol.View({
+                    center: [-4.5703125, 37.265625],
+                    zoom: 2,
+                    projection: 'EPSG:4326'
+                })
+            });
+
+            document.getElementById('validate-btn').addEventListener('click', updateLayers);
+            updateLayers();
+
+            function updateLayers(e) {
+                if (e) {
+                    e.preventDefault();
+                }
+                var msAddress = document.getElementById('ms-tutorial-location').value;
+                if (!msAddress.endsWith('?')) {
+                    msAddress += '?';
+                }
+                var mapfilePath = document.getElementById('mapfile-path').value;
+                mapfilePath = 'MAP=' + mapfilePath;
+                map.getLayers().getArray().forEach(function (layer) {
+                    map.removeLayer(layer);
+                });
+                var layer = new ol.layer.Tile({
+                    source: new ol.source.TileWMS({
+                        url: msAddress + mapfilePath,
+                        params: {LAYERS: 'land', TILED: true, CRS: 'epsg:4326', VERSION: '1.3.0'},
+                        serverType: 'mapserver'
+                    })
+                });
+                map.addLayer(layer);
+                layer = new ol.layer.Tile({
+                    source: new ol.source.TileWMS({
+                        url: msAddress + mapfilePath,
+                        params: {LAYERS: 'ocean', TILED: true, CRS: 'epsg:4326', VERSION: '1.3.0'},
+                        serverType: 'mapserver'
+                    })
+                });
+                map.addLayer(layer);
+                layer = new ol.layer.Tile({
+                    source: new ol.source.TileWMS({
+                        url: msAddress + mapfilePath,
+                        params: {LAYERS: 'places', TILED: false, CRS: 'epsg:4326', VERSION: '1.3.0'},
+                        serverType: 'mapserver'
+                    })
+                });
+                map.addLayer(layer);
+            }
+        </script>
+    </body>
+</html>
+</div>
+<div class="section" id="labels">
+<h2>5.2. Labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h2>
+<p>Your mapfile should look like that: <a class="reference internal" href="labelling.map.html#qs-labelling-map"><span class="std std-ref">labelling.map</span></a>.</p>
+<p>First you need to specify to MapServer how to find the fonts. To do that, add to
+the <code class="docutils literal"><span class="pre">MAP</span></code> object:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">FONTSET</span> <span class="s">&#39;fonts.txt&#39;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">fonts.txt</span></code> file contains the location of each fonts you can use for your
+labels. It consists of two columns: on the left column, there is the name of the
+font. You must use this name in your mapfile to use a font. In the second
+column, you have the path to the font (in TTF format) on your drive.</p>
+<p>Then you need to add a <code class="docutils literal"><span class="pre">LABEL</span></code> object in the <code class="docutils literal"><span class="pre">CLASS</span></code> object of the <em>places</em>
+layer:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">LABEL</span>
+    <span class="c"># The fill color of the text</span>
+    <span class="k">COLOR</span>  <span class="mi">150</span> <span class="mi">150</span> <span class="mi">150</span>
+    <span class="c"># The color of the boder of the text</span>
+    <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">255</span>
+    <span class="c"># The name of the font used to write the label. It must exists in fonts.txt</span>
+    <span class="k">FONT</span> <span class="err">arial</span>
+    <span class="c"># The type of the font</span>
+    <span class="k">TYPE</span> <span class="nb">truetype</span>
+    <span class="c"># The size of the label</span>
+    <span class="k">SIZE</span> <span class="mi">6</span>
+    <span class="c"># Let MapServer place the label in a &quot;smart&quot; way: not on the dot of the city.</span>
+    <span class="k">POSITION</span> <span class="nb">AUTO</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">POSITION</span></code> parameter can be used to define the position of the
+label. Without it, the label will be at the exact location of the city. This
+means, the label will be over the dot which is not really readable. Thankfully,
+MapServer can position label automatically with the <code class="docutils literal"><span class="pre">AUTO</span></code> parameter so this
+won&#8217;t happen. You can of course position the labels manually.</p>
+<hr class="docutils" />
+<p><a class="reference internal" href="../index.html#tutorial"><span class="std std-ref">Back to tutorial index</span></a> | <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span class="std std-ref">Back to previous tutorial</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span class="std std-ref">Proceed to next tutorial</span></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p>
+<a href="../../about.html" title="About">About</a><br>
+<a href="../../products.html" title="Products">Products</a><br>
+<a href="../../community/index.html" title="Community">Community</a><br>
+<a href="../../development/index.html" title="Development">Development</a><br>
+<a href="../../download.html" title="Downloads">Downloads</a><br>
+<a href="../../documentation.html" title="Documentation">Documentation</a><br>
+<a href="../../faq.html" title="FAQ">FAQ</a>
+</p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">5. Labelling Data</a><ul>
+<li><a class="reference internal" href="#live-example">5.1. Live Example</a></li>
+<li><a class="reference internal" href="#labels">5.2. Labels</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Open Source Geospatial Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

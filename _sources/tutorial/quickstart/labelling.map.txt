@@ -1,0 +1,9 @@
+:orphan:
+
+.. _qs_labelling_map:
+
+Labelling Map File
+------------------
+
+.. literalinclude:: labelling.map
+   :language: mapfile

@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>shptreetst &#8212; MapServer 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/mapserver.ico"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="MapServer 7.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Utilities" href="index.html" />
+    <link rel="next" title="shptreevis" href="shptreevis.html" />
+    <link rel="prev" title="shptree" href="shptree.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+<table width="100%" style="width: 100%; background-color: white;">
+  <tr>
+    <td rowspan="2" style="padding: 10px 0px 10px 10px;">
+      <a href="../index.html" title="Home"><img src="../_static/banner.png" alt="MapServer banner" border="0" /></a>
+    </td>
+    <td style="padding: 10px 10px 0px 0px; text-align: right; vertical-align: top;">
+      <a href="../index.html" title="Home">Home</a> |
+      <a href="../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
+      <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
+      <a href="../faq.html" title="FAQ">FAQ</a> |
+      <a href="../download.html" title="Download">Download </a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0px 10px 0px 0px; text-align: right; vertical-align: bottom;">
+        <img src="../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+        
+          <a href="../de/utilities/shptreetst.html"><img src="../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+        
+        
+          <a href="../es/utilities/shptreetst.html"><img src="../_static/flagicons/es.png" alt="es" title="es" border="0" /></a>
+        
+        
+          <a href="../zh_cn/utilities/shptreetst.html"><img src="../_static/flagicons/zh_cn.png" alt="zh_cn" title="zh_cn" border="0" /></a>
+        
+
+    </td>
+  </tr>
+</table>
+
+
+
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="shptreetst">
+<span id="index-0"></span><span id="id1"></span><h1>shptreetst<a class="headerlink" href="#shptreetst" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="purpose">
+<h2>Purpose<a class="headerlink" href="#purpose" title="Permalink to this headline">¶</a></h2>
+<p>Executes a spatial query on an existing spatial index (.qix), that was
+created by the <a class="reference internal" href="shptree.html#shptree"><span class="std std-ref">shptree</span></a> utility.  This utility is useful to
+understand how a search of a Shape data set and its <em>qix</em> index works.</p>
+</div>
+<div class="section" id="syntax">
+<h2>Syntax<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">shptreetst</span> <span class="n">shapefile</span> <span class="p">{</span><span class="n">minx</span> <span class="n">miny</span> <span class="n">maxx</span> <span class="n">maxy</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">shptreetst</span> <span class="n">esp</span> <span class="mf">879827.480246</span> <span class="mf">4317203.699447</span> <span class="mf">884286.289767</span> <span class="mf">4321662.508967</span>
+
+  <span class="n">This</span> <span class="n">new</span> <span class="n">LSB</span> <span class="n">index</span> <span class="n">supports</span> <span class="n">a</span> <span class="n">shapefile</span> <span class="k">with</span> <span class="mi">48</span> <span class="n">shapes</span><span class="p">,</span> <span class="mi">4</span> <span class="n">depth</span>
+  <span class="n">shapes</span> <span class="mi">6</span><span class="p">,</span> <span class="n">node</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">1127752.921471</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">5</span><span class="p">,</span> <span class="n">node</span> <span class="mi">3</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4460992.262527</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">331587.893495</span><span class="p">,</span><span class="mf">4241748.814186</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">141678.278400</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">331587.893495</span><span class="p">,</span><span class="mf">4121164.917599</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">268807.855447</span><span class="p">,</span><span class="mf">4193028.047889</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4460992.262527</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">268807.855447</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4241748.814186</span>
+  <span class="n">shapes</span> <span class="mi">7</span><span class="p">,</span> <span class="n">node</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">331587.893495</span><span class="p">,</span><span class="mf">4640373.265714</span>
+  <span class="n">shapes</span> <span class="mi">3</span><span class="p">,</span> <span class="n">node</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">4591652.499417</span><span class="p">,</span><span class="mf">331587.893495</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mf">13702.315770</span><span class="p">,</span><span class="mf">4712236.396004</span><span class="p">,</span><span class="mf">176207.299326</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">2</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">268807.855447</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4640373.265714</span>
+  <span class="n">shapes</span> <span class="mi">3</span><span class="p">,</span> <span class="n">node</span> <span class="mi">2</span><span class="p">,</span> <span class="mf">268807.855447</span><span class="p">,</span><span class="mf">4591652.499417</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">2</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">424188.449617</span><span class="p">,</span><span class="mf">4712236.396004</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">424188.449617</span><span class="p">,</span><span class="mf">4591652.499417</span><span class="p">,</span><span class="mf">614098.064712</span><span class="p">,</span><span class="mf">4739032.817468</span>
+  <span class="n">shapes</span> <span class="mi">2</span><span class="p">,</span> <span class="n">node</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">499952.540988</span><span class="p">,</span><span class="mf">3973784.599548</span><span class="p">,</span><span class="mf">1127752.921471</span><span class="p">,</span><span class="mf">4460992.262527</span>
+  <span class="n">shapes</span> <span class="mi">2</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">499952.540988</span><span class="p">,</span><span class="mf">4193028.047889</span><span class="p">,</span><span class="mf">845242.750254</span><span class="p">,</span><span class="mf">4460992.262527</span>
+  <span class="n">shapes</span> <span class="mi">5</span><span class="p">,</span> <span class="n">node</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">499952.540988</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">1127752.921471</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">499952.540988</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">845242.750254</span><span class="p">,</span><span class="mf">4640373.265714</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">655333.135158</span><span class="p">,</span><span class="mf">4372409.051076</span><span class="p">,</span><span class="mf">845242.750254</span><span class="p">,</span><span class="mf">4519789.369127</span>
+  <span class="n">shapes</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">499952.540988</span><span class="p">,</span><span class="mf">4591652.499417</span><span class="p">,</span><span class="mf">845242.750254</span><span class="p">,</span><span class="mf">4859616.714055</span>
+  <span class="n">read</span> <span class="n">entire</span> <span class="n">file</span> <span class="n">now</span> <span class="n">at</span> <span class="n">quad</span> <span class="n">box</span> <span class="n">rec</span> <span class="mi">20</span> <span class="n">file</span> <span class="n">pos</span> <span class="mi">1084</span>
+  <span class="n">result</span> <span class="n">of</span> <span class="n">rectangle</span> <span class="n">search</span> <span class="n">was</span>
+  <span class="mi">8</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">37</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">39</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="mi">46</span><span class="p">,</span>
+</pre></div>
+</div>
+<dl class="docutils">
+<dt>Result</dt>
+<dd><p class="first">The above output from the shptreetst command tells us that the
+existing <em>.qix</em> index is for a Shape data set that contains 48
+shapes; indeed the Shape data set used in this example, <em>esp.shp</em>,
+contains 48 polygons of Spain.  The command also tells us that <em>qix</em>
+file has a quadtree depth of 4.</p>
+<p class="last">Most importantly, the resulting shape IDs (or feature IDs) that were
+contained in the bounding box that we passed in our example were
+returned at the bottom of the output: &#8220;8, 10, 36, 37, 38, 39, 42,
+46&#8221;.  You can use a tool such as QGIS to view those feature IDs and
+check what shapes MapServer is querying when a user clicks within
+that bounding box.</p>
+</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p>
+<a href="../about.html" title="About">About</a><br>
+<a href="../products.html" title="Products">Products</a><br>
+<a href="../community/index.html" title="Community">Community</a><br>
+<a href="../development/index.html" title="Development">Development</a><br>
+<a href="../download.html" title="Downloads">Downloads</a><br>
+<a href="../documentation.html" title="Documentation">Documentation</a><br>
+<a href="../faq.html" title="FAQ">FAQ</a>
+</p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">shptreetst</a><ul>
+<li><a class="reference internal" href="#purpose">Purpose</a></li>
+<li><a class="reference internal" href="#syntax">Syntax</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Open Source Geospatial Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

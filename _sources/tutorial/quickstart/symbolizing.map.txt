@@ -1,0 +1,9 @@
+:orphan:
+
+.. _qs_symbolizing_map:
+
+Symbolizing Map File
+--------------------
+
+.. literalinclude:: symbolizing.map
+   :language: mapfile

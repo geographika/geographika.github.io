@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>7. Using Different Datasources &#8212; MapServer 7.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '7.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/mapserver.ico"/>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="copyright" title="Copyright" href="../../copyright.html" />
+    <link rel="top" title="MapServer 7.0.0 documentation" href="../../index.html" />
+    <link rel="up" title="MapServer Tutorials" href="../index.html" />
+    <link rel="next" title="8. Projections" href="projections.html" />
+    <link rel="prev" title="6. Adding a Raster Layer" href="raster.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+
+<table width="100%" style="width: 100%; background-color: white;">
+  <tr>
+    <td rowspan="2" style="padding: 10px 0px 10px 10px;">
+      <a href="../../index.html" title="Home"><img src="../../_static/banner.png" alt="MapServer banner" border="0" /></a>
+    </td>
+    <td style="padding: 10px 10px 0px 0px; text-align: right; vertical-align: top;">
+      <a href="../../index.html" title="Home">Home</a> |
+      <a href="../../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
+      <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
+      <a href="../../faq.html" title="FAQ">FAQ</a> |
+      <a href="../../download.html" title="Download">Download </a>
+    </td>
+  </tr>
+  <tr>
+    <td style="padding: 0px 10px 0px 0px; text-align: right; vertical-align: bottom;">
+        <img src="../../_static/flagicons/en.png" alt="en" title="en" border="0" width="18px" height="13px"/>
+        
+          <a href="../../de/tutorial/quickstart/datasources.html"><img src="../../_static/flagicons/de.png" alt="de" title="de" border="0" /></a>
+        
+        
+          <a href="../../es/tutorial/quickstart/datasources.html"><img src="../../_static/flagicons/es.png" alt="es" title="es" border="0" /></a>
+        
+        
+          <a href="../../zh_cn/tutorial/quickstart/datasources.html"><img src="../../_static/flagicons/zh_cn.png" alt="zh_cn" title="zh_cn" border="0" /></a>
+        
+
+    </td>
+  </tr>
+</table>
+
+
+
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-different-datasources">
+<span id="qs-datasources"></span><h1>7. Using Different Datasources<a class="headerlink" href="#using-different-datasources" title="Permalink to this headline">¶</a></h1>
+<p>MapServer supports many vector data formats other than ESRI&#8217;s Shapefile format
+(the format we used until now) format. This support possible because of the OGR
+library (part of the GDAL software package).  Please visit the GDAL project web
+site at <a class="reference external" href="http://gdal.osgeo.org/">http://gdal.osgeo.org/</a> and read <a class="reference external" href="http://gdal.osgeo.org/ogr/">http://gdal.osgeo.org/ogr/</a> to
+learn more about the different vector formats MapServer supports. In addition,
+Jeff McKenna and Tyler Mitchell have written a detailed <a class="reference internal" href="../../input/vector/index.html#vector"><span class="std std-ref">guide to using
+vector data for MapServer</span></a>.</p>
+<div class="section" id="live-example">
+<h2>7.1. Live Example<a class="headerlink" href="#live-example" title="Permalink to this headline">¶</a></h2>
+<p>Once you have successfully configured your MapServer you can update the two text boxes
+below with your own webserver address, and path to your mapfile.</p>
+<p>The results should look the same as below, which is running from a live demo server, with
+the data displayed in an <a class="reference external" href="http://openlayers.org/">OpenLayers3 map</a></p>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mapserver OL3 viewer</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="http://openlayers.org/en/v3.14.0/css/ol.css" type="text/css">
+        <script src="http://openlayers.org/en/v3.14.0/build/ol.js"></script>
+    </head>
+    <body>
+        <form>
+            <label>
+                Mapserver location:
+                <input id="ms-tutorial-location" type="text" value="http://mapserverdocs.local/tutorial-ol3/mapserv" />
+            </label>
+            <label>
+                Map file path:
+                <input id="mapfile-path" type="text" value="/home/jenselme/Work/forks/mapserver-docs/en/tutorial/quickstart/datasources_spatialite.map" />
+            </label>
+
+            <button id="validate-btn" type="submit">Validate</button>
+        </form>
+        <div id="map" class="map" style="margin: auto; height: 300px; width: 800px"></div>
+        <script>
+            var map = new ol.Map({
+                target: 'map',
+                view: new ol.View({
+                    center: [-4.5703125, 37.265625],
+                    zoom: 2,
+                    projection: 'EPSG:4326'
+                })
+            });
+
+            document.getElementById('validate-btn').addEventListener('click', updateLayers);
+            updateLayers();
+
+            function updateLayers(e) {
+                if (e) {
+                    e.preventDefault();
+                }
+                var msAddress = document.getElementById('ms-tutorial-location').value;
+                if (!msAddress.endsWith('?')) {
+                    msAddress += '?';
+                }
+                var mapfilePath = document.getElementById('mapfile-path').value;
+                mapfilePath = 'MAP=' + mapfilePath;
+                map.getLayers().getArray().forEach(function (layer) {
+                    map.removeLayer(layer);
+                });
+                var layer = new ol.layer.Tile({
+                    source: new ol.source.TileWMS({
+                        url: msAddress + mapfilePath,
+                        params: {LAYERS: 'ocean', TILED: true, CRS: 'epsg:4326', VERSION: '1.3.0'},
+                        serverType: 'mapserver'
+                    })
+                });
+                map.addLayer(layer);
+                layer = new ol.layer.Tile({
+                    source: new ol.source.TileWMS({
+                        url: msAddress + mapfilePath,
+                        params: {LAYERS: 'countries', TILED: true, CRS: 'epsg:4326', VERSION: '1.3.0'},
+                        serverType: 'mapserver'
+                    })
+                });
+                map.addLayer(layer);
+            }
+        </script>
+    </body>
+</html>
+</div>
+<div class="section" id="shapefile">
+<h2>7.2. Shapefile<a class="headerlink" href="#shapefile" title="Permalink to this headline">¶</a></h2>
+<p>The Shapefife format is the data format we used until now. It is one file
+containing the data ending with the <code class="docutils literal"><span class="pre">shp</span></code> extension. To use a Shapefile, you
+must pass the path to it to the <code class="docutils literal"><span class="pre">DATA</span></code> keyword. You can provide absolute paths
+(i.e. &#8220;/ms4w/apps/tutorial/data&#8221; or &#8220;C:/ms4w/apps/tutorial/data&#8221;) or paths
+relative to your mapfile&#8217;s location (in this example, you&#8217;d use &#8221;../data&#8221;). This
+path doesn&#8217;t have to be web accessible, and probably shouldn&#8217;t be unless you
+want anyone to download your raw data. It has nothing directly to do with the
+web so don&#8217;t even think of URLs here.  Just make sure that the user running the
+web server (usually &#8220;nobody&#8221; or &#8220;apache&#8221; in the *nix world) can READ the data
+in the Shapefile.</p>
+</div>
+<div class="section" id="spatialite">
+<h2>7.3. Spatialite<a class="headerlink" href="#spatialite" title="Permalink to this headline">¶</a></h2>
+<p>Spatialite is the spatial extension to Sqlite, a lite SQL database that can be
+embed in an application. To add a layer from a spatialite database, use the
+layer object below:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&#39;countries&#39;</span>
+    <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+    <span class="k">STATUS</span> <span class="nb">ON</span>
+    <span class="k">PROJECTION</span>
+        <span class="s">&#39;init=epsg:4326&#39;</span>
+    <span class="k">END</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">OGR</span>
+    <span class="k">CONNECTION</span> <span class="s">&#39;natural_earth/110m_physical/countries.sqlite&#39;</span>
+    <span class="k">DATA</span> <span class="s">&#39;countries&#39;</span>
+    <span class="k">CLASS</span>
+        <span class="k">STYLE</span>
+            <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+            <span class="k">WIDTH</span> <span class="mf">1.5</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>As you see, to connect to a spatialite database, MapServer needs:</p>
+<ul class="simple">
+<li>the type of the connection specified by <code class="docutils literal"><span class="pre">CONNECTIONTYPE</span> <span class="pre">OGR</span></code>. <code class="docutils literal"><span class="pre">OGR</span></code> means
+MapServer relies on GDAL to read the data.</li>
+<li>the location of the sqlite file given as a parameter to the <code class="docutils literal"><span class="pre">CONNECTION</span></code>
+keyword. You can provide absolute paths (i.e. &#8220;/ms4w/apps/tutorial/data&#8221; or
+&#8220;C:/ms4w/apps/tutorial/data&#8221;) or paths relative to your mapfile&#8217;s location (in
+this example, you&#8217;d use &#8221;../data&#8221;). This path doesn&#8217;t have to be web
+accessible, and probably shouldn&#8217;t be unless you want anyone to download your
+raw data. It has nothing directly to do with the web so don&#8217;t even think of
+URLs here.  Just make sure that the user running the web server (usually
+&#8220;nobody&#8221; or &#8220;apache&#8221; in the *nix world) can READ the data in the Sqlite
+database.</li>
+<li>the name of the table in which the relevant data is located. You must pass
+this name to the <code class="docutils literal"><span class="pre">DATA</span></code> keyword.</li>
+</ul>
+<p>You can find more information on the <a class="reference internal" href="../../input/vector/sqlite.html#sqlite"><span class="std std-ref">MapServer Sqlite documentation page</span></a>.</p>
+</div>
+<div class="section" id="postgis">
+<h2>7.4. PostGIS<a class="headerlink" href="#postgis" title="Permalink to this headline">¶</a></h2>
+<p>Postgis is the spatial extension for PostgresQL. To test this section, you will
+need a running PostgresQL server with the PostGIS extension. To add a POSTGIS
+layer, use the layer object below:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">LAYER</span>
+    <span class="k">NAME</span> <span class="s">&#39;countries&#39;</span>
+    <span class="k">TYPE</span> <span class="nb">POLYGON</span>
+    <span class="k">STATUS</span> <span class="nb">ON</span>
+    <span class="k">PROJECTION</span>
+        <span class="s">&#39;init=epsg:4326&#39;</span>
+    <span class="k">END</span>
+    <span class="k">CONNECTIONTYPE</span> <span class="nb">POSTGIS</span>
+    <span class="k">CONNECTION</span> <span class="s">&#39;dbname=ms_demo user=ms_demo password=azerty&#39;</span>
+    <span class="k">DATA</span> <span class="s">&#39;geom from countries&#39;</span>
+    <span class="k">CLASS</span>
+        <span class="k">STYLE</span>
+            <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
+            <span class="k">WIDTH</span> <span class="mf">1.5</span>
+        <span class="k">END</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>As you can see, to connect to a postgis database, MapServer needs:</p>
+<ul class="simple">
+<li>the type of the connection specified by <code class="docutils literal"><span class="pre">CONNECTIONTYPE</span> <span class="pre">POSTGIS</span></code>.</li>
+<li>the connection information to connect to the database given as a parameter to
+the <code class="docutils literal"><span class="pre">CONNECTION</span></code> keyword. You must specify the <code class="docutils literal"><span class="pre">dbname</span></code> (name of your
+database), <code class="docutils literal"><span class="pre">user</span></code> (name of the user used to connect to the database). You
+will most likely have to specify the <code class="docutils literal"><span class="pre">password</span></code> for the user.</li>
+<li>a SQL like query that returns the row with the data you want to display. Its more
+minimal expression is <code class="docutils literal"><span class="pre">&lt;column_name&gt;</span> <span class="pre">FROM</span> <span class="pre">&lt;table_name&gt;</span></code> where you must
+replace <code class="docutils literal"><span class="pre">&lt;column_name&gt;</span></code> by the name of the column holding your spatial data
+(here <code class="docutils literal"><span class="pre">geom</span></code>) and <code class="docutils literal"><span class="pre">&lt;table_name&gt;</span></code> by the name of the table (here
+<code class="docutils literal"><span class="pre">countries</span></code>).</li>
+</ul>
+<p>You can find more information on the <a class="reference internal" href="../../input/vector/postgis.html#input-postgis"><span class="std std-ref">MapServer postigis documentation page</span></a>.</p>
+<p><a class="reference internal" href="../index.html#tutorial"><span class="std std-ref">Back to tutorial index</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span class="std std-ref">Back to previous tutorial</span></a> | <a class="reference internal" href="projections.html#qs-projections"><span class="std std-ref">Proceed to next tutorial</span></a></p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+<p>
+<a href="../../about.html" title="About">About</a><br>
+<a href="../../products.html" title="Products">Products</a><br>
+<a href="../../community/index.html" title="Community">Community</a><br>
+<a href="../../development/index.html" title="Development">Development</a><br>
+<a href="../../download.html" title="Downloads">Downloads</a><br>
+<a href="../../documentation.html" title="Documentation">Documentation</a><br>
+<a href="../../faq.html" title="FAQ">FAQ</a>
+</p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">7. Using Different Datasources</a><ul>
+<li><a class="reference internal" href="#live-example">7.1. Live Example</a></li>
+<li><a class="reference internal" href="#shapefile">7.2. Shapefile</a></li>
+<li><a class="reference internal" href="#spatialite">7.3. Spatialite</a></li>
+<li><a class="reference internal" href="#postgis">7.4. PostGIS</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Open Source Geospatial Foundation.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
