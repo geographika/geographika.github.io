@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MapScript Unit Testing &#8212; MapServer 7.0.0 documentation</title>
+    <title>MapScript Unit Testing &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="Mapfile Editing" href="../editing/index.html" />
     <link rel="prev" title="Regression Testing" href="autotest.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../editing/index.html" title="Mapfile Editing"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="autotest.html" title="Regression Testing"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Testing</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -119,7 +133,7 @@ introduction to unit testing with Python is found at
 <a class="reference external" href="http://diveintopython.org/unit_testing/index.html">http://diveintopython.org/unit_testing/index.html</a>.</p>
 <p>The test framework imports mapscript from python/tests/cases/testing.py.  This
 allows us to test the module before installation</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>[sean@lenny python]$ python setup.py build
+<div class="highlight-python"><div class="highlight"><pre><span></span>[sean@lenny python]$ python setup.py build
 [sean@lenny python]$ python tests/runtests.py -v
 </pre></div>
 </div>
@@ -131,17 +145,17 @@ mapserver/tests. The set consists of symbols, fonts, three single-feature
 shapefiles, and a test.map mapfile. This is the only data used by the unit
 tests.</p>
 <p>Many tests that require a mapObj derive from testing.MapTestCase:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MapTestCase</span><span class="p">(</span><span class="n">MapPrimitivesTestCase</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MapTestCase</span><span class="p">(</span><span class="n">MapPrimitivesTestCase</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base class for testing with a map fixture&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">mapscript</span><span class="o">.</span><span class="n">mapObj</span><span class="p">(</span><span class="n">TESTMAPFILE</span><span class="p">)</span>
     <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="bp">None</span>
 </pre></div>
 </div>
 <p>One example is the MapSymbolSetTestCase, the test case I used for development
 of the expanded symbolset functionality present in the 4.2 release:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MapSymbolSetTestCase</span><span class="p">(</span><span class="n">MapTestCase</span><span class="p">):</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MapSymbolSetTestCase</span><span class="p">(</span><span class="n">MapTestCase</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">testGetNumSymbols</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;expect getNumSymbols == 2 from test fixture test.map&quot;&quot;&quot;</span>
         <span class="n">num</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">getNumSymbols</span><span class="p">()</span>
@@ -155,8 +169,8 @@ of the expanded symbolset functionality present in the 4.2 release:</p>
 <h2>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
 <p>This unit testing framework only covers functionality that is exposed
 to the Python mapscript module. It can help to check on pieces of the
-core MapServer code, but is no guarantor of the <a class="reference internal" href="../../cgi/mapserv.html#mapserv"><span class="std std-ref">mapserv</span></a> program
-or of the <a class="reference internal" href="../../mapscript/php/index.html#php-mapscript"><span class="std std-ref">PHP MapScript</span></a> module. As of this
+core MapServer code, but is no guarantor of the <a class="reference internal" href="../../cgi/mapserv.html#mapserv"><span>mapserv</span></a> program
+or of the <a class="reference internal" href="../../mapscript/php/index.html#php-mapscript"><span>PHP MapScript</span></a> module. As of this
 writing, there are 159 tests in the suite.  These are tests of
 features added since mid-2003. Much of MapServer&#8217;s older stuff remains
 untested and it is doubtful that we&#8217;ll make the time to go back and
@@ -192,11 +206,14 @@ fill in.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -207,8 +224,8 @@ fill in.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

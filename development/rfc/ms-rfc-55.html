@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MS RFC 55: Improve control of output resolution &#8212; MapServer 7.0.0 documentation</title>
+    <title>MS RFC 55: Improve control of output resolution &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="MS RFC 56: Tighten control of access to mapfiles and templates" href="ms-rfc-56.html" />
     <link rel="prev" title="MS RFC 54: Rendering Interface API" href="ms-rfc-54.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-56.html" title="MS RFC 56: Tighten control of access to mapfiles and templates"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-54.html" title="MS RFC 54: Rendering Interface API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -155,13 +169,13 @@ If no size is set then no scaling happens.</p>
 <p>Example 1:</p>
 <p>Let&#8217;s say we&#8217;ve got a mapfile that we use to produce a 400x400 pixels
 image for use on the Web, with both defresolution and resolution set to 72.</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MAP</span>
-  <span class="o">...</span>
-  <span class="n">RESOLUTION</span> <span class="mi">72</span>
-  <span class="n">DEFRESOLUTION</span> <span class="mi">72</span>
-  <span class="n">SIZE</span> <span class="mi">400</span> <span class="mi">400</span>
-  <span class="o">...</span>
-<span class="n">END</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>MAP
+  ...
+  RESOLUTION 72
+  DEFRESOLUTION 72
+  SIZE 400 400
+  ...
+END
 </pre></div>
 </div>
 <p>In order to produce a 300dpi image for printing, the application code
@@ -172,13 +186,13 @@ by a factor of 300/72=4.1667.</p>
 as URL parameters or set via MapScript in most applications, but for the
 purpose of this example, expressed in mapfile syntax then we&#8217;d use the
 following mapObj settings for printing:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">MAP</span>
-  <span class="o">...</span>
-  <span class="n">RESOLUTION</span> <span class="mi">300</span>
-  <span class="n">DEFRESOLUTION</span> <span class="mi">72</span>
-  <span class="n">SIZE</span> <span class="mi">1667</span> <span class="mi">1667</span>
-  <span class="o">...</span>
-<span class="n">END</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>MAP
+  ...
+  RESOLUTION 300
+  DEFRESOLUTION 72
+  SIZE 1667 1667
+  ...
+END
 </pre></div>
 </div>
 <p>Example 2:</p>
@@ -263,11 +277,14 @@ to the DEFRESOLUTION setting.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -278,8 +295,8 @@ to the DEFRESOLUTION setting.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MS RFC 56: Tighten control of access to mapfiles and templates &#8212; MapServer 7.0.0 documentation</title>
+    <title>MS RFC 56: Tighten control of access to mapfiles and templates &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline" href="ms-rfc-57.html" />
     <link rel="prev" title="MS RFC 55: Improve control of output resolution" href="ms-rfc-55.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-57.html" title="MS RFC 57: Labeling enhancements: ability to repeat labels along a line/multiline"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-55.html" title="MS RFC 55: Improve control of output resolution"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -146,7 +160,7 @@ the template and will not be included in the MapServer output.</p>
 <p>If the magic string is not found then the template will be rejected by
 MapServer.</p>
 <p>HTML template example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;!-- MapServer Template --&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;!-- MapServer Template --&gt;
 &lt;html&gt;
  &lt;head&gt;...&lt;/head&gt;
  &lt;body&gt;
@@ -156,7 +170,7 @@ MapServer.</p>
 </pre></div>
 </div>
 <p>XML template example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>&lt;!-- MapServer Template --&gt;
+<div class="highlight-python"><div class="highlight"><pre><span></span>&lt;!-- MapServer Template --&gt;
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; ?&gt;
 &lt;rootElement&gt;
   ...
@@ -164,33 +178,33 @@ MapServer.</p>
 </pre></div>
 </div>
 <p>GeoJSON template example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">//</span> <span class="n">MapServer</span> <span class="n">Template</span>
-  <span class="p">[</span><span class="n">resultset</span> <span class="n">layer</span><span class="o">=</span><span class="n">foo</span><span class="p">]</span> <span class="p">{</span>
-<span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;FeatureCollection&quot;</span><span class="p">,</span>
-<span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span>
- <span class="p">[</span><span class="n">feature</span> <span class="n">trim</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">]</span>
- <span class="p">{</span>
-  <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Feature&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;[id]&quot;</span><span class="p">,</span>
-  <span class="s2">&quot;geometry&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;PointLineString&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[</span>
-    <span class="p">{</span>
-     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;Point&quot;</span><span class="p">,</span>
-     <span class="s2">&quot;coordinates&quot;</span><span class="p">:</span> <span class="p">[[</span><span class="n">x</span><span class="p">],</span> <span class="p">[</span><span class="n">y</span><span class="p">]]</span>
-    <span class="p">}</span>
-   <span class="p">]</span>
-  <span class="p">},</span>
-  <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-   <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="s2">&quot;[description]&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;venue&quot;</span><span class="p">:</span> <span class="s2">&quot;[venue]&quot;</span><span class="p">,</span>
-   <span class="s2">&quot;year&quot;</span><span class="p">:</span> <span class="s2">&quot;[year]&quot;</span>
-  <span class="p">}</span>
- <span class="p">},</span>
- <span class="p">[</span><span class="o">/</span><span class="n">feature</span><span class="p">]</span>
- <span class="p">]</span>
-<span class="p">}</span>
-<span class="p">[</span><span class="o">/</span><span class="n">resultset</span><span class="p">]</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>// MapServer Template
+  [resultset layer=foo] {
+&quot;type&quot;: &quot;FeatureCollection&quot;,
+&quot;features&quot;: [
+ [feature trim=&#39;,&#39;]
+ {
+  &quot;type&quot;: &quot;Feature&quot;,
+  &quot;id&quot;: &quot;[id]&quot;,
+  &quot;geometry&quot;: {
+   &quot;type&quot;: &quot;PointLineString&quot;,
+   &quot;coordinates&quot;: [
+    {
+     &quot;type&quot;: &quot;Point&quot;,
+     &quot;coordinates&quot;: [[x], [y]]
+    }
+   ]
+  },
+  &quot;properties&quot;: {
+   &quot;description&quot;: &quot;[description]&quot;,
+   &quot;venue&quot;: &quot;[venue]&quot;,
+   &quot;year&quot;: &quot;[year]&quot;
+  }
+ },
+ [/feature]
+ ]
+}
+[/resultset]
 </pre></div>
 </div>
 </div>
@@ -202,7 +216,7 @@ must be matched by all mapfile paths passed to the mapserv CGI.</p>
 <p>If MS_MAP_PATTERN is not set then any .map file can be loaded.</p>
 <p>Example, use Apache&#8217;s SetEnv directive to restrict mapfiles to
 the /opt/mapserver/ directory and subdirectories:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SetEnv</span> <span class="n">MS_MAP_PATTERN</span> <span class="s2">&quot;^/opt/mapserver/&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>SetEnv MS_MAP_PATTERN &quot;^/opt/mapserver/&quot;
 </pre></div>
 </div>
 </div>
@@ -215,13 +229,13 @@ forces the use of the map=&lt;env_variable_name&gt; mechanism in mapserv CGI URL
 <p>If this variable is not set then nothing changes and the mapserv CGI still
 accepts explicit file paths via the map=... URL parameter.</p>
 <p>Example, set set MS_MAP_NOPATH and some mapfile paths in Apache&#8217;s httpd.conf:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">SetEnv</span> <span class="n">MS_MAP_NO_PATH</span> <span class="s2">&quot;foo&quot;</span>
-<span class="n">SetEnv</span> <span class="n">MY_MAPFILE</span> <span class="s2">&quot;/opt/mapserver/map1/mymapfile.map&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>SetEnv MS_MAP_NO_PATH &quot;foo&quot;
+SetEnv MY_MAPFILE &quot;/opt/mapserver/map1/mymapfile.map&quot;
 </pre></div>
 </div>
 <p>... and then calls the mapserv CGI must use environment variables for the
 map=... parameter:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>http://localhost/cgi-bin/mapserv?map=MY_MAPFILE&amp;mode=...
+<div class="highlight-python"><div class="highlight"><pre><span></span>http://localhost/cgi-bin/mapserv?map=MY_MAPFILE&amp;mode=...
 </pre></div>
 </div>
 </div>
@@ -294,11 +308,14 @@ existing applications that don&#8217;t use them.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -309,8 +326,8 @@ existing applications that don&#8217;t use them.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

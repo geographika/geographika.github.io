@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>IIS Setup for MapServer &#8212; MapServer 7.0.0 documentation</title>
+    <title>IIS Setup for MapServer &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="Oracle Installation" href="oracle.html" />
     <link rel="prev" title=".NET MapScript Compilation" href="dotnet.html" />
    
-  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="oracle.html" title="Oracle Installation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dotnet.html" title=".NET MapScript Compilation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../documentation.html" >MapServer 7.0.0 Documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Installation</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -238,25 +252,25 @@ c:\ms4w\apache\php\dlls and I copied it to the cgi-bin directory.</p>
 <ul class="simple">
 <li>Add a config line to the MAP level of the mapfile</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">CONFIG</span> <span class="n">PROJ_LIB</span> <span class="s2">&quot;c:\ms4w\proj</span><span class="se">\n</span><span class="s2">ad</span><span class="se">\&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>CONFIG PROJ_LIB &quot;c:\ms4w\proj\nad\&quot;
 </pre></div>
 </div>
 <ul class="simple">
 <li>change the IMAGEPATH to be an absolute path to your tmp/ms_tmp folder</li>
 </ul>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">IMAGEPATH</span> <span class="s2">&quot;c:\ms4w</span><span class="se">\t</span><span class="s2">mp\ms_tmp&quot;</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>IMAGEPATH &quot;c:\ms4w\tmp\ms_tmp&quot;
 </pre></div>
 </div>
 </div>
 <div class="section" id="configuration-files">
 <h2><a class="toc-backref" href="#table-of-contents">Configuration files:</a><a class="headerlink" href="#configuration-files" title="Permalink to this headline">¶</a></h2>
 <p>For Chameleon</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">ms4w</span>\<span class="n">apps</span>\<span class="n">chameleon</span>\<span class="n">config</span>\<span class="n">chameleon</span><span class="o">.</span><span class="n">xml</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">ms4w</span>\<span class="n">apps</span>\<span class="n">chameleon</span>\<span class="n">config</span>\<span class="n">cwc2</span><span class="o">.</span><span class="n">xml</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>C:\ms4w\apps\chameleon\config\chameleon.xml
+C:\ms4w\apps\chameleon\config\cwc2.xml
 </pre></div>
 </div>
 <p>For phppgadmin: (if using postgresql/postgis)</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">C</span><span class="p">:</span>\<span class="n">ms4w</span>\<span class="n">apps</span>\<span class="n">phpPgAdmin</span>\<span class="n">conf</span>\<span class="n">config</span><span class="o">.</span><span class="n">inc</span><span class="o">.</span><span class="n">php</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>C:\ms4w\apps\phpPgAdmin\conf\config.inc.php
 </pre></div>
 </div>
 </div>
@@ -294,11 +308,14 @@ c:\ms4w\apache\php\dlls and I copied it to the cgi-bin directory.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -309,8 +326,8 @@ c:\ms4w\apache\php\dlls and I copied it to the cgi-bin directory.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>7. Using Different Datasources &#8212; MapServer 7.0.0 documentation</title>
+    <title>7. Using Different Datasources &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="8. Projections" href="projections.html" />
     <link rel="prev" title="6. Adding a Raster Layer" href="raster.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="projections.html" title="8. Projections"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="raster.html" title="6. Adding a Raster Layer"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >MapServer 7.0.0 Documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">MapServer Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -85,7 +99,7 @@
 library (part of the GDAL software package).  Please visit the GDAL project web
 site at <a class="reference external" href="http://gdal.osgeo.org/">http://gdal.osgeo.org/</a> and read <a class="reference external" href="http://gdal.osgeo.org/ogr/">http://gdal.osgeo.org/ogr/</a> to
 learn more about the different vector formats MapServer supports. In addition,
-Jeff McKenna and Tyler Mitchell have written a detailed <a class="reference internal" href="../../input/vector/index.html#vector"><span class="std std-ref">guide to using
+Jeff McKenna and Tyler Mitchell have written a detailed <a class="reference internal" href="../../input/vector/index.html#vector"><span>guide to using
 vector data for MapServer</span></a>.</p>
 <div class="section" id="live-example">
 <h2>7.1. Live Example<a class="headerlink" href="#live-example" title="Permalink to this headline">¶</a></h2>
@@ -215,7 +229,7 @@ database.</li>
 <li>the name of the table in which the relevant data is located. You must pass
 this name to the <code class="docutils literal"><span class="pre">DATA</span></code> keyword.</li>
 </ul>
-<p>You can find more information on the <a class="reference internal" href="../../input/vector/sqlite.html#sqlite"><span class="std std-ref">MapServer Sqlite documentation page</span></a>.</p>
+<p>You can find more information on the <a class="reference internal" href="../../input/vector/sqlite.html#sqlite"><span>MapServer Sqlite documentation page</span></a>.</p>
 </div>
 <div class="section" id="postgis">
 <h2>7.4. PostGIS<a class="headerlink" href="#postgis" title="Permalink to this headline">¶</a></h2>
@@ -254,8 +268,8 @@ replace <code class="docutils literal"><span class="pre">&lt;column_name&gt;</sp
 (here <code class="docutils literal"><span class="pre">geom</span></code>) and <code class="docutils literal"><span class="pre">&lt;table_name&gt;</span></code> by the name of the table (here
 <code class="docutils literal"><span class="pre">countries</span></code>).</li>
 </ul>
-<p>You can find more information on the <a class="reference internal" href="../../input/vector/postgis.html#input-postgis"><span class="std std-ref">MapServer postigis documentation page</span></a>.</p>
-<p><a class="reference internal" href="../index.html#tutorial"><span class="std std-ref">Back to tutorial index</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span class="std std-ref">Back to previous tutorial</span></a> | <a class="reference internal" href="projections.html#qs-projections"><span class="std std-ref">Proceed to next tutorial</span></a></p>
+<p>You can find more information on the <a class="reference internal" href="../../input/vector/postgis.html#input-postgis"><span>MapServer postigis documentation page</span></a>.</p>
+<p><a class="reference internal" href="../index.html#tutorial"><span>Back to tutorial index</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span>Back to previous tutorial</span></a> | <a class="reference internal" href="projections.html#qs-projections"><span>Proceed to next tutorial</span></a></p>
 </div>
 </div>
 
@@ -288,11 +302,14 @@ replace <code class="docutils literal"><span class="pre">&lt;column_name&gt;</sp
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -303,8 +320,8 @@ replace <code class="docutils literal"><span class="pre">&lt;column_name&gt;</sp
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

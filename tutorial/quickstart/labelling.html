@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>5. Labelling Data &#8212; MapServer 7.0.0 documentation</title>
+    <title>5. Labelling Data &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="6. Adding a Raster Layer" href="raster.html" />
     <link rel="prev" title="4. Symbolizing Data" href="symbolizing.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="raster.html" title="6. Adding a Raster Layer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="symbolizing.html" title="4. Symbolizing Data"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../../documentation.html" >MapServer 7.0.0 Documentation</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="../index.html" accesskey="U">MapServer Tutorials</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -81,7 +95,7 @@
   <div class="section" id="labelling-data">
 <span id="qs-labelling"></span><h1>5. Labelling Data<a class="headerlink" href="#labelling-data" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, you will add a label with the name of the city to the <em>places</em>
-layer. You added this layer in the <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span class="std std-ref">previous tutorial</span></a> and
+layer. You added this layer in the <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span>previous tutorial</span></a> and
 each cities is represented by a black dot.</p>
 <div class="section" id="live-example">
 <h2>5.1. Live Example<a class="headerlink" href="#live-example" title="Permalink to this headline">¶</a></h2>
@@ -166,7 +180,7 @@ the data displayed in an <a class="reference external" href="http://openlayers.o
 </div>
 <div class="section" id="labels">
 <h2>5.2. Labels<a class="headerlink" href="#labels" title="Permalink to this headline">¶</a></h2>
-<p>Your mapfile should look like that: <a class="reference internal" href="labelling.map.html#qs-labelling-map"><span class="std std-ref">labelling.map</span></a>.</p>
+<p>Your mapfile should look like that: <a class="reference internal" href="labelling.map.html#qs-labelling-map"><span>labelling.map</span></a>.</p>
 <p>First you need to specify to MapServer how to find the fonts. To do that, add to
 the <code class="docutils literal"><span class="pre">MAP</span></code> object:</p>
 <div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">FONTSET</span> <span class="s">&#39;fonts.txt&#39;</span>
@@ -200,7 +214,7 @@ means, the label will be over the dot which is not really readable. Thankfully,
 MapServer can position label automatically with the <code class="docutils literal"><span class="pre">AUTO</span></code> parameter so this
 won&#8217;t happen. You can of course position the labels manually.</p>
 <hr class="docutils" />
-<p><a class="reference internal" href="../index.html#tutorial"><span class="std std-ref">Back to tutorial index</span></a> | <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span class="std std-ref">Back to previous tutorial</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span class="std std-ref">Proceed to next tutorial</span></a></p>
+<p><a class="reference internal" href="../index.html#tutorial"><span>Back to tutorial index</span></a> | <a class="reference internal" href="symbolizing.html#qs-symbolizing"><span>Back to previous tutorial</span></a> | <a class="reference internal" href="raster.html#qs-raster"><span>Proceed to next tutorial</span></a></p>
 </div>
 </div>
 
@@ -231,11 +245,14 @@ won&#8217;t happen. You can of course position the labels manually.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -246,8 +263,8 @@ won&#8217;t happen. You can of course position the labels manually.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

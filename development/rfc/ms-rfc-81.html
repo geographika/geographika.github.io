@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MS RFC 81: Offset Labels with Leader Lines &#8212; MapServer 7.0.0 documentation</title>
+    <title>MS RFC 81: Offset Labels with Leader Lines &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="MS RFC 82: Support for Enhanced Layer Metadata Management" href="ms-rfc-82.html" />
     <link rel="prev" title="MS RFC 80: Font Fallback Support" href="ms-rfc-80.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-82.html" title="MS RFC 82: Support for Enhanced Layer Metadata Management"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-80.html" title="MS RFC 80: Font Fallback Support"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -131,63 +145,63 @@ offset that has already been tested for in a previous iteration, and
 &#8220;1&#8221;,&#8221;2&#8221;,&#8221;3&#8221;, represents the order in which the positions are tested for in the
 current iteration.</p>
 <p>1st iteration:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.........</span>
-<span class="o">.........</span>
-<span class="o">.........</span>
-<span class="mf">1.</span><span class="o">..</span><span class="n">X</span><span class="o">...</span><span class="mi">1</span>
-<span class="o">.........</span>
-<span class="o">.........</span>
-<span class="o">.........</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mi">2</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>2...1...2
+.........
+.........
+.........
+1...X...1
+.........
+.........
+.........
+2...1...2
 </pre></div>
 </div>
 <p>second iteration:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">3.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mi">3</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="mf">1.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="n">X</span><span class="o">...</span><span class="mf">0.</span><span class="o">..</span><span class="mi">1</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="o">.................</span>
-<span class="mf">3.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mi">3</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>3...2...1...2...3
+.................
+.................
+.................
+2...0...0...0...2
+.................
+.................
+.................
+1...0...X...0...1
+.................
+.................
+.................
+2...0...0...0...2
+.................
+.................
+.................
+3...2...1...2...3
 </pre></div>
 </div>
 <p>third iteration:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="mf">3.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mi">3</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">1.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="n">X</span><span class="o">...</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">1</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">2.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mf">0.</span><span class="o">..</span><span class="mi">2</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="o">.........................</span>
-<span class="mf">3.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">1.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mf">2.</span><span class="o">..</span><span class="mi">3</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>3...2...2...1...2...2...3
+.........................
+.........................
+.........................
+2...0...0...0...0...0...2
+.........................
+.........................
+.........................
+2...0...0...0...0...0...2
+.........................
+.........................
+.........................
+1...0...0...X...0...0...1
+.........................
+.........................
+.........................
+2...0...0...0...0...0...2
+.........................
+.........................
+.........................
+2...0...0...0...0...0...2
+.........................
+.........................
+.........................
+3...2...2...1...2...2...3
 </pre></div>
 </div>
 <p>For each offsetted position, the actual position of the text is adapted
@@ -332,11 +346,14 @@ check for intersections between leader lines and unbuffered existing labels.</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -347,8 +364,8 @@ check for intersections between leader lines and unbuffered existing labels.</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 

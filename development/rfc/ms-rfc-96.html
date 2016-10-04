@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>MS RFC 96: Time Dimension Support in MapCache Tilesets &#8212; MapServer 7.0.0 documentation</title>
+    <title>MS RFC 96: Time Dimension Support in MapCache Tilesets &mdash; MapServer 7.0.0 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -31,10 +31,8 @@
     <link rel="next" title="MS RFC 97: Dynamic creation of higher zoom levels tiles" href="ms-rfc-97.html" />
     <link rel="prev" title="MS RFC 95: Support for lists in expression parser" href="ms-rfc-95.html" />
    
-  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
 
   </head>
   <body role="document">
@@ -70,7 +68,23 @@
 </table>
 
 
-
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ms-rfc-97.html" title="MS RFC 97: Dynamic creation of higher zoom levels tiles"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ms-rfc-95.html" title="MS RFC 95: Support for lists in expression parser"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Development</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Request for Comments</a> &raquo;</li> 
+      </ul>
+    </div>
   
 
     <div class="document">
@@ -110,13 +124,13 @@ big archives of Earth Observation data via WMTS and WMS. Only one
 layer per sensor or satellite needs to be configured and single
 acquisitions can still be selected using the time of acquisition in
 the TIME parameter:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...&amp;</span><span class="n">TIME</span><span class="o">=</span><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">22</span><span class="n">T10</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">01</span><span class="n">Z</span><span class="o">&amp;...</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">...&amp;</span><span class="n">TIME</span><span class="o">=</span><span class="mi">2010</span><span class="o">-</span><span class="mo">07</span><span class="o">-</span><span class="mi">22</span><span class="n">T10</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mo">01</span><span class="n">Z</span><span class="o">&amp;...</span>
 </pre></div>
 </div>
 <img alt="../../_images/mapcache-time-point.png" src="../../_images/mapcache-time-point.png" />
 <p>In the same way it is also possible to view all acquisitions within
 a given time interval:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="o">...&amp;</span><span class="n">TIME</span><span class="o">=</span><span class="mi">2010</span><span class="o">-</span><span class="mi">07</span><span class="o">/</span><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">&amp;...</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="o">...&amp;</span><span class="n">TIME</span><span class="o">=</span><span class="mi">2010</span><span class="o">-</span><span class="mo">07</span><span class="o">/</span><span class="mi">2010</span><span class="o">-</span><span class="mi">08</span><span class="o">&amp;...</span>
 </pre></div>
 </div>
 <img alt="../../_images/mapcache-time-interval.png" src="../../_images/mapcache-time-interval.png" />
@@ -226,7 +240,7 @@ two formats:</p>
 <p>The format for &lt;timestamp&gt; respects ISO 8601:2000 “extended” format: up to 14
 digits specifying century, year, month, day, hour, minute, and seconds with
 non-numeric characters to separate each piece:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ccyy</span><span class="o">-</span><span class="n">mm</span><span class="o">-</span><span class="n">ddThh</span><span class="p">:</span><span class="n">mm</span><span class="p">:</span><span class="n">ssZ</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span>ccyy-mm-ddThh:mm:ssZ
 </pre></div>
 </div>
 <p>A &lt;timestamp&gt; may be abbreviated to lower resolutions, mapcache will understand
@@ -443,11 +457,14 @@ PerryN</p>
 <div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
@@ -458,8 +475,8 @@ PerryN</p>
       &copy;2016, Open Source Geospatial Foundation.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.6</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
       
     </div>
 
