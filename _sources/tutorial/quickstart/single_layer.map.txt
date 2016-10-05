@@ -5,5 +5,5 @@
 Single Layer Map File
 ---------------------
 
-.. literalinclude:: single_layer.map
+.. literalinclude:: mapfiles/single_layer.map
 	:language: mapfile

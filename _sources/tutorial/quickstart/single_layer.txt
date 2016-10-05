@@ -21,7 +21,7 @@ The results should look the same as below, which is running from a live demo ser
 the data displayed in an `OpenLayers3 map <http://openlayers.org/>`_
 
 .. raw:: html
-	:file: single_layer.html
+	:file: htmlfiles/single_layer.html
 
 Mapfile Structure
 -----------------

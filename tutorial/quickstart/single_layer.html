@@ -114,7 +114,7 @@ the data displayed in an <a class="reference external" href="http://openlayers.o
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.18.2/ol.js"></script>
 
     <style>
-        input[type=text], select {
+        #settings input[type=text], select {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
@@ -124,12 +124,9 @@ the data displayed in an <a class="reference external" href="http://openlayers.o
             box-sizing: border-box;
         }
 
-        input[type=submit] {
+        #settings input[type=submit] {
             width: 100%;
             background-color: #6B6BD1;
-            /**
-        background-color: #4CAF50;
-        */
             color: white;
             padding: 14px 20px;
             margin: 8px 0;
@@ -138,57 +135,31 @@ the data displayed in an <a class="reference external" href="http://openlayers.o
             cursor: pointer;
         }
 
-            input[type=submit]:hover {
-                background-color: #3333A4;
-                /**
-        background-color: #4CAF50;
-        */
-            }
+        #settings input[type=submit]:hover {
+            background-color: #3333A4;
+        }
 
-        div {
-            /**
-        border-radius: 5px;
-        background-color: #f2f2f2;
-        padding: 20px;
-            width: 800px;
-        height: 800px;
-        */
+        #map {
+            border: 1px solid #ccc;
         }
     </style>
 </head>
 <body>
 
-    <div>
+    <div id="settings">
         <form>
             <label for="mapserver-url">MapServer URL: </label>
-            <!--<input type="text" id="mapserver-url" value="http://localhost:8080/cgi-bin/mapserv.exe">-->
             <input type="text" id="mapserver-url" value="http://mapserver.geographika.co.uk/cgi-bin/mapserv">
             <label for="mapfile-path">Map file path</label>
-            <!--<input type="text" id="mapfile-path" value="C:\Data\mapserver-tutorial-data-master\mapfiles\single_layer.map">-->
             <input type="text" id="mapfile-path" value="/u02/mapfiles/single_layer.map">
-
             <input type="submit" id="validate-btn" value="Update">
         </form>
-        <!--<div id="map" class="map" style="margin: auto; height: 300px; width: 800px"></div>-->
     </div>
     <div id="map" class="map"></div>
-    <!--<form>
-        <li><label>
-            Mapserver location:
-            <input id="ms-tutorial-location" type="text" value="http://localhost:8080/cgi-bin/mapserv.exe" />
-        </label></li>
-        <li><label>
-            Map file path:
-            <input id="mapfile-path" type="text" value="C:\Data\mapserver-tutorial-data-master\mapfiles\single_layer.map" />
-        </label></li>
-
-        <button id="validate-btn" type="submit">Validate</button>
-    </form>-->
     <script>
         var map = new ol.Map({
             target: 'map',
             view: new ol.View({
-                //center: [-4.5703125, 37.265625],
                 center: [0, 0],
                 zoom: 2,
                 projection: 'EPSG:4326'
@@ -285,27 +256,6 @@ background.  Go ahead and play with this values.</dd>
 <div class="section" id="layer-object">
 <h3>1.2.2. LAYER Object<a class="headerlink" href="#layer-object" title="Permalink to this headline">¶</a></h3>
 <p>Now let&#8217;s look at the <a class="reference internal" href="../../mapfile/layer.html#layer"><span>LAYER</span></a> object:</p>
-<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">LAYER</span>
-    <span class="k">NAME</span> <span class="s">&#39;land&#39;</span>
-    <span class="k">TYPE</span> <span class="nb">POLYGON</span>
-    <span class="k">PROJECTION</span>
-        <span class="s">&#39;init=epsg:4326&#39;</span>
-    <span class="k">END</span>
-    <span class="k">DATA</span> <span class="s">&#39;natural_earth/110m_physical/ne_110m_land/ne_110m_land.shp&#39;</span>
-    <span class="c"># START OF THE CLASS DEFINITION</span>
-    <span class="k">CLASS</span>
-        <span class="c"># START OF THE STYLE DEFINITION</span>
-        <span class="k">STYLE</span>
-            <span class="k">COLOR</span> <span class="mi">238</span> <span class="mi">236</span> <span class="mi">223</span>
-            <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
-            <span class="k">WIDTH</span> <span class="mf">1.5</span>
-        <span class="k">END</span>
-        <span class="c"># END OF THE STYLE DEFINITION</span>
-    <span class="k">END</span>
-    <span class="c"># END OF THE CLASS DEFINITION</span>
-<span class="k">END</span>
-</pre></div>
-</div>
 <dl class="docutils">
 <dt><strong>LAYER</strong></dt>
 <dd>Marks the beginning of a LAYER within the MAP
@@ -326,17 +276,6 @@ ANNOTATION data. Here we want to display POLYGON.</dd>
 <div class="section" id="class-object">
 <h3>1.2.3. CLASS Object<a class="headerlink" href="#class-object" title="Permalink to this headline">¶</a></h3>
 <p>Let&#8217;s look at the <a class="reference internal" href="../../mapfile/class.html#class"><span>CLASS</span></a> object:</p>
-<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">CLASS</span>
-    <span class="c"># START OF THE STYLE DEFINITION</span>
-    <span class="k">STYLE</span>
-        <span class="k">COLOR</span> <span class="mi">238</span> <span class="mi">236</span> <span class="mi">223</span>
-        <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
-        <span class="k">WIDTH</span> <span class="mf">1.5</span>
-    <span class="k">END</span>
-    <span class="c"># END OF THE STYLE DEFINITION</span>
-<span class="k">END</span>
-</pre></div>
-</div>
 <dl class="docutils">
 <dt><strong>CLASS</strong></dt>
 <dd>Marks the beginning of a CLASS object within the
@@ -351,13 +290,6 @@ sure to use an appropriate descriptive name when naming classes.</dd>
 <div class="section" id="style-object">
 <h3>1.2.4. STYLE Object<a class="headerlink" href="#style-object" title="Permalink to this headline">¶</a></h3>
 <p>And finally, let&#8217;s look at the <a class="reference internal" href="../../mapfile/style.html#style"><span>STYLE</span></a> object:</p>
-<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">STYLE</span>
-    <span class="k">COLOR</span> <span class="mi">238</span> <span class="mi">236</span> <span class="mi">223</span>
-    <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
-    <span class="k">WIDTH</span> <span class="mf">1.5</span>
-<span class="k">END</span>
-</pre></div>
-</div>
 <dl class="docutils">
 <dt><strong>STYLE</strong></dt>
 <dd>Marks the beginning of the STYLE object.  You can
