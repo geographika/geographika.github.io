@@ -1,0 +1,11 @@
+:orphan:
+
+.. _qs_anatomy:
+
+
+==================================
+Anatomy of a MapServer application
+==================================
+
+
+how to arrange mapfiles, includes, data, templates, web assets, configuring Apache. Would be nice to endorse a structure...

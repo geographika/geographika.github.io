@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>FONTSET &mdash; MapServer 7.0.0 documentation</title>
+    <title>FONTSET &#8212; MapServer 7.0.2 documentation</title>
     
     <link rel="stylesheet" href="../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '7.0.0',
+        VERSION:     '7.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,15 +25,13 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../_static/mapserver.ico"/>
     <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
-    <link rel="top" title="MapServer 7.0.0 documentation" href="../index.html" />
+    <link rel="top" title="MapServer 7.0.2 documentation" href="../index.html" />
     <link rel="up" title="Mapfile" href="index.html" />
     <link rel="next" title="GEOMTRANSFORM - Geometry Transformations" href="geomtransform.html" />
-    <link rel="prev" title="FEATURE" href="feature.html" />
-   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
-
+    <link rel="prev" title="FEATURE" href="feature.html" /> 
   </head>
   <body role="document">
 
@@ -46,8 +44,9 @@
       <a href="../index.html" title="Home">Home</a> |
       <a href="../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
       <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
-      <a href="../faq.html" title="FAQ">FAQ</a> |
-      <a href="../download.html" title="Download">Download </a>
+      <a href="../community/service_providers.html" title="Professional Service Providers">Service Providers</a> |      
+      <a href="../faq.html" title="Frequently Asked Questions">FAQ</a> |
+      <a href="../download.html" title="Download Source or Binaries">Download </a>
     </td>
   </tr>
   <tr>
@@ -80,9 +79,9 @@
         <li class="right" >
           <a href="feature.html" title="FEATURE"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &raquo;</li>
-          <li class="nav-item nav-item-1"><a href="../documentation.html" >MapServer 7.0.0 Documentation</a> &raquo;</li>
-          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Mapfile</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../documentation.html" >MapServer 7.0.2 Documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" accesskey="U">Mapfile</a> &#187;</li> 
       </ul>
     </div>
   
@@ -104,10 +103,6 @@
 </tr>
 <tr class="field-odd field"><th class="field-name">Contact:</th><td class="field-body">jmckenna at gatewaygeomatics.com</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Revision:</th><td class="field-body">$Revision$</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Date:</th><td class="field-body">$Date$</td>
-</tr>
 <tr class="field-even field"><th class="field-name">Last Updated:</th><td class="field-body">2008/10/08</td>
 </tr>
 </tbody>
@@ -121,8 +116,8 @@
 </li>
 </ul>
 </div>
-<p><cite>FONTSET</cite> is a <a class="reference internal" href="map.html#map"><span>MAP</span></a> parameter.  The syntax is:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FONTSET</span> <span class="p">[</span><span class="n">filename</span><span class="p">]</span>
+<p><cite>FONTSET</cite> is a <a class="reference internal" href="map.html#map"><span class="std std-ref">MAP</span></a> parameter.  The syntax is:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">FONTSET</span> <span class="p">[</span><span class="n">filename</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>Where <cite>filename</cite> gives the location of the fontset file of the system.
@@ -134,7 +129,7 @@ specified using a relative or absolute path.</p>
 <p>The format of the fontset file is very simple. Each line contains 2
 items: An alias and the name/path of the font separated by white
 space. The alias is simply the name you refer to the font as in your
-<a class="reference internal" href="index.html#mapfile"><span>Mapfile</span></a> (eg. times-bold).  The name is the actual name of the
+<a class="reference internal" href="index.html#mapfile"><span class="std std-ref">Mapfile</span></a> (eg. times-bold).  The name is the actual name of the
 TrueType file. If not full path then it is interpreted as relative to
 the location of the fontset. Here&#8217;s the fontset I use (the font.list
 file and all .ttf files are stored in the same sub-directory).</p>
@@ -144,36 +139,36 @@ file and all .ttf files are stored in the same sub-directory).</p>
 the TrueType format and online font resources is available from the
 <a class="reference external" href="http://www.freetype.org/">FreeType</a>.</p>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span></span>arial                           arial.ttf
-arial-bold                      arialbd.ttf
-arial-italic                    ariali.ttf
-arial-bold-italic               arialbi.ttf
-arial_black                     ariblk.ttf
-comic_sans                      comic.ttf
-comic_sans-bold                 comicbd.ttf
-courier                         cour.ttf
-courier-bold                    courbd.ttf
-courier-italic                  couri.ttf
-courier-bold-italic             courbi.ttf
-georgia                         georgia.ttf
-georgia-bold                    georgiab.ttf
-georgia-italic                  georgiai.ttf
-georgia-bold-italic             georgiaz.ttf
-impact                          impact.ttf
-monotype.com                    monotype.ttf
-recreation_symbols              recreate.ttf
-times                           times.ttf
-times-bold                      timesbd.ttf
-times-italic                    timesi.ttf
-times-bold-italic               timesbi.ttf
-trebuchet_ms                    trebuc.ttf
-trebuchet_ms-bold               trebucbd.ttf
-trebuchet_ms-italic             trebucit.ttf
-trebuchet_ms-bold-italic        trebucbi.ttf
-verdana                         verdana.ttf
-verdana-bold                    verdanab.ttf
-verdana-italic                  verdanai.ttf
-verdana-bold-italic             verdanaz.ttf
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">arial</span>                           <span class="n">arial</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">arial</span><span class="o">-</span><span class="n">bold</span>                      <span class="n">arialbd</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">arial</span><span class="o">-</span><span class="n">italic</span>                    <span class="n">ariali</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">arial</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>               <span class="n">arialbi</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">arial_black</span>                     <span class="n">ariblk</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">comic_sans</span>                      <span class="n">comic</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">comic_sans</span><span class="o">-</span><span class="n">bold</span>                 <span class="n">comicbd</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">courier</span>                         <span class="n">cour</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">courier</span><span class="o">-</span><span class="n">bold</span>                    <span class="n">courbd</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">courier</span><span class="o">-</span><span class="n">italic</span>                  <span class="n">couri</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">courier</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>             <span class="n">courbi</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">georgia</span>                         <span class="n">georgia</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">georgia</span><span class="o">-</span><span class="n">bold</span>                    <span class="n">georgiab</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">georgia</span><span class="o">-</span><span class="n">italic</span>                  <span class="n">georgiai</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">georgia</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>             <span class="n">georgiaz</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">impact</span>                          <span class="n">impact</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">monotype</span><span class="o">.</span><span class="n">com</span>                    <span class="n">monotype</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">recreation_symbols</span>              <span class="n">recreate</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">times</span>                           <span class="n">times</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">times</span><span class="o">-</span><span class="n">bold</span>                      <span class="n">timesbd</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">times</span><span class="o">-</span><span class="n">italic</span>                    <span class="n">timesi</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">times</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>               <span class="n">timesbi</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">trebuchet_ms</span>                    <span class="n">trebuc</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">trebuchet_ms</span><span class="o">-</span><span class="n">bold</span>               <span class="n">trebucbd</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">trebuchet_ms</span><span class="o">-</span><span class="n">italic</span>             <span class="n">trebucit</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">trebuchet_ms</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>        <span class="n">trebucbi</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">verdana</span>                         <span class="n">verdana</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">verdana</span><span class="o">-</span><span class="n">bold</span>                    <span class="n">verdanab</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">verdana</span><span class="o">-</span><span class="n">italic</span>                  <span class="n">verdanai</span><span class="o">.</span><span class="n">ttf</span>
+<span class="n">verdana</span><span class="o">-</span><span class="n">bold</span><span class="o">-</span><span class="n">italic</span>             <span class="n">verdanaz</span><span class="o">.</span><span class="n">ttf</span>
 </pre></div>
 </div>
 </div>
@@ -184,7 +179,17 @@ verdana-bold-italic             verdanaz.ttf
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>Navigation</h3>
 <p>
 <a href="../about.html" title="About">About</a><br>
 <a href="../products.html" title="Products">Products</a><br>
@@ -192,7 +197,8 @@ verdana-bold-italic             verdanaz.ttf
 <a href="../development/index.html" title="Development">Development</a><br>
 <a href="../download.html" title="Downloads">Downloads</a><br>
 <a href="../documentation.html" title="Documentation">Documentation</a><br>
-<a href="../faq.html" title="FAQ">FAQ</a>
+<a href="../faq.html" title="FAQ">FAQ</a><br>
+<a href="../psc.html" title="PSC">PSC</a>
 </p>
   <h3>Current Table Of Contents</a></h3>
   <ul>
@@ -202,34 +208,30 @@ verdana-bold-italic             verdanaz.ttf
 </li>
 </ul>
 
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2016, Open Source Geospatial Foundation.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="geomtransform.html" title="GEOMTRANSFORM - Geometry Transformations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="feature.html" title="FEATURE"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Home</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../documentation.html" >MapServer 7.0.2 Documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="index.html" >Mapfile</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; <a href="../copyright.html">Copyright</a> 2016, Open Source Geospatial Foundation.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
   </body>
 </html>

@@ -1,0 +1,37 @@
+:orphan:
+
+.. _qs_raster:
+
+=====================
+Adding a Raster Layer
+=====================
+
+In this tutorial, you will learn how to add a raster layer to your map.
+
+Live Example
+------------
+
+The results should look the same as below, which is running from a live demo
+server, with the data displayed in an `OpenLayers3 map
+<http://openlayers.org/>`_
+
+.. raw:: html
+	:file: raster.html
+
+
+Raster
+------
+
+Your mapfile should look like that: :ref:`raster.map <qs_raster_map>`.
+
+You need to add a layer of type ``RASTER``:
+
+.. literalinclude:: raster.map
+   :language: mapfile
+   :dedent: 4
+   :start-after: # START RASTER LAYER
+   :end-before:  # END RASTER LAYER
+
+----
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_labelling>` | :ref:`Proceed to next tutorial <qs_datasources>`

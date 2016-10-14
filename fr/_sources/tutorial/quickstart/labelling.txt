@@ -1,0 +1,59 @@
+:orphan:
+
+.. _qs_labelling:
+
+==============
+Labelling Data
+==============
+
+In this tutorial, you will add a label with the name of the city to the *places*
+layer. You added this layer in the :ref:`previous tutorial <qs_symbolizing>` and
+each cities is represented by a black dot.
+
+
+Live Example
+------------
+
+The results should look the same as below, which is running from a live demo server, with
+the data displayed in an `OpenLayers3 map <http://openlayers.org/>`_
+
+.. raw:: html
+	:file: labelling.html
+
+
+Labels
+------
+
+Your mapfile should look like that: :ref:`labelling.map <qs_labelling_map>`.
+
+First you need to specify to MapServer how to find the fonts. To do that, add to
+the ``MAP`` object:
+
+.. code-block:: mapfile
+
+   FONTSET 'fonts.txt'
+
+The ``fonts.txt`` file contains the location of each fonts you can use for your
+labels. It consists of two columns: on the left column, there is the name of the
+font. You must use this name in your mapfile to use a font. In the second
+column, you have the path to the font (in TTF format) on your drive.
+
+Then you need to add a ``LABEL`` object in the ``CLASS`` object of the *places*
+layer:
+
+.. literalinclude:: labelling.map
+   :language: mapfile
+   :start-after: # START LABEL
+   :end-before: # END LABEL
+   :dedent: 12
+
+The ``POSITION`` parameter can be used to define the position of the
+label. Without it, the label will be at the exact location of the city. This
+means, the label will be over the dot which is not really readable. Thankfully,
+MapServer can position label automatically with the ``AUTO`` parameter so this
+won't happen. You can of course position the labels manually.
+
+
+----
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_symbolizing>` | :ref:`Proceed to next tutorial <qs_raster>`
