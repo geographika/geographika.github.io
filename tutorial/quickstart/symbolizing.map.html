@@ -86,7 +86,7 @@
     <span class="k">MAXSIZE</span> <span class="mi">4096</span> <span class="c"># allow for images greater than 2048x2048 pixels to be generated</span>
     <span class="k">WEB</span>
         <span class="k">METADATA</span>
-            <span class="s">&#39;ows_enable_request&#39;</span>  <span class="s">&#39;*&#39;</span>
+            <span class="s">&#39;wms_enable_request&#39;</span>  <span class="s">&#39;*&#39;</span>
         <span class="k">END</span>
     <span class="k">END</span>
 
@@ -130,6 +130,7 @@
         <span class="k">NAME</span> <span class="s">&#39;land&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POLYGON</span>
         <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_land&#39;</span>
+		<span class="k">CLASSGROUP</span> <span class="s">&#39;style1&#39;</span> <span class="c"># this is the default style to use</span>
         <span class="k">CLASS</span>
             <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
             <span class="k">STYLE</span>
@@ -152,6 +153,7 @@
         <span class="k">NAME</span> <span class="s">&#39;ocean&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POLYGON</span>
         <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_10m_ocean&#39;</span>
+		<span class="k">CLASSGROUP</span> <span class="s">&#39;style1&#39;</span> <span class="c"># this is the default style to use</span>
         <span class="k">CLASS</span>
             <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
             <span class="k">STYLE</span>
@@ -174,13 +176,14 @@
         <span class="k">NAME</span> <span class="s">&#39;places&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POINT</span>
         <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_populated_places&#39;</span>
+		<span class="k">CLASSGROUP</span> <span class="s">&#39;style1&#39;</span> <span class="c"># this is the default style to use</span>
         <span class="k">CLASS</span>
             <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
             <span class="k">STYLE</span>
                 <span class="k">SYMBOL</span> <span class="s">&#39;CIRCLE&#39;</span> <span class="c"># this must correspond to the NAME of a SYMBOL object</span>
                 <span class="k">COLOR</span>  <span class="mi">255</span> <span class="mi">153</span> <span class="mi">51</span> <span class="c"># the color in which the symbol will be filled</span>
                 <span class="k">SIZE</span> <span class="mi">8</span> <span class="c"># the size of the symbol</span>
-                <span class="k">OUTLINECOLOR</span> <span class="s">&#39;#020202&#39;</span> <span class="c"># we can also use hex codes for colors</span>
+                <span class="k">OUTLINECOLOR</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span>
             <span class="k">END</span>
         <span class="k">END</span>
 
