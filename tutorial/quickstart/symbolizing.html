@@ -6,11 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-<<<<<<< HEAD
     <title>4. Symbols and Symbolizing Data &#8212; MapServer 7.0.2 documentation</title>
-=======
-    <title>4. Symbolizing Data &#8212; MapServer 7.0.2 documentation</title>
->>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -95,7 +91,6 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-<<<<<<< HEAD
   <div class="section" id="symbols-and-symbolizing-data">
 <span id="qs-symbolizing"></span><h1>4. Symbols and Symbolizing Data<a class="headerlink" href="#symbols-and-symbolizing-data" title="Permalink to this headline">¶</a></h1>
 <p>In this tutorial, you will see some more options on symbolizing MapServer layers. We
@@ -304,40 +299,14 @@ Let&#8217;s look at the layer configuration for places below:</p>
 <span class="k">END</span>
 </pre></div>
 </div>
-=======
-  <div class="section" id="symbolizing-data">
-<span id="qs-symbolizing"></span><h1>4. Symbolizing Data<a class="headerlink" href="#symbolizing-data" title="Permalink to this headline">¶</a></h1>
-<p>In this tutorial, you will add a layer representing various cities on
-earth. These cities will be represented on the map by small black circles.</p>
-<div class="section" id="live-example">
-<h2>4.1. Live Example<a class="headerlink" href="#live-example" title="Permalink to this headline">¶</a></h2>
-<p>The results should look the same as below, which is running from a live demo
-server, with the data displayed in an <a class="reference external" href="http://openlayers.org/">OpenLayers3 map</a></p>
-</div>
-<div class="section" id="symbols">
-<h2>4.2. Symbols<a class="headerlink" href="#symbols" title="Permalink to this headline">¶</a></h2>
-<p>Your mapfile should look like that: <a class="reference internal" href="symbolizing.map.html#qs-symbolizing-map"><span class="std std-ref">symbolizing.map</span></a>.</p>
-<p>You can add the <em>places</em> layer as you added the other layers:</p>
->>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
 <p>There are few differences with the previous layers:</p>
 <ul class="simple">
 <li>It is of type <code class="docutils literal"><span class="pre">POINT</span></code>.</li>
 <li>In the <code class="docutils literal"><span class="pre">STYLE</span></code> object, we define which symbol to use, what its color will be
 and how it will be filled.</li>
 </ul>
-<<<<<<< HEAD
 <p>The <code class="docutils literal"><span class="pre">FILLED</span></code> attribute defines whether the symbol can be filled by a <code class="docutils literal"><span class="pre">COLOR</span></code>
 attribute in a <code class="docutils literal"><span class="pre">LAYER</span></code>.</p>
-=======
-<p>To make this layer work, you need to add at the top of the <code class="docutils literal"><span class="pre">MAP</span></code> object the
-following <code class="docutils literal"><span class="pre">SYMBOL</span></code> object:</p>
-<p>You give a name to the symbol so it can be used in any <code class="docutils literal"><span class="pre">STYLE</span></code> object. You
-must also give a <code class="docutils literal"><span class="pre">TYPE</span></code> to the symbol. This <code class="docutils literal"><span class="pre">TYPE</span></code> defines how the symbol
-will be rendered with the <code class="docutils literal"><span class="pre">POINTS</span></code> section.</p>
-<p>The <code class="docutils literal"><span class="pre">FILLED</span></code> attribute defines whether the symbol can be filled by a <code class="docutils literal"><span class="pre">COLOR</span></code>
-attribute in a <code class="docutils literal"><span class="pre">LAYER</span></code>.</p>
-<hr class="docutils" />
->>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
 <p><a class="reference internal" href="../index.html#tutorial"><span class="std std-ref">Back to tutorial index</span></a> | <a class="reference internal" href="test_mapfiles.html#qs-test-mapfiles"><span class="std std-ref">Back to previous tutorial</span></a> | <a class="reference internal" href="labelling.html#qs-labelling"><span class="std std-ref">Proceed to next tutorial</span></a></p>
 </div>
 </div>
