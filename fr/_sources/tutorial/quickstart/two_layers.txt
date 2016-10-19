@@ -1,0 +1,50 @@
+.. _qs_two_layers:
+
+=====================
+A Map with Two Layers
+=====================
+
+This second tutorial explains how to add a layer to your mapfile. We will use a
+polygon shapefile displaying the world's landmass and a polygon shapefile
+displaying the oceans.
+
+Live Example
+------------
+
+Once you have successfully configured your MapServer you can update the two text boxes
+below with your own webserver address, and path to your mapfile.
+
+The results should look the same as below, which is running from a live demo server, with
+the data displayed in an `OpenLayers3 map <http://openlayers.org/>`_
+
+.. raw:: html
+	:file: two_layers.html
+
+
+Adding a layer
+--------------
+
+This is what the mapfile looks like: :ref:`two_layers.map <qs_two_layers_map>`.
+
+To add a layer, you must add a ``LAYER`` object to the ``MAP`` object. Each
+layer object must have:
+
+- a unique ``NAME`` attribute.
+- a ``PROJECTION`` object that tells MapServer in which projection the data is
+  so it can draw it correctly. If the data is in the same projection as the map object's
+  projection then you do not need to set it on the layer. 
+- a ``DATA`` attribute which value is the path to the shapefile you want to use.
+- a ``CLASS`` object which describes how the data should be rendered.
+
+To add the ocean layer, append the following lines to the map object:
+
+.. literalinclude:: two_layers.map
+   :language: mapfile
+   :start-after: # START OCEAN LAYER
+   :end-before: # END OCEAN LAYER
+   :dedent: 4
+
+
+----
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_single_layer>` | :ref:`Proceed to next tutorial <qs_test_mapfiles>`

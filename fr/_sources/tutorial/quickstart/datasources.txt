@@ -1,0 +1,109 @@
+:orphan:
+
+.. _qs_datasources:
+
+
+===========================
+Using Different Datasources
+===========================
+
+MapServer supports many vector data formats other than ESRI's Shapefile format
+(the format we used until now) format. This support possible because of the OGR
+library (part of the GDAL software package).  Please visit the GDAL project web
+site at `<http://gdal.osgeo.org/>`_ and read `<http://gdal.osgeo.org/ogr/>`_ to
+learn more about the different vector formats MapServer supports. In addition,
+Jeff McKenna and Tyler Mitchell have written a detailed :ref:`guide to using
+vector data for MapServer <vector>`.
+
+Live Example
+------------
+
+Once you have successfully configured your MapServer you can update the two text boxes
+below with your own webserver address, and path to your mapfile.
+
+The results should look the same as below, which is running from a live demo server, with
+the data displayed in an `OpenLayers3 map <http://openlayers.org/>`_
+
+.. raw:: html
+	:file: datasources.html
+
+
+Shapefile
+---------
+
+The Shapefife format is the data format we used until now. It is one file
+containing the data ending with the ``shp`` extension. To use a Shapefile, you
+must pass the path to it to the ``DATA`` keyword. You can provide absolute paths
+(i.e. "/ms4w/apps/tutorial/data" or "C:/ms4w/apps/tutorial/data") or paths
+relative to your mapfile's location (in this example, you'd use "../data"). This
+path doesn't have to be web accessible, and probably shouldn't be unless you
+want anyone to download your raw data. It has nothing directly to do with the
+web so don't even think of URLs here.  Just make sure that the user running the
+web server (usually "nobody" or "apache" in the \*nix world) can READ the data
+in the Shapefile.
+
+
+Spatialite
+----------
+
+Spatialite is the spatial extension to Sqlite, a lite SQL database that can be
+embed in an application. To add a layer from a spatialite database, use the
+layer object below:
+
+.. literalinclude:: datasources_spatialite.map
+   :language: mapfile
+   :start-after: # START SPATIALLITE LAYER
+   :end-before: # END SPATIAL LITE LAYER
+   :dedent: 4
+
+As you see, to connect to a spatialite database, MapServer needs:
+
+- the type of the connection specified by ``CONNECTIONTYPE OGR``. ``OGR`` means
+  MapServer relies on GDAL to read the data.
+- the location of the sqlite file given as a parameter to the ``CONNECTION``
+  keyword. You can provide absolute paths (i.e. "/ms4w/apps/tutorial/data" or
+  "C:/ms4w/apps/tutorial/data") or paths relative to your mapfile's location (in
+  this example, you'd use "../data"). This path doesn't have to be web
+  accessible, and probably shouldn't be unless you want anyone to download your
+  raw data. It has nothing directly to do with the web so don't even think of
+  URLs here.  Just make sure that the user running the web server (usually
+  "nobody" or "apache" in the \*nix world) can READ the data in the Sqlite
+  database.
+- the name of the table in which the relevant data is located. You must pass
+  this name to the ``DATA`` keyword.
+
+You can find more information on the :ref:`MapServer Sqlite documentation page
+<sqlite>`.
+
+
+PostGIS
+-------
+
+Postgis is the spatial extension for PostgresQL. To test this section, you will
+need a running PostgresQL server with the PostGIS extension. To add a POSTGIS
+layer, use the layer object below:
+
+.. literalinclude:: datasources_postgis.map
+   :language: mapfile
+   :start-after: # START POSTGIS LAYER
+   :end-before: # END POSTGIS LAYER
+   :dedent: 4
+
+As you can see, to connect to a postgis database, MapServer needs:
+
+- the type of the connection specified by ``CONNECTIONTYPE POSTGIS``.
+- the connection information to connect to the database given as a parameter to
+  the ``CONNECTION`` keyword. You must specify the ``dbname`` (name of your
+  database), ``user`` (name of the user used to connect to the database). You
+  will most likely have to specify the ``password`` for the user.
+- a SQL like query that returns the row with the data you want to display. Its more
+  minimal expression is ``<column_name> FROM <table_name>`` where you must
+  replace ``<column_name>`` by the name of the column holding your spatial data
+  (here ``geom``) and ``<table_name>`` by the name of the table (here
+  ``countries``).
+
+You can find more information on the :ref:`MapServer postigis documentation page
+<input_postgis>`.
+
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_raster>` | :ref:`Proceed to next tutorial <qs_projections>`

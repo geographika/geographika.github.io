@@ -1,0 +1,40 @@
+:orphan:
+
+.. _qs_projections:
+
+==================
+Projections
+==================
+
+..
+   This needs to be in the same
+   units as the data or, if specifying a different output projection,
+   in the same units as the output projection.
+
+   You can use the utility `ogrinfo
+   <http://gdal.osgeo.org/ogr_utilities.html>`_, which is part of the
+   GDAL/OGR library package, to get the extent of a particular
+   Shapefile dataset (or other supported vector formats).  Here is the
+   command I used to get the extent for this example::
+
+     ogrinfo -al -so states_ugl.shp
+
+   This returned the following output::
+
+     INFO: Open of `states_ugl.shp' using driver `ESRI Shapefile' successful.
+     Layer name: states_ugl
+     Geometry: Polygon
+     Feature Count: 204
+     Extent: (-97.238976, 41.619778) - (-82.122902, 49.385620)
+     Layer SRS WKT:(unknown)
+     AREA: Real (12.3)
+     PERIMETER: Real (12.3)
+     STATESP020: Real (11.0)STATE: String (20.0)
+     STATE_FIPS: String (2.0)
+     CLASS: String (5.0)
+
+   You can also use ArcView or an open source GIS packages--QGIS,
+   Thuban, etc.
+
+   Feel free to change the values of EXTENT to get a better
+   understanding of how it changes your map.

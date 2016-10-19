@@ -1,0 +1,110 @@
+:orphan:
+
+.. _qs_test_mapfiles:
+
+==================================
+Testing your Mapfiles with shp2img
+==================================
+
+
+In this tutorial, you will learn how to use the ``shp2img`` command line utility
+to convert a mapfile into an image. This tool is provided with mapserver and
+provides helpful error messages to help you write correct mapfiles.
+
+It can take several arguments. The ``-m`` option is mandatory and is used to
+provide the path to the mapfile you want to test. You also probably always want
+to use the ``-o`` option which allows you to save the generated image in a
+file. Without this option, the image is sent to stdout.
+
+To do a basic test of the ``two_layers.map`` file, use:
+
+::
+
+   shp2img -m two_layers.map -o two_layers.png
+
+The command must exit correctly and print nothing on your terminal. The
+``two_layers.png`` file must be an empty png file.
+
+To draw a layer, pass the name of the layer you want to draw to the ``-l``
+option:
+
+::
+
+   shp2img -m two_layers.map -o two_layers.png -l land
+
+The command must exit correctly, print nothing on your terminal and the
+``two_layers.png`` must look like this:
+
+.. image:: two_layers_land.png
+   :align: center
+
+You also display multiple layers:
+
+::
+
+   shp2img -m two_layers.map -o two_layers.png -l 'land ocean'
+
+The command must exit correctly, print nothing on your terminal and the
+``two_layers.png`` must look like this:
+
+.. image:: two_layers.png
+   :align: center
+
+It is possible to automatically test layers and add them to the resulting
+image. To do that, you have to add the ``STATUS`` property with the ``ON`` value
+in the ``LAYER`` object, like that:
+
+.. literalinclude:: test_mapfiles.map
+   :language: mapfile
+   :start-after: # START OCEAN LAYER
+   :end-before: # END OCEAN LAYER
+   :dedent: 4
+
+Your full mapfile should look like: :ref:`test_mapfiles.map
+<qs_test_mapfiles_map>`.
+
+If you launch the ``shp2img`` command:
+
+::
+
+   shp2img -m test_mapfiles.map -o test_mapfiles.png
+
+
+The command must exit correctly, print nothing on your terminal and the
+``two_layers.png`` must look like this:
+
+.. image:: two_layers.png
+   :align: center
+
+
+``shp2img`` can also be used to debug your mapfiles:
+
+::
+
+   shp2img -m test_mapfiles.map -o two-layers.png -all_debug 0 -map_debug 5
+
+The command must exit correctly, print debug messages on your terminal. The
+``two_layers.png`` must look like this:
+
+.. image:: two_layers.png
+   :align: center
+
+Now, let's make a mistake in ``test_mapfiles.map``: replace ``"wms_title"
+"WMS Demo Server"`` by ``"wms_title"           "WMS Demo Server`` (remove the
+quote at the end of the line) and relaunch:
+
+::
+
+    shp2img -m test_mapfiles.map -o two-layers.png -all_debug 0 -map_debug 5
+
+You must see the following message, telling you there is a problem at line 9:
+
+::
+
+   getString(): Symbol definition error. Parsing error near (:):(line 9)
+   getString(): Symbol definition error. Parsing error near (:):(line 9) <br>
+
+
+----
+
+:ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_two_layers>` | :ref:`Proceed to next tutorial <qs_symbolizing>`

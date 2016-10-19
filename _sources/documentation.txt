@@ -20,7 +20,11 @@
    :width: 15
    :alt: PDF icon
 <<<<<<< HEAD
+<<<<<<< HEAD
    :target: /MapServer.pdf
+=======
+   :target: http://www.mapserver.org/pdf/MapServer.pdf  
+>>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
 
 =======
    :target: http://www.mapserver.org/pdf/MapServer.pdf  
@@ -178,7 +182,10 @@ Copyright
 
   copyright
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
    
 .. raw:: html   
    
@@ -186,5 +193,9 @@ Copyright
    <!-- see https://github.com/TylerLH/github-latest-commits-widget -->
    <iframe src="http://tylerlh.github.com/github-latest-commits-widget/?username=mapserver&repo=docs&limit=10"
    allowtransparency="true" frameborder="0" scrolling="yes" width="500px" height="500px"></iframe> 
+<<<<<<< HEAD
    
 >>>>>>> e43da00f78b1cc5c8259c32737d55e69b7d4ec8d
+=======
+
+>>>>>>> 3ea267fd4b8a390edb7c5cab5e39122c156e7d47
