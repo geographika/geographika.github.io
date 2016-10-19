@@ -2,11 +2,11 @@
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Symbolizing Map File &mdash; MapServer 7.0.0 documentation</title>
+    <title>Symbolizing Map File &#8212; MapServer 7.0.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '7.0.0',
+        VERSION:     '7.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,12 +25,10 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <link rel="shortcut icon" href="../../_static/mapserver.ico"/>
     <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="copyright" title="Copyright" href="../../copyright.html" />
-    <link rel="top" title="MapServer 7.0.0 documentation" href="../../index.html" />
-   
-  
-  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
-
+    <link rel="top" title="MapServer 7.0.2 documentation" href="../../index.html" /> 
   </head>
   <body role="document">
 
@@ -43,8 +41,9 @@
       <a href="../../index.html" title="Home">Home</a> |
       <a href="../../products.html" title="Products (MapServer core, MapCache, TinyOWS">Products</a> |
       <a href="https://github.com/mapserver/mapserver/issues/" title="Issue Tracker (MapServer core)">Issue Tracker</a> |
-      <a href="../../faq.html" title="FAQ">FAQ</a> |
-      <a href="../../download.html" title="Download">Download </a>
+      <a href="../../community/service_providers.html" title="Professional Service Providers">Service Providers</a> |      
+      <a href="../../faq.html" title="Frequently Asked Questions">FAQ</a> |
+      <a href="../../download.html" title="Download Source or Binaries">Download </a>
     </td>
   </tr>
   <tr>
@@ -71,7 +70,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &#187;</li> 
       </ul>
     </div>
   
@@ -84,47 +83,63 @@
   <div class="section" id="symbolizing-map-file">
 <span id="qs-symbolizing-map"></span><h1>Symbolizing Map File<a class="headerlink" href="#symbolizing-map-file" title="Permalink to this headline">¶</a></h1>
 <div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">MAP</span>
-    <span class="k">IMAGETYPE</span> <span class="nb">png</span>
-    <span class="k">SIZE</span> <span class="mi">500</span> <span class="mi">300</span>
-    <span class="k">UNITS</span> <span class="nb">DD</span>
-    <span class="k">EXTENT</span> <span class="p">-</span><span class="mi">180</span> <span class="p">-</span><span class="mi">90</span> <span class="mi">180</span> <span class="mi">90</span>
+    <span class="k">MAXSIZE</span> <span class="mi">4096</span> <span class="c"># allow for images greater than 2048x2048 pixels to be generated</span>
     <span class="k">WEB</span>
-        <span class="k">IMAGEPATH</span> <span class="s">&quot;/tmp/&quot;</span>
         <span class="k">METADATA</span>
-            <span class="s">&quot;wms_title&quot;</span>           <span class="s">&quot;Map with two layers&quot;</span>
-            <span class="s">&quot;wms_onlineresource&quot;</span>  <span class="s">&quot;http://demo.mapserver.org/cgi-bin/mapserv7?&quot;</span>
-            <span class="s">&quot;wms_srs&quot;</span>             <span class="s">&quot;EPSG:4326&quot;</span>
-            <span class="s">&quot;ows_enable_request&quot;</span>  <span class="s">&quot;*&quot;</span>
+            <span class="s">&#39;ows_enable_request&#39;</span>  <span class="s">&#39;*&#39;</span>
         <span class="k">END</span>
-    <span class="k">END</span>
-    <span class="k">PROJECTION</span>
-        <span class="s">&quot;init=epsg:4326&quot;</span>
     <span class="k">END</span>
 
-    <span class="c"># START OF SYMBOL DEFINITION</span>
+    <span class="k">PROJECTION</span>
+        <span class="s">&#39;init=epsg:4326&#39;</span>
+    <span class="k">END</span>
+
+    <span class="c"># START OF CIRCLE SYMBOL</span>
     <span class="k">SYMBOL</span>
         <span class="c"># Symbol name (referenced in STYLEs)</span>
-        <span class="k">NAME</span> <span class="s">&#39;circle&#39;</span>
+        <span class="k">NAME</span> <span class="s">&#39;CIRCLE&#39;</span>
         <span class="k">TYPE</span> <span class="nb">ellipse</span> <span class="c"># Type of symbol</span>
-        <span class="c"># START SYMBOL GEOMETRY</span>
         <span class="k">POINTS</span>
             <span class="mi">1</span> <span class="mi">1</span>
-        <span class="k">END</span>
-        <span class="c"># END SYMBOL GEOMETRY POINTS</span>
-        <span class="c"># The symbol should be filled</span>
-        <span class="k">FILLED</span> <span class="nb">true</span>
+        <span class="k">END</span>      
+        <span class="k">FILLED</span> <span class="nb">true</span> <span class="c"># The symbol should be filled</span>
     <span class="k">END</span>
-    <span class="c"># END OF SYMBOL</span>
+    <span class="c"># END OF CIRCLE SYMBOL</span>
+
+    <span class="c"># START OF IMAGE SYMBOL  </span>
+    <span class="k">SYMBOL</span>
+        <span class="k">NAME</span> <span class="s">&#39;MAP_PIN&#39;</span>
+        <span class="k">TYPE</span> <span class="nb">pixmap</span>
+        <span class="k">IMAGE</span> <span class="s">&#39;map_pin.png&#39;</span>
+    <span class="k">END</span> 
+    <span class="c"># END OF IMAGE SYMBOL</span>
+
+    <span class="c"># START OF POLYGON FILL SYMBOL</span>
+    <span class="k">SYMBOL</span> 
+        <span class="k">NAME</span> <span class="s">&#39;WAVES&#39;</span>
+        <span class="k">TYPE</span> <span class="nb">vector</span>    
+        <span class="k">POINTS</span>         
+            <span class="mi">0</span> <span class="mi">0</span>        
+            <span class="mi">1</span> <span class="mi">1</span>        
+            <span class="mi">2</span> <span class="mi">0</span>        
+        <span class="k">END</span>
+    <span class="k">END</span>
+    <span class="c"># END OF POLYGON FILL SYMBOL </span>
 
     <span class="k">LAYER</span>
         <span class="k">NAME</span> <span class="s">&#39;land&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POLYGON</span>
-        <span class="k">STATUS</span> <span class="nb">ON</span>
-        <span class="k">PROJECTION</span>
-            <span class="s">&#39;init=epsg:4326&#39;</span>
-        <span class="k">END</span>
-        <span class="k">DATA</span> <span class="s">&#39;natural_earth/110m_physical/ne_110m_land/ne_10m_land&#39;</span>
+        <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_land&#39;</span>
         <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
+            <span class="k">STYLE</span>
+                <span class="k">COLOR</span> <span class="mi">107</span> <span class="mi">208</span> <span class="mi">107</span>
+                <span class="k">OUTLINECOLOR</span> <span class="mi">2</span> <span class="mi">2</span> <span class="mi">2</span>
+                <span class="k">WIDTH</span> <span class="mi">1</span>
+            <span class="k">END</span>
+        <span class="k">END</span>
+        <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style2&#39;</span>
             <span class="k">STYLE</span>
                 <span class="k">COLOR</span> <span class="mi">238</span> <span class="mi">236</span> <span class="mi">223</span>
                 <span class="k">OUTLINECOLOR</span> <span class="mi">255</span> <span class="mi">255</span> <span class="mi">0</span>
@@ -136,12 +151,18 @@
     <span class="k">LAYER</span>
         <span class="k">NAME</span> <span class="s">&#39;ocean&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POLYGON</span>
-        <span class="k">STATUS</span> <span class="nb">ON</span>
-        <span class="k">PROJECTION</span>
-            <span class="s">&#39;init=epsg:4326&#39;</span>
-        <span class="k">END</span>
-        <span class="k">DATA</span> <span class="s">&#39;natural_earth/110m_physical/ne_110m_ocean/ne_10m_ocean&#39;</span>
+        <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_10m_ocean&#39;</span>
         <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
+            <span class="k">STYLE</span>
+                <span class="k">SYMBOL</span> <span class="s">&#39;WAVES&#39;</span>
+                <span class="k">COLOR</span> <span class="mi">198</span> <span class="mi">226</span> <span class="mi">242</span>
+                <span class="k">SIZE</span> <span class="mi">6</span> <span class="c"># the height of the symbol</span>
+                <span class="k">WIDTH</span> <span class="mi">1</span> <span class="c"># the width of the vector line</span>
+            <span class="k">END</span>
+        <span class="k">END</span>
+        <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style2&#39;</span>
             <span class="k">STYLE</span>
                 <span class="k">COLOR</span> <span class="mi">198</span> <span class="mi">226</span> <span class="mi">242</span>
             <span class="k">END</span>
@@ -152,20 +173,23 @@
     <span class="k">LAYER</span>
         <span class="k">NAME</span> <span class="s">&#39;places&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POINT</span>
-        <span class="k">STATUS</span> <span class="nb">ON</span>
-        <span class="k">PROJECTION</span>
-            <span class="s">&#39;init=epsg:4326&#39;</span>
-        <span class="k">END</span>
-        <span class="k">DATA</span> <span class="s">&#39;natural_earth/110m_physical/ne_110m_places/ne_110m_populated_places&#39;</span>
+        <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_populated_places&#39;</span>
         <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
             <span class="k">STYLE</span>
-                <span class="c"># Choose the symbol to use. This must correspond to the NAME of a SYMBOL object.</span>
-                <span class="k">SYMBOL</span> <span class="s">&#39;circle&#39;</span>
-                <span class="c"># Set the color in which the symbol will be filled</span>
-                <span class="k">COLOR</span> <span class="mi">0</span> <span class="mi">0</span> <span class="mi">0</span>
-                <span class="c"># Set the size of the symbol</span>
-                <span class="k">SIZE</span> <span class="mi">8</span>
+                <span class="k">SYMBOL</span> <span class="s">&#39;CIRCLE&#39;</span> <span class="c"># this must correspond to the NAME of a SYMBOL object</span>
+                <span class="k">COLOR</span>  <span class="mi">255</span> <span class="mi">153</span> <span class="mi">51</span> <span class="c"># the color in which the symbol will be filled</span>
+                <span class="k">SIZE</span> <span class="mi">8</span> <span class="c"># the size of the symbol</span>
+                <span class="k">OUTLINECOLOR</span> <span class="s">&#39;#020202&#39;</span> <span class="c"># we can also use hex codes for colors</span>
             <span class="k">END</span>
+        <span class="k">END</span>
+
+        <span class="k">CLASS</span>
+            <span class="k">GROUP</span> <span class="s">&#39;style2&#39;</span>
+            <span class="k">STYLE</span>
+                <span class="k">SYMBOL</span> <span class="s">&#39;MAP_PIN&#39;</span>
+                <span class="k">SIZE</span> <span class="mi">16</span> <span class="c"># the size of the symbol</span>
+            <span class="k">END</span>        
         <span class="k">END</span>
     <span class="k">END</span>
     <span class="c"># END PLACES LAYER</span>
@@ -179,7 +203,17 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script><h3>Navigation</h3>
 <p>
 <a href="../../about.html" title="About">About</a><br>
 <a href="../../products.html" title="Products">Products</a><br>
@@ -187,36 +221,25 @@
 <a href="../../development/index.html" title="Development">Development</a><br>
 <a href="../../download.html" title="Downloads">Downloads</a><br>
 <a href="../../documentation.html" title="Documentation">Documentation</a><br>
-<a href="../../faq.html" title="FAQ">FAQ</a>
+<a href="../../faq.html" title="FAQ">FAQ</a><br>
+<a href="../../psc.html" title="PSC">PSC</a>
 </p>
-<div id="searchbox" style="display: none" role="search">
-  <h3>Quick search</h3>
-    <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="footer">
-      &copy;2016, Open Source Geospatial Foundation.
-      
-      |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
-      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.4</a>
-      
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Home</a> &#187;</li> 
+      </ul>
     </div>
-
-    
-
-    
+    <div class="footer" role="contentinfo">
+        &#169; <a href="../../copyright.html">Copyright</a> 2016, Open Source Geospatial Foundation.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    </div>
   </body>
 </html>

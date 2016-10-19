@@ -34,6 +34,10 @@ If you want to test the demo on your server, you'll need:
   <https://github.com/gislars/mapserver-tutorial-data>`__.
 
 
+https://github.com/nvkelso/natural-earth-vector
+https://github.com/nvkelso/natural-earth-raster
+
+
 Quickstart - Your First MapFiles
 ++++++++++++++++++++++++++++++++
 

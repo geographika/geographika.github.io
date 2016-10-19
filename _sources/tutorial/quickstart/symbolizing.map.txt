@@ -5,5 +5,5 @@
 Symbolizing Map File
 --------------------
 
-.. literalinclude:: symbolizing.map
+.. literalinclude:: mapfiles/symbolizing.map
    :language: mapfile

@@ -130,7 +130,11 @@ ENCODING [string]
 
     Required for displaying international characters in MapServer.
     More information can be found in the :ref:`Label Encoding document
-    <labelencoding>`.
+    <encoding>`.
+
+    .. deprecated:: 7.0
+         Removed.  UTF-8 is now the encoding used by MapServer, and
+         data set encodings are handled using :ref:`LAYER` `ENCODING`.
 
 .. index::
    pair: LABEL; EXPRESSION
@@ -458,7 +462,8 @@ SIZE [double]|[tiny|small|medium|large|giant]|[attribute]
     GEOMTRANSFORM options:
 
     GEOMTRANSFORM [labelpnt|labelpoly]
-      Creates a geometry that can be used for styling the label.
+      Creates a geometry that can be used for styling the label. Does not
+      apply to ANGLE FOLLOW labels.
 
       - labelpnt draws a marker on the geographic position the label is
         attached to. This corresponds to the center of the label text 
