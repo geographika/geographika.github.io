@@ -232,8 +232,6 @@ MapServer.</p>
 
             if (e) {
                 e.preventDefault();
-
-
             }
             updateLayers();
         }
@@ -260,7 +258,6 @@ MapServer.</p>
                     params: {
                         LAYERS: 'ocean,land,places',
                         STYLES: styles,
-                        //TILED: false,
                         CRS: 'epsg:4326',
                         VERSION: '1.3.0',
                         EXCEPTIONS: 'INIMAGE'
@@ -275,8 +272,6 @@ MapServer.</p>
 </html>
 <p>OpenLayer is drawing a single combined image containing all the layers in the map. You can right-click on the image
 to save it locally.</p>
-<blockquote>
-<div>CLASSGROUP &#8216;style1&#8217; # this is the default style to use</div></blockquote>
 </div>
 <div class="section" id="switching-styles">
 <h2>4.2. Switching Styles<a class="headerlink" href="#switching-styles" title="Permalink to this headline">¶</a></h2>
@@ -288,7 +283,7 @@ Let&#8217;s look at the layer configuration for places below:</p>
     <span class="k">NAME</span> <span class="s">&#39;places&#39;</span>
     <span class="k">TYPE</span> <span class="nb">POINT</span>
     <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_populated_places&#39;</span>
-<span class="err">ASS</span><span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span> <span class="c"># this is the default style to use</span>
+    <span class="k">CLASSGROUP</span> <span class="s">&#39;style1&#39;</span> <span class="c"># this is the default style to use</span>
     <span class="k">CLASS</span>
         <span class="k">GROUP</span> <span class="s">&#39;style1&#39;</span>
         <span class="k">STYLE</span>

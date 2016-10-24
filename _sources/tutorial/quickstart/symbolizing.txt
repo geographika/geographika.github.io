@@ -57,9 +57,6 @@ MapServer.
 OpenLayer is drawing a single combined image containing all the layers in the map. You can right-click on the image
 to save it locally. 
 
-
-		CLASSGROUP 'style1' # this is the default style to use
-
 Switching Styles
 ----------------
 
