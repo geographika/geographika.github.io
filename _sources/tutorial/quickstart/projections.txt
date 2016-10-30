@@ -6,20 +6,15 @@
 Projections
 ==================
 
-Your mapfile should look like the one here - :ref:`symbolizing.map <qs_symbolizing_map>`.
+MapServer can output maps in many different projections. 
 
-http://epsg.io/
+Projections are defined using the :ref:`PROJECTION` block, and also using Map Metadata (in the WEB Object):
+
+Your mapfile should look like the one here - :ref:`projections.map <_qs_projections_map>`.
+
+Projection codes can be found at http://epsg.io/
 
 Projections are stored in ``C:\ms4w\proj\nad``
-
-Link to http://www.mapserver.org/mapfile/projection.html
-
-Only EPSG, AUTO2, CRS currently supported
-
-Mollweide: a global map projection that preserves areas, often used in the sciences for depicting global distributions on small maps.
-
-Robinson projection not supported in proj4js - https://github.com/proj4js/proj4js/issues/161
-Can see main ones in https://github.com/proj4js/proj4js/tree/master/lib/projections
 
 Example
 -------
@@ -27,10 +22,22 @@ Example
 You should be able to use the appropriate HTML and mapfiles to create the example below using your local
 MapServer. 
 
+Clicking on a radio button requests the same data in a different projection. 
+
+* `WGS84 (EPSG:4326) <https://en.wikipedia.org/wiki/World_Geodetic_System>`__ - this is the World Geodetic System 1984, used by GPS
+* `Web Mercator (EPSG:3857) <https://en.wikipedia.org/wiki/Web_Mercator>`__ - this is the projection used by all the popular online mapping sites such as Google Maps, OpenStreetMap and Bing
+* `World Mollweide <https://en.wikipedia.org/wiki/Mollweide_projection/>`__ - is an equal-area, pseudocylindrical map projection
+
 .. raw:: html
 	:file: htmlfiles/projections.html
 
 ..
+
+   WMS 1.3.0 Only EPSG, AUTO2, CRS currently supported
+
+   Robinson projection not supported in proj4js - https://github.com/proj4js/proj4js/issues/161
+   Can see main ones in https://github.com/proj4js/proj4js/tree/master/lib/projections
+
    This needs to be in the same
    units as the data or, if specifying a different output projection,
    in the same units as the output projection.

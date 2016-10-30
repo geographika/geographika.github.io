@@ -93,18 +93,21 @@
             
   <div class="section" id="projections">
 <span id="qs-projections"></span><h1>8. Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h1>
-<p>Your mapfile should look like the one here - <a class="reference internal" href="symbolizing.map.html#qs-symbolizing-map"><span class="std std-ref">symbolizing.map</span></a>.</p>
-<p><a class="reference external" href="http://epsg.io/">http://epsg.io/</a></p>
+<p>MapServer can output maps in many different projections.</p>
+<p>Projections are defined using the <a class="reference internal" href="../../mapfile/projection.html#projection"><span class="std std-ref">PROJECTION</span></a> block, and also using Map Metadata (in the WEB Object):</p>
+<p>Your mapfile should look like the one here - <span class="xref std std-ref">projections.map</span>.</p>
+<p>Projection codes can be found at <a class="reference external" href="http://epsg.io/">http://epsg.io/</a></p>
 <p>Projections are stored in <code class="docutils literal"><span class="pre">C:\ms4w\proj\nad</span></code></p>
-<p>Link to <a class="reference external" href="http://www.mapserver.org/mapfile/projection.html">http://www.mapserver.org/mapfile/projection.html</a></p>
-<p>Only EPSG, AUTO2, CRS currently supported</p>
-<p>Mollweide: a global map projection that preserves areas, often used in the sciences for depicting global distributions on small maps.</p>
-<p>Robinson projection not supported in proj4js - <a class="reference external" href="https://github.com/proj4js/proj4js/issues/161">https://github.com/proj4js/proj4js/issues/161</a>
-Can see main ones in <a class="reference external" href="https://github.com/proj4js/proj4js/tree/master/lib/projections">https://github.com/proj4js/proj4js/tree/master/lib/projections</a></p>
 <div class="section" id="example">
 <h2>8.1. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>You should be able to use the appropriate HTML and mapfiles to create the example below using your local
 MapServer.</p>
+<p>Clicking on a radio button requests the same data in a different projection.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/World_Geodetic_System">WGS84 (EPSG:4326)</a> - this is the World Geodetic System 1984, used by GPS</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Web_Mercator">Web Mercator (EPSG:3857)</a> - this is the projection used by all the popular online mapping sites such as Google Maps, OpenStreetMap and Bing</li>
+<li><a class="reference external" href="https://en.wikipedia.org/wiki/Mollweide_projection/">World Mollweide</a> - is an equal-area, pseudocylindrical map projection</li>
+</ul>
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,6 +245,39 @@ MapServer.</p>
     </script>
 </body>
 </html>
+<blockquote>
+<div><p>WMS 1.3.0 Only EPSG, AUTO2, CRS currently supported</p>
+<p>Robinson projection not supported in proj4js - <a class="reference external" href="https://github.com/proj4js/proj4js/issues/161">https://github.com/proj4js/proj4js/issues/161</a>
+Can see main ones in <a class="reference external" href="https://github.com/proj4js/proj4js/tree/master/lib/projections">https://github.com/proj4js/proj4js/tree/master/lib/projections</a></p>
+<p>This needs to be in the same
+units as the data or, if specifying a different output projection,
+in the same units as the output projection.</p>
+<p>You can use the utility <a class="reference external" href="http://gdal.osgeo.org/ogr_utilities.html">ogrinfo</a>, which is part of the
+GDAL/OGR library package, to get the extent of a particular
+Shapefile dataset (or other supported vector formats).  Here is the
+command I used to get the extent for this example:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ogrinfo</span> <span class="o">-</span><span class="n">al</span> <span class="o">-</span><span class="n">so</span> <span class="n">states_ugl</span><span class="o">.</span><span class="n">shp</span>
+</pre></div>
+</div>
+<p>This returned the following output:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>INFO: Open of `states_ugl.shp&#39; using driver `ESRI Shapefile&#39; successful.
+Layer name: states_ugl
+Geometry: Polygon
+Feature Count: 204
+Extent: (-97.238976, 41.619778) - (-82.122902, 49.385620)
+Layer SRS WKT:(unknown)
+AREA: Real (12.3)
+PERIMETER: Real (12.3)
+STATESP020: Real (11.0)STATE: String (20.0)
+STATE_FIPS: String (2.0)
+CLASS: String (5.0)
+</pre></div>
+</div>
+<p>You can also use ArcView or an open source GIS packages&#8211;QGIS,
+Thuban, etc.</p>
+<p>Feel free to change the values of EXTENT to get a better
+understanding of how it changes your map.</p>
+</div></blockquote>
 </div>
 </div>
 
