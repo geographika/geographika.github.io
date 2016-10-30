@@ -92,17 +92,3 @@ If no styles are sent in the URL, then the default style for the layer specified
 will be used.  
 
 :ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_test_mapfiles>` | :ref:`Proceed to next tutorial <qs_labelling>`
-
-..
-	Questions
-	Images - only GIF and PNG. JPEG - "unsupported pixmap format"
-	Performance benefits of VECTOR over IMAGE/SVG?
-	http://mapserver.org/mapfile/style.html
-	http://mapserver.org/mapfile/symbol.html
-	http://mapserver.org/mapfile/symbology/construction.html
-	rank_max and rank_min for simple town size grading.
-	No SVG - http://www.ms4w.com/trac/ticket/3	
-	http://mapserver.org/mapfile/style.html#style
-	This object appeared in 4.0 and the intention is to separate logic from looks. 
-	The final intent is to have named styles (Not yet supported) that will be re-usable through the 
-	mapfile. This is the way of defining the appearance of an object (a CLASS or a LABEL).

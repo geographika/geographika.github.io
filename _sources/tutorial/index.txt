@@ -38,8 +38,8 @@ https://github.com/nvkelso/natural-earth-vector
 https://github.com/nvkelso/natural-earth-raster
 
 
-Quickstart - Your First MapFiles
-++++++++++++++++++++++++++++++++
+Quick Start - Your First MapFiles
++++++++++++++++++++++++++++++++++
 
 .. toctree::
    :maxdepth: 1

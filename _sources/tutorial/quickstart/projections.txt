@@ -6,6 +6,19 @@
 Projections
 ==================
 
+http://epsg.io/
+
+Projections are stored in ``C:\ms4w\proj\nad``
+
+Link to http://www.mapserver.org/mapfile/projection.html
+
+Only EPSG, AUTO2, CRS currently supported
+
+Mollweide: a global map projection that preserves areas, often used in the sciences for depicting global distributions on small maps.
+
+Robinson projection not supported in proj4js - https://github.com/proj4js/proj4js/issues/161
+Can see main ones in https://github.com/proj4js/proj4js/tree/master/lib/projections
+
 ..
    This needs to be in the same
    units as the data or, if specifying a different output projection,

@@ -7,3 +7,6 @@ Test your Mapfiles with shp2img
 
 .. literalinclude:: test_mapfiles.map
    :language: mapfile
+
+..
+    CONFIG "MS_ERRORFILE" "C:\temp\ms_errors.log"
