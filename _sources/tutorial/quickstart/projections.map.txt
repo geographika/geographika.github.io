@@ -1,0 +1,9 @@
+:orphan:
+
+.. _qs_projections_map:
+
+Projections Map File
+--------------------
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile

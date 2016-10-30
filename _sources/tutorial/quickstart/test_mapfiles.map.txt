@@ -10,3 +10,4 @@ Test your Mapfiles with shp2img
 
 ..
     CONFIG "MS_ERRORFILE" "C:\temp\ms_errors.log"
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.19.1/ol-debug.js"></script>

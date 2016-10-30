@@ -93,6 +93,7 @@
             
   <div class="section" id="projections">
 <span id="qs-projections"></span><h1>8. Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h1>
+<p>Your mapfile should look like the one here - <a class="reference internal" href="symbolizing.map.html#qs-symbolizing-map"><span class="std std-ref">symbolizing.map</span></a>.</p>
 <p><a class="reference external" href="http://epsg.io/">http://epsg.io/</a></p>
 <p>Projections are stored in <code class="docutils literal"><span class="pre">C:\ms4w\proj\nad</span></code></p>
 <p>Link to <a class="reference external" href="http://www.mapserver.org/mapfile/projection.html">http://www.mapserver.org/mapfile/projection.html</a></p>
@@ -100,6 +101,148 @@
 <p>Mollweide: a global map projection that preserves areas, often used in the sciences for depicting global distributions on small maps.</p>
 <p>Robinson projection not supported in proj4js - <a class="reference external" href="https://github.com/proj4js/proj4js/issues/161">https://github.com/proj4js/proj4js/issues/161</a>
 Can see main ones in <a class="reference external" href="https://github.com/proj4js/proj4js/tree/master/lib/projections">https://github.com/proj4js/proj4js/tree/master/lib/projections</a></p>
+<div class="section" id="example">
+<h2>8.1. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>You should be able to use the appropriate HTML and mapfiles to create the example below using your local
+MapServer.</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mapserver OL3 viewer</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.18.2/ol.css" type="text/css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.18.2/ol.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/proj4js/2.3.6/proj4.js"></script>
+
+    <style>
+        #settings input[type=text], select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #settings input[type=submit] {
+            width: 100%;
+            background-color: #6B6BD1;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            #settings input[type=submit]:hover {
+                background-color: #3333A4;
+            }
+
+        #map {
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="settings">
+        <form>
+            <label for="mapserver-url">MapServer URL: </label>
+            <input type="text" id="mapserver-url" value="http://mapserver.geographika.co.uk/cgi-bin/mapserv">
+            <label for="mapfile-path">Map file path</label>
+            <input type="text" id="mapfile-path" value="/u02/mapfiles/projections.map">
+
+            <label for="radio-1">WGS84 (EPSG:4326)</label>
+            <input id="radio-1" type="radio" name="projection-radio" onclick="handleClick(this);" value="EPSG:4326" checked="checked" />
+            <label for="radio-2">Spherical Mercator  (EPSG:3857)</label>
+            <input id="radio-2" type="radio" name="projection-radio" onclick="handleClick(this);" value="EPSG:3857" />
+            <label for="radio-3">World Mollweide (ESRI:54009)</label>
+            <input id="radio-3" type="radio" name="projection-radio" onclick="handleClick(this);" value="EPSG:54009" />
+
+
+
+            <input type="submit" id="validate-btn" value="Update">
+        </form>
+    </div>
+    <div id="map" class="map"></div>
+    <script>
+
+        // the projection code below is really ESRI:54009 but all codes must be in EPSG namespace
+        proj4.defs("EPSG:54009", "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs");
+
+        var map = new ol.Map({
+            target: 'map',
+            view: new ol.View({
+                center: [0, 0],
+                zoom: 2,
+                projection: 'EPSG:4326'
+            })
+        });
+
+        document.getElementById('validate-btn').addEventListener('click', handleUpdate);
+        updateLayers();
+
+        function handleClick(selectedRadio) {
+            var projection = selectedRadio.value;
+            updateLayers(projection);
+        }
+
+        function handleUpdate(e) {
+            if (e) {
+                e.preventDefault();
+            }
+            updateLayers();
+        }
+
+        function updateLayers(projection) {
+
+            if (!projection) {
+                projection = 'EPSG:4326';
+            }
+
+            var view = map.getView();
+            var zoom = view.getZoom();
+            var center = view.getCenter();
+            var ll = ol.proj.toLonLat(center, view.getProjection());
+
+            map.setView(new ol.View({
+                center: ol.proj.fromLonLat(ll, projection),
+                zoom: zoom,
+                projection: projection
+            }));
+
+            var msAddress = document.getElementById('mapserver-url').value;
+
+            if (!msAddress.endsWith('?')) {
+                msAddress += '?';
+            }
+
+            var mapfilePath = document.getElementById('mapfile-path').value;
+            mapfilePath = 'MAP=' + mapfilePath;
+            map.getLayers().getArray().forEach(function (layer) {
+                map.removeLayer(layer);
+            });
+
+            var layer = new ol.layer.Image({
+                source: new ol.source.ImageWMS({
+                    url: msAddress + mapfilePath,
+                    params: {
+                        LAYERS: 'ocean,land,places',
+                        CRS: projection,
+                        VERSION: '1.3.0',
+                        EXCEPTIONS: 'INIMAGE'
+                    },
+                    serverType: 'mapserver'
+                })
+            });
+            map.addLayer(layer);
+        }
+    </script>
+</body>
+</html>
+</div>
 </div>
 
 
@@ -128,6 +271,14 @@ Can see main ones in <a class="reference external" href="https://github.com/proj
 <a href="../../faq.html" title="FAQ">FAQ</a><br>
 <a href="../../psc.html" title="PSC">PSC</a>
 </p>
+  <h3>Current Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">8. Projections</a><ul>
+<li><a class="reference internal" href="#example">8.1. Example</a></li>
+</ul>
+</li>
+</ul>
+
         </div>
       </div>
       <div class="clearer"></div>
