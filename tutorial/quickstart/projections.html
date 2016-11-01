@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>8. Projections &#8212; MapServer 7.0.2 documentation</title>
+    <title>8. Projections and Extents &#8212; MapServer 7.0.2 documentation</title>
     
     <link rel="stylesheet" href="../../_static/sphinx.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -91,18 +91,60 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="projections">
-<span id="qs-projections"></span><h1>8. Projections<a class="headerlink" href="#projections" title="Permalink to this headline">¶</a></h1>
-<p>MapServer can output maps in many different projections.</p>
-<p>Projections are defined using the <a class="reference internal" href="../../mapfile/projection.html#projection"><span class="std std-ref">PROJECTION</span></a> block, and also using Map Metadata (in the WEB Object):</p>
-<p>Your mapfile should look like the one here - <span class="xref std std-ref">projections.map</span>.</p>
-<p>Projection codes can be found at <a class="reference external" href="http://epsg.io/">http://epsg.io/</a></p>
-<p>Projections are stored in <code class="docutils literal"><span class="pre">C:\ms4w\proj\nad</span></code></p>
+  <div class="section" id="projections-and-extents">
+<span id="qs-projections"></span><h1>8. Projections and Extents<a class="headerlink" href="#projections-and-extents" title="Permalink to this headline">¶</a></h1>
+<p>MapServer can output maps in many different projections. This is very useful when you want your maps to be available to different systems.
+For example a web client often requires data to be in the Web Mercator projection to overlay on commercial mapping services such as Google Maps,
+whereas users of desktop GIS often prefer a more accurate local projection to display data.</p>
+<p>More details on projections in MapServer can be found on the <a class="reference internal" href="../../mapfile/projection.html#projection"><span class="std std-ref">PROJECTION</span></a> page. MapServer is typically installed with many projections available in text files.
+If you are using MapServer for Windows (ms4w), projection definition files can be found in <code class="docutils literal"><span class="pre">C:\ms4w\proj\nad</span></code>. If you open up the <code class="docutils literal"><span class="pre">epsg</span></code> file in a text editor
+you can see the parameters for the WGS84 (EPSG:4326) projection:</p>
+<div class="code bat highlight-default"><div class="highlight"><pre><span></span><span class="c1"># WGS 84</span>
+<span class="o">&lt;</span><span class="mi">4326</span><span class="o">&gt;</span> <span class="o">+</span><span class="n">proj</span><span class="o">=</span><span class="n">longlat</span> <span class="o">+</span><span class="n">datum</span><span class="o">=</span><span class="n">WGS84</span> <span class="o">+</span><span class="n">no_defs</span>  <span class="o">&lt;&gt;</span>
+</pre></div>
+</div>
+<p>The default map projection is specified using the <a class="reference internal" href="../../mapfile/projection.html#projection"><span class="std std-ref">PROJECTION</span></a> block. In our example we set this to use the WGS84 projection:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">PROJECTION</span>
+    <span class="c"># this references the epsg file in the folder specified by CONFIG &quot;PROJ_LIB&quot; </span>
+    <span class="s">&#39;init=epsg:4326&#39;</span> 
+<span class="k">END</span>
+
+<span class="c"># An alternate way to specify the projection is &quot;inline&quot;</span>
+<span class="c"># You can find this definition at https://epsg.io/4326.map</span>
+
+<span class="c">#PROJECTION</span>
+  <span class="s">&quot;proj=longlat&quot;</span>
+  <span class="s">&quot;datum=WGS84&quot;</span>
+  <span class="s">&quot;no_defs&quot;</span>
+<span class="c">#END</span>
+</pre></div>
+</div>
+<p>To specify multiple projections for a WMS service use the <code class="docutils literal"><span class="pre">MAP</span></code> <code class="docutils literal"><span class="pre">METADATA</span></code> <code class="docutils literal"><span class="pre">WEB</span></code> object.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">WEB</span>
+    <span class="k">METADATA</span>
+        <span class="s">&#39;wms_enable_request&#39;</span>  <span class="s">&#39;*&#39;</span>
+        <span class="c"># Allow WMS service to serve multiple projections</span>
+        <span class="c"># Only EPSG, AUTO2, CRS codes are supported as part of WMS 1.3.0</span>
+        <span class="s">&#39;wms_srs&#39;</span> <span class="s">&#39;EPSG:4326 EPSG:3857 EPSG:54009&#39;</span>
+    <span class="k">END</span>
+<span class="k">END</span>
+</pre></div>
+</div>
+<p>This example references the World Mollweide projection which does not have an EPSG code. The EPSG (European Petroleum Survey Group)
+maintain a dataset of projections and codes, however this only includes a few small-scale &#8220;atlas&#8221; projection as these are not the focus of
+the petroleum industry&#8217;s requirements. To use this projection in a WMS service a custom projection definitions file has been created
+with the 3 projections used by the map:</p>
+<p>MapServer can find the location of this file using a special <code class="docutils literal"><span class="pre">CONFIG</span></code> option:</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="c"># path to the folder containing the epsg projections file </span>
+<span class="c"># this path is relative to the MAP file (it can also be a full path)	</span>
+<span class="k">CONFIG</span> <span class="s">&quot;PROJ_LIB&quot;</span> <span class="s">&quot;projections&quot;</span> 
+</pre></div>
+</div>
 <div class="section" id="example">
 <h2>8.1. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>You should be able to use the appropriate HTML and mapfiles to create the example below using your local
-MapServer.</p>
-<p>Clicking on a radio button requests the same data in a different projection.</p>
+MapServer. Your mapfile should look like the one here - <a class="reference internal" href="projections.map.html#qs-projections-map"><span class="std std-ref">projections.map</span></a>.</p>
+<p>Clicking on a radio button requests the same data from MapServer in a different projection.</p>
 <ul class="simple">
 <li><a class="reference external" href="https://en.wikipedia.org/wiki/World_Geodetic_System">WGS84 (EPSG:4326)</a> - this is the World Geodetic System 1984, used by GPS</li>
 <li><a class="reference external" href="https://en.wikipedia.org/wiki/Web_Mercator">Web Mercator (EPSG:3857)</a> - this is the projection used by all the popular online mapping sites such as Google Maps, OpenStreetMap and Bing</li>
@@ -245,39 +287,59 @@ MapServer.</p>
     </script>
 </body>
 </html>
-<blockquote>
-<div><p>WMS 1.3.0 Only EPSG, AUTO2, CRS currently supported</p>
-<p>Robinson projection not supported in proj4js - <a class="reference external" href="https://github.com/proj4js/proj4js/issues/161">https://github.com/proj4js/proj4js/issues/161</a>
-Can see main ones in <a class="reference external" href="https://github.com/proj4js/proj4js/tree/master/lib/projections">https://github.com/proj4js/proj4js/tree/master/lib/projections</a></p>
-<p>This needs to be in the same
-units as the data or, if specifying a different output projection,
-in the same units as the output projection.</p>
-<p>You can use the utility <a class="reference external" href="http://gdal.osgeo.org/ogr_utilities.html">ogrinfo</a>, which is part of the
-GDAL/OGR library package, to get the extent of a particular
-Shapefile dataset (or other supported vector formats).  Here is the
-command I used to get the extent for this example:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">ogrinfo</span> <span class="o">-</span><span class="n">al</span> <span class="o">-</span><span class="n">so</span> <span class="n">states_ugl</span><span class="o">.</span><span class="n">shp</span>
+</div>
+<div class="section" id="map-extents">
+<h2>8.2. Map Extents<a class="headerlink" href="#map-extents" title="Permalink to this headline">¶</a></h2>
+<p>We can also set the spatial extent of our map. If this is not set then MapServer tries to calculate the extent of the map by
+calculating the extent of each layer by looking at the data source. This can slow the creation of the map down for large datasets.
+To avoid this we can set this in the map file, using the keyword <code class="docutils literal"><span class="pre">EXTENT</span></code>. Several WMS clients require the service parameters to be filled to work correctly.
+Note, setting the extent does not actually limit the data returned by a WMS.</p>
+<p>The <code class="docutils literal"><span class="pre">EXTENT</span></code> parameters are given using the coordinate system of the map&#8217;s projection in the following format: <code class="docutils literal"><span class="pre">[minx]</span> <span class="pre">[miny]</span> <span class="pre">[maxx]</span> <span class="pre">[maxy]</span></code>.
+In this example we are using EPSG:4326. You can obtain the world&#8217;s extent in this projection at https://epsg.io/4326 (see the WGS84 bounds).</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">EXTENT</span> <span class="p">-</span><span class="mi">180</span> <span class="p">-</span><span class="mi">90</span> <span class="mi">180</span> <span class="mi">90</span>
 </pre></div>
 </div>
-<p>This returned the following output:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span>INFO: Open of `states_ugl.shp&#39; using driver `ESRI Shapefile&#39; successful.
-Layer name: states_ugl
-Geometry: Polygon
-Feature Count: 204
-Extent: (-97.238976, 41.619778) - (-82.122902, 49.385620)
-Layer SRS WKT:(unknown)
-AREA: Real (12.3)
-PERIMETER: Real (12.3)
-STATESP020: Real (11.0)STATE: String (20.0)
-STATE_FIPS: String (2.0)
-CLASS: String (5.0)
+<p>These values then appear in the WMS RequestCapabilities response. You can see these by opening the following link in your browser.</p>
+<ul class="simple">
+<li><a class="reference external" href="http://mapserver.geographika.co.uk/cgi-bin/mapserv?map=/u02/mapfiles/projections.map&amp;SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;VERSION=1.3.0">http://mapserver.geographika.co.uk/cgi-bin/mapserv?map=/u02/mapfiles/projections.map&amp;SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;VERSION=1.3.0</a></li>
+</ul>
+<p>To test your local MapServer use a URL similar to the one below (make sure the path to your map file is correctly set):</p>
+<ul class="simple">
+<li><a class="reference external" href="http://localhost:8080/cgi-bin/mapserv.exe?map=C:/Data/mapserver-tutorial-data/mapfiles/projections.map&amp;SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;VERSION=1.3.0">http://localhost:8080/cgi-bin/mapserv.exe?map=C:/Data/mapserver-tutorial-data/mapfiles/projections.map&amp;SERVICE=WMS&amp;REQUEST=GetCapabilities&amp;VERSION=1.3.0</a></li>
+</ul>
+<p>In the XML returned by this in the browser you can see the service extents:</p>
+<div class="code xml highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">EX_GeographicBoundingBox</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">westBoundLongitude</span><span class="o">&gt;-</span><span class="mi">180</span><span class="o">&lt;/</span><span class="n">westBoundLongitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">eastBoundLongitude</span><span class="o">&gt;</span><span class="mi">180</span><span class="o">&lt;/</span><span class="n">eastBoundLongitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">southBoundLatitude</span><span class="o">&gt;-</span><span class="mi">90</span><span class="o">&lt;/</span><span class="n">southBoundLatitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">northBoundLatitude</span><span class="o">&gt;</span><span class="mi">90</span><span class="o">&lt;/</span><span class="n">northBoundLatitude</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">EX_GeographicBoundingBox</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">BoundingBox</span> <span class="n">CRS</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span> <span class="n">minx</span><span class="o">=</span><span class="s2">&quot;-90&quot;</span> <span class="n">miny</span><span class="o">=</span><span class="s2">&quot;-180&quot;</span> <span class="n">maxx</span><span class="o">=</span><span class="s2">&quot;90&quot;</span> <span class="n">maxy</span><span class="o">=</span><span class="s2">&quot;180&quot;</span><span class="o">/&gt;</span>
 </pre></div>
 </div>
-<p>You can also use ArcView or an open source GIS packages&#8211;QGIS,
-Thuban, etc.</p>
-<p>Feel free to change the values of EXTENT to get a better
-understanding of how it changes your map.</p>
-</div></blockquote>
+<p>You can remove the extent temporarily to let MapServer calculate the extent for a layer, and then use these values
+in your map file (alternatively you can get these values using most GIS desktop software).
+Comment out the <code class="docutils literal"><span class="pre">EXTENT</span></code> keyword in the map and open the <code class="docutils literal"><span class="pre">GetCapabilities</span></code> URL above again in your browser (or refresh the page):</p>
+<p>You will see the map extent values are all set to -1, but the layer&#8217;s extents have been calculated, for example the &#8220;Places&#8221; layer:</p>
+<div class="code xml highlight-default"><div class="highlight"><pre><span></span><span class="o">&lt;</span><span class="n">Title</span><span class="o">&gt;</span><span class="n">places</span><span class="o">&lt;/</span><span class="n">Title</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">EX_GeographicBoundingBox</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">westBoundLongitude</span><span class="o">&gt;-</span><span class="mf">175.221</span><span class="o">&lt;/</span><span class="n">westBoundLongitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">eastBoundLongitude</span><span class="o">&gt;</span><span class="mf">179.217</span><span class="o">&lt;/</span><span class="n">eastBoundLongitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">southBoundLatitude</span><span class="o">&gt;-</span><span class="mf">41.3</span><span class="o">&lt;/</span><span class="n">southBoundLatitude</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">northBoundLatitude</span><span class="o">&gt;</span><span class="mf">64.15</span><span class="o">&lt;/</span><span class="n">northBoundLatitude</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">EX_GeographicBoundingBox</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">BoundingBox</span> <span class="n">CRS</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span> <span class="n">minx</span><span class="o">=</span><span class="s2">&quot;-41.3&quot;</span> <span class="n">miny</span><span class="o">=</span><span class="s2">&quot;-175.221&quot;</span> <span class="n">maxx</span><span class="o">=</span><span class="s2">&quot;64.15&quot;</span> <span class="n">maxy</span><span class="o">=</span><span class="s2">&quot;179.217&quot;</span><span class="o">/&gt;</span>
+</pre></div>
+</div>
+<p>You can then set the layer&#8217;s extent using either the <code class="docutils literal"><span class="pre">EXTENT</span></code> keyword in the <code class="docutils literal"><span class="pre">LAYER</span></code> object, or the <code class="docutils literal"><span class="pre">wms_extent</span></code> in the <code class="docutils literal"><span class="pre">LAYER</span></code> <code class="docutils literal"><span class="pre">METADATA</span></code>
+object.</p>
+<div class="highlight-mapfile"><div class="highlight"><pre><span></span>    <span class="k">EXTENT</span> <span class="p">-</span><span class="mf">41.3</span> <span class="p">-</span><span class="mf">175.221</span> <span class="mf">64.15</span> <span class="mf">179.217</span>
+    <span class="k">METADATA</span>
+        <span class="c"># For WMS layers this value takes precedent over the LAYER&#39;S EXTENT setting</span>
+        <span class="s">&#39;wms_extent&#39;</span> <span class="s">&#39;-41 -175 64 179&#39;</span>
+    <span class="k">END</span>
+</pre></div>
+</div>
 </div>
 </div>
 
@@ -309,8 +371,9 @@ understanding of how it changes your map.</p>
 </p>
   <h3>Current Table Of Contents</a></h3>
   <ul>
-<li><a class="reference internal" href="#">8. Projections</a><ul>
+<li><a class="reference internal" href="#">8. Projections and Extents</a><ul>
 <li><a class="reference internal" href="#example">8.1. Example</a></li>
+<li><a class="reference internal" href="#map-extents">8.2. Map Extents</a></li>
 </ul>
 </li>
 </ul>

@@ -2,27 +2,62 @@
 
 .. _qs_projections:
 
-==================
-Projections
-==================
+=======================
+Projections and Extents
+=======================
 
-MapServer can output maps in many different projections. 
+MapServer can output maps in many different projections. This is very useful when you want your maps to be available to different systems.
+For example a web client often requires data to be in the Web Mercator projection to overlay on commercial mapping services such as Google Maps,
+whereas users of desktop GIS often prefer a more accurate local projection to display data. 
 
-Projections are defined using the :ref:`PROJECTION` block, and also using Map Metadata (in the WEB Object):
+More details on projections in MapServer can be found on the :ref:`PROJECTION` page. MapServer is typically installed with many projections available in text files. 
+If you are using MapServer for Windows (ms4w), projection definition files can be found in ``C:\ms4w\proj\nad``. If you open up the ``epsg`` file in a text editor
+you can see the parameters for the WGS84 (EPSG:4326) projection:
 
-Your mapfile should look like the one here - :ref:`projections.map <_qs_projections_map>`.
+.. code:: bat
 
-Projection codes can be found at http://epsg.io/
+    # WGS 84
+    <4326> +proj=longlat +datum=WGS84 +no_defs  <>
 
-Projections are stored in ``C:\ms4w\proj\nad``
+The default map projection is specified using the :ref:`PROJECTION` block. In our example we set this to use the WGS84 projection:
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile
+   :start-after: # START OF PROJECTION OBJECT
+   :end-before: # END OF PROJECTION OBJECT
+   :dedent: 4
+
+To specify multiple projections for a WMS service use the ``MAP`` ``METADATA`` ``WEB`` object. 
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile
+   :start-after: # START OF WEB OBJECT
+   :end-before: # END OF WEB OBJECT
+   :dedent: 4
+
+This example references the World Mollweide projection which does not have an EPSG code. The EPSG (European Petroleum Survey Group)
+maintain a dataset of projections and codes, however this only includes a few small-scale "atlas" projection as these are not the focus of
+the petroleum industry's requirements. To use this projection in a WMS service a custom projection definitions file has been created 
+with the 3 projections used by the map:
+
+.. raw:: bat
+	:file: mapfiles/epsg.txt
+
+MapServer can find the location of this file using a special ``CONFIG`` option:
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile
+   :start-after: # START OF CONFIG
+   :end-before: # END OF CONFIG
+   :dedent: 4
 
 Example
 -------
 
 You should be able to use the appropriate HTML and mapfiles to create the example below using your local
-MapServer. 
+MapServer. Your mapfile should look like the one here - :ref:`projections.map <qs_projections_map>`.
 
-Clicking on a radio button requests the same data in a different projection. 
+Clicking on a radio button requests the same data from MapServer in a different projection. 
 
 * `WGS84 (EPSG:4326) <https://en.wikipedia.org/wiki/World_Geodetic_System>`__ - this is the World Geodetic System 1984, used by GPS
 * `Web Mercator (EPSG:3857) <https://en.wikipedia.org/wiki/Web_Mercator>`__ - this is the projection used by all the popular online mapping sites such as Google Maps, OpenStreetMap and Bing
@@ -31,41 +66,95 @@ Clicking on a radio button requests the same data in a different projection.
 .. raw:: html
 	:file: htmlfiles/projections.html
 
+Map Extents
+-----------
+
+We can also set the spatial extent of our map. If this is not set then MapServer tries to calculate the extent of the map by 
+calculating the extent of each layer by looking at the data source. This can slow the creation of the map down for large datasets. 
+To avoid this we can set this in the map file, using the keyword ``EXTENT``. Several WMS clients require the service parameters to be filled to work correctly. 
+Note, setting the extent does not actually limit the data returned by a WMS. 
+
+The ``EXTENT`` parameters are given using the coordinate system of the map's projection in the following format: ``[minx] [miny] [maxx] [maxy]``. 
+In this example we are using EPSG:4326. You can obtain the world's extent in this projection at https://epsg.io/4326 (see the WGS84 bounds). 
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile
+   :start-after: # START OF MAP EXTENT
+   :end-before: # END OF MAP EXTENT
+   :dedent: 4
+
+These values then appear in the WMS RequestCapabilities response. You can see these by opening the following link in your browser. 
+
++ http://mapserver.geographika.co.uk/cgi-bin/mapserv?map=/u02/mapfiles/projections.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0
+
+To test your local MapServer use a URL similar to the one below (make sure the path to your map file is correctly set):
+
++ http://localhost:8080/cgi-bin/mapserv.exe?map=C:/Data/mapserver-tutorial-data/mapfiles/projections.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0
+
+In the XML returned by this in the browser you can see the service extents: 
+
+.. code:: xml
+
+    <EX_GeographicBoundingBox>
+        <westBoundLongitude>-180</westBoundLongitude>
+        <eastBoundLongitude>180</eastBoundLongitude>
+        <southBoundLatitude>-90</southBoundLatitude>
+        <northBoundLatitude>90</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox CRS="EPSG:4326" minx="-90" miny="-180" maxx="90" maxy="180"/>
+
+You can remove the extent temporarily to let MapServer calculate the extent for a layer, and then use these values
+in your map file (alternatively you can get these values using most GIS desktop software). 
+Comment out the ``EXTENT`` keyword in the map and open the ``GetCapabilities`` URL above again in your browser (or refresh the page):
+
+You will see the map extent values are all set to -1, but the layer's extents have been calculated, for example the "Places" layer:
+
+.. code:: xml
+
+    <Title>places</Title>
+    <EX_GeographicBoundingBox>
+        <westBoundLongitude>-175.221</westBoundLongitude>
+        <eastBoundLongitude>179.217</eastBoundLongitude>
+        <southBoundLatitude>-41.3</southBoundLatitude>
+        <northBoundLatitude>64.15</northBoundLatitude>
+    </EX_GeographicBoundingBox>
+    <BoundingBox CRS="EPSG:4326" minx="-41.3" miny="-175.221" maxx="64.15" maxy="179.217"/>
+
+You can then set the layer's extent using either the ``EXTENT`` keyword in the ``LAYER`` object, or the ``wms_extent`` in the ``LAYER`` ``METADATA``
+object. 
+
+.. literalinclude:: mapfiles/projections.map
+   :language: mapfile
+   :start-after: # START OF LAYER EXTENT
+   :end-before: # END OF LAYER EXTENT
+   :dedent: 4
+
 ..
+    WMS 1.3.0 Only EPSG, AUTO2, CRS currently supported
 
-   WMS 1.3.0 Only EPSG, AUTO2, CRS currently supported
+    Robinson projection not supported in proj4js - https://github.com/proj4js/proj4js/issues/161
+    Can see main ones in https://github.com/proj4js/proj4js/tree/master/lib/projections
 
-   Robinson projection not supported in proj4js - https://github.com/proj4js/proj4js/issues/161
-   Can see main ones in https://github.com/proj4js/proj4js/tree/master/lib/projections
+    The content is not limited to systems of interest to the
+    petroleum industry, and data of little interest to the petroleum industry is included in the dataset on request
+    (see next section 5.2). But the primary focus of the maintenance group inevitably means that the content
+    volume is biased towards that industry's requirements. There is minimal coverage of systems used for
+    small-scale "atlas" mapping as these systems tend to be designed for one particular map. North American
+    legal survey systems (which cannot be described in the data model) are excluded. 
 
-   This needs to be in the same
-   units as the data or, if specifying a different output projection,
-   in the same units as the output projection.
+    http://www.iogp.org/pubs/373-07-1.pdf
 
-   You can use the utility `ogrinfo
-   <http://gdal.osgeo.org/ogr_utilities.html>`_, which is part of the
-   GDAL/OGR library package, to get the extent of a particular
-   Shapefile dataset (or other supported vector formats).  Here is the
-   command I used to get the extent for this example::
+    Questions
+    - EXTENT - no effect
+    - wms_extent - no effect http://mapserver.org/ogc/wms_server.html Layer Object Metadata
+    - set layer EXTENT or this value
+    - Description: (Optional) Used for the layer’s BoundingBox tag for cases where it is impossible (or very inefficient) 
+      for MapServer to probe the data source to figure its extents. 
 
-     ogrinfo -al -so states_ugl.shp
+    LAYER EXTENT - The spatial extent of the data. In most cases you will not need to specify this, but it can be used to avoid the speed 
+    cost of having MapServer compute the extents of the data. An application can also possibly use this value to override the extents of the map.
 
-   This returned the following output::
+    http://localhost:8080/cgi-bin/mapserv.exe?map=C:\Code\mapserver-tutorial-data\mapfiles\projections.map&SERVICE=WMS&REQUEST=GetCapabilities&VERSION=1.3.0
+    More used for CGI?
 
-     INFO: Open of `states_ugl.shp' using driver `ESRI Shapefile' successful.
-     Layer name: states_ugl
-     Geometry: Polygon
-     Feature Count: 204
-     Extent: (-97.238976, 41.619778) - (-82.122902, 49.385620)
-     Layer SRS WKT:(unknown)
-     AREA: Real (12.3)
-     PERIMETER: Real (12.3)
-     STATESP020: Real (11.0)STATE: String (20.0)
-     STATE_FIPS: String (2.0)
-     CLASS: String (5.0)
-
-   You can also use ArcView or an open source GIS packages--QGIS,
-   Thuban, etc.
-
-   Feel free to change the values of EXTENT to get a better
-   understanding of how it changes your map.
+    http://www.radicalcartography.net/?projectionref

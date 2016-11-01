@@ -85,22 +85,43 @@
 <div class="highlight-mapfile"><div class="highlight"><pre><span></span><span class="k">MAP</span>
     <span class="k">MAXSIZE</span> <span class="mi">4096</span> <span class="c"># allow for images greater than 2048x2048 pixels to be generated</span>
 	
+    <span class="c"># START OF CONFIG</span>
     <span class="c"># path to the folder containing the epsg projections file </span>
-    <span class="c"># this path is relative to the MAP file (it can also be a full path)</span>
-	
-	<span class="k">CONFIG</span> <span class="s">&quot;PROJ_LIB&quot;</span> <span class="s">&quot;projections&quot;</span> 
-	
+    <span class="c"># this path is relative to the MAP file (it can also be a full path)	</span>
+    <span class="k">CONFIG</span> <span class="s">&quot;PROJ_LIB&quot;</span> <span class="s">&quot;projections&quot;</span> 
+    <span class="c"># END OF CONFIG</span>
+    	
+    <span class="c"># START OF WEB OBJECT</span>
     <span class="k">WEB</span>
         <span class="k">METADATA</span>
             <span class="s">&#39;wms_enable_request&#39;</span>  <span class="s">&#39;*&#39;</span>
-            <span class="c"># allow WMS service to serve multiple projections</span>
-			<span class="s">&#39;wms_srs&#39;</span> <span class="s">&#39;EPSG:3857 EPSG:4326 EPSG:54009&#39;</span>
+            <span class="c"># Allow WMS service to serve multiple projections</span>
+            <span class="c"># Only EPSG, AUTO2, CRS codes are supported as part of WMS 1.3.0</span>
+            <span class="s">&#39;wms_srs&#39;</span> <span class="s">&#39;EPSG:4326 EPSG:3857 EPSG:54009&#39;</span>
         <span class="k">END</span>
     <span class="k">END</span>
+    <span class="c"># END OF WEB OBJECT</span>
 
+    <span class="c"># START OF PROJECTION OBJECT</span>
     <span class="k">PROJECTION</span>
-        <span class="s">&#39;init=epsg:4326&#39;</span>
+        <span class="c"># this references the epsg file in the folder specified by CONFIG &quot;PROJ_LIB&quot; </span>
+        <span class="s">&#39;init=epsg:4326&#39;</span> 
     <span class="k">END</span>
+
+    <span class="c"># An alternate way to specify the projection is &quot;inline&quot;</span>
+    <span class="c"># You can find this definition at https://epsg.io/4326.map</span>
+
+    <span class="c">#PROJECTION</span>
+	<span class="c">#    &quot;proj=longlat&quot;</span>
+	<span class="c">#    &quot;datum=WGS84&quot;</span>
+	<span class="c">#    &quot;no_defs&quot;</span>
+    <span class="c">#END</span>
+
+    <span class="c"># END OF PROJECTION OBJECT</span>
+
+    <span class="c"># START OF MAP EXTENT</span>
+    <span class="k">EXTENT</span> <span class="p">-</span><span class="mi">180</span> <span class="p">-</span><span class="mi">90</span> <span class="mi">180</span> <span class="mi">90</span>
+    <span class="c"># END OF MAP EXTENT</span>
 
     <span class="k">SYMBOL</span>
         <span class="c"># Symbol name (referenced in STYLEs)</span>
@@ -156,6 +177,13 @@
         <span class="k">NAME</span> <span class="s">&#39;places&#39;</span>
         <span class="k">TYPE</span> <span class="nb">POINT</span>
         <span class="k">DATA</span> <span class="s">&#39;../data/vector/naturalearth/ne_110m_populated_places&#39;</span>
+        <span class="c"># START OF LAYER EXTENT</span>
+        <span class="k">EXTENT</span> <span class="p">-</span><span class="mf">41.3</span> <span class="p">-</span><span class="mf">175.221</span> <span class="mf">64.15</span> <span class="mf">179.217</span>
+        <span class="k">METADATA</span>
+            <span class="c"># For WMS layers this value takes precedent over the LAYER&#39;S EXTENT setting</span>
+            <span class="s">&#39;wms_extent&#39;</span> <span class="s">&#39;-41 -175 64 179&#39;</span>
+        <span class="k">END</span>
+        <span class="c"># END OF LAYER EXTENT</span>
         <span class="k">CLASS</span>
             <span class="k">STYLE</span>
                 <span class="k">SYMBOL</span> <span class="s">&#39;CIRCLE&#39;</span> <span class="c"># this must correspond to the NAME of a SYMBOL object</span>
