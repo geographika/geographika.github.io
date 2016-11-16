@@ -122,7 +122,7 @@ to draw pixels with certain values in a different colour. See the &#8220;Classif
     <span class="k">NAME</span> <span class="s">&quot;sea&quot;</span>
     <span class="k">EXPRESSION</span> <span class="p">([</span><span class="err">red</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span> <span class="ow">AND</span> <span class="nx">[green]</span> <span class="o">=</span> <span class="mi">10</span> <span class="ow">AND</span> <span class="nx">[blue]</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>        
     <span class="k">STYLE</span>
-        <span class="k">COLOR</span> <span class="s">&#39;#9AFEFF&#39;</span>
+        <span class="k">COLOR</span> <span class="s">&#39;#9AFEFF&#39;</span> <span class="c"># Electric Blue</span>
     <span class="k">END</span>
 <span class="k">END</span>
 </pre></div>
@@ -136,9 +136,10 @@ to display data, however WMS also includes a <code class="docutils literal"><spa
 configure this we create an HTML file (the template), with placeholders for values that will be filled in by MapServer.</p>
 <div class="highlight-html"><div class="highlight"><pre><span></span><span class="c">&lt;!-- MapServer Template --&gt;</span>
 <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Date: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>[date format=&quot;%d-%b-%Y&quot;]<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Latitude: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">([</span><span class="nx">x</span><span class="p">]));&lt;/</span><span class="nt">script</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Longtitude: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span>    <span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">([</span><span class="nx">y</span><span class="p">]));&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>RGB:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> [red],[green],[blue]<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Values:<span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> [value_list]<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Latitude: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">([</span><span class="nx">x</span><span class="p">]));&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Longtitude: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">([</span><span class="nx">y</span><span class="p">]));&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>RGB: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>[red],[green],[blue]<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">b</span><span class="p">&gt;</span>Values: <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>[value_list]<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
  
 </pre></div>
 </div>
@@ -202,9 +203,9 @@ MapServer.</p>
     <div id="settings">
         <form>
             <label for="mapserver-url">MapServer URL: </label>
-            <input type="text" id="mapserver-url" value="http://localhost:8080/cgi-bin/mapserv.exe">
+            <input type="text" id="mapserver-url" value="http://mapserver.geographika.co.uk/cgi-bin/mapserv">
             <label for="mapfile-path">Map file path</label>
-            <input type="text" id="mapfile-path" value="C:\Code\mapserver-tutorial-data\mapfiles\raster.map">
+            <input type="text" id="mapfile-path" value="/u02/mapfiles/symbolizing.map">
             <label for="radio-1">RGB Raster</label>
             <input id="radio-1" type="radio" name="layer-radio" onclick="handleClick(this);" value="rgb" checked="checked" />
             <label for="radio-2">Highlighted Raster</label>
