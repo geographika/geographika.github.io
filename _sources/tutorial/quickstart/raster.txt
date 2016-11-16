@@ -2,36 +2,137 @@
 
 .. _qs_raster:
 
-=====================
-Adding a Raster Layer
-=====================
+==========================
+Raster Data and Templating
+==========================
 
-In this tutorial, you will learn how to add a raster layer to your map.
+So far we have been using :ref:`vector` such as shapefiles to create our maps. Vector data contains the coordinates of geographical features, which 
+are split into points, lines and polygons. In this tutorial we will be adding a :ref:`raster` to a map. Raster data is made up of cells or pixels. Examples are satellite imagery, aerial
+photography and elevation measurements. 
 
-Live Example
-------------
+MapServer raster input support is provided by the `GDAL <http://www.gdal.org/>`__ (Geospatial Data Abstraction Library) library. This library
+supports nearly every type of raster used in GIS, see the `format list <http://www.gdal.org/formats_list.html>`__ to see the many different formats 
+available. 
 
-The results should look the same as below, which is running from a live demo
-server, with the data displayed in an `OpenLayers3 map
-<http://openlayers.org/>`_
+In this example we will be adding a satellite image of the earth to a map, and applying an alternate style to the image. Your mapfile should look 
+like the one at: :ref:`raster.map <qs_raster_map>`. The layer definition is below - note the ``TYPE`` is set to ``RASTER``. 
+
+.. literalinclude:: mapfiles/raster.map
+    :language: mapfile
+    :dedent: 4
+    :start-after: # START OF THE LAYER DEFINITION
+    :end-before:  # END OF THE LAYER DEFINITION
+
+Often raster images contain metadata with information such as the spatial extent of the image. For example one of the most common raster formats 
+is GeoTIFF, a TIFF image with geospatial headers. The image we are using for this example does not have an ``EXTENT`` saved as part of the image so
+we need to add it to the ``LAYER`` definition for it to display correctly. 
+
+The ``DATA`` keyword is used in the same way as vector data sources, and points to a raster file (``bluemarble.tif``) relative to the mapfile (absolute paths
+can also be used). 
+
+As with vector data, raster data can be symbolised. The example mapfile contains two layers, both pointing to the same image source. 
+The first layer simply displays the image using the RGB (Red, Green, Blue) values stored in the image. The second layer uses an expression 
+to draw pixels with certain values in a different colour. See the "Classifying Rasters" section on the :ref:`raster` page for more details. 
+
+.. literalinclude:: mapfiles/raster.map
+    :language: mapfile
+    :dedent: 8
+    :start-after: # START OF CLASS DEFINITION
+    :end-before:  # END OF CLASS DEFINITION
+
+Templating
+----------
+
+We also use a new ``TEMPLATE`` keyword included in the layer definitions. :ref:`Templating` is used to return customised query results. In this
+example it will allow us to click on the raster map and return details on the pixel values to the user. So far we have used WMS (Web Map Services)
+to display data, however WMS also includes a ``GetFeatureInfo`` request type that can return attribute data. 
+
+There is no set format for what is returned by a ``GetFeatureInfo`` query (for example it could be text, XML, JSON). In this example we will be returning HTML. To 
+configure this we create an HTML file (the template), with placeholders for values that will be filled in by MapServer. 
+
+.. literalinclude:: mapfiles/raster.template.html
+    :language: html
+
+Placeholders are keywords (as listed on the :ref:`template` page), surrounded in square brackets. To complete the configuration we need to enable the 
+server to accept WMS requests, and allow 'text/html' responses. 
+
+.. literalinclude:: mapfiles/raster.map
+    :language: mapfile
+    :dedent: 4
+    :start-after: # START WEB METADATA
+    :end-before:  # END WEB METADATA
+
+Example
+-------
+
+You should be able to use the appropriate HTML and mapfiles to create the example below using your local
+MapServer. 
 
 .. raw:: html
-	:file: raster.html
+	:file: htmlfiles/raster.html
 
+Inspecting Raster Data
+----------------------
 
-Raster
-------
+The image in this example does not contain geospatial metadata, however many images do. GDAL provides a command line tool `gdalinfo <http://www.gdal.org/gdalinfo.html>`__
+that can be used to return this information. It is useful to see what bands of data are available in a dataset, and the range of pixel values. 
 
-Your mapfile should look like that: :ref:`raster.map <qs_raster_map>`.
+To run the tool open the command line, and run the commands below (these assume a Windows machine using MapServer for Windows - update paths where necessary):
 
-You need to add a layer of type ``RASTER``:
+.. code-block:: bat
 
-.. literalinclude:: raster.map
-   :language: mapfile
-   :dedent: 4
-   :start-after: # START RASTER LAYER
-   :end-before:  # END RASTER LAYER
+    C:\ms4w\setenv.bat
+    cd 
+    gdalinfo C:\mapserver-tutorial-data\data\rasterbluemarble.tif
+
+Information similar to the following will be returned. 
+
+.. code-block:: bat
+
+    Driver: GTiff/GeoTIFF
+    Files: bluemarble.tif
+    Size is 8192, 4096
+    Coordinate System is `'
+    Metadata:
+      TIFFTAG_RESOLUTIONUNIT=2 (pixels/inch)
+      TIFFTAG_XRESOLUTION=72
+      TIFFTAG_YRESOLUTION=72
+    Image Structure Metadata:
+      COMPRESSION=LZW
+      INTERLEAVE=PIXEL
+    Corner Coordinates:
+    Upper Left  (    0.0,    0.0)
+    Lower Left  (    0.0, 4096.0)
+    Upper Right ( 8192.0,    0.0)
+    Lower Right ( 8192.0, 4096.0)
+    Center      ( 4096.0, 2048.0)
+    Band 1 Block=8192x1 Type=Byte, ColorInterp=Red
+    Band 2 Block=8192x1 Type=Byte, ColorInterp=Green
+    Band 3 Block=8192x1 Type=Byte, ColorInterp=Blue
 
 ----
 
 :ref:`Back to tutorial index <tutorial>` | :ref:`Back to previous tutorial <qs_labelling>` | :ref:`Proceed to next tutorial <qs_datasources>`
+
+..
+    mklink C:\ms4w\Apache\htdocs\raster.html C:\Code\mapserver_docs\en\tutorial\quickstart\htmlfiles\raster.html
+    mklink C:\Code\mapserver-tutorial-data\mapfiles\raster.map C:\Code\mapserver_docs\en\tutorial\quickstart\mapfiles\raster.map
+    mklink C:\Code\mapserver-tutorial-data\mapfiles\raster.template.html C:\Code\mapserver_docs\en\tutorial\quickstart\mapfiles\raster.template.html
+    
+    gdalinfo --formats
+
+    #CONFIG "MS_ERRORFILE" 'raster.log'
+    #DEBUG 5       
+
+    CLASS
+        GROUP 'style1'  
+        NAME "other"
+        EXPRESSION ([red] != 10 AND [green] != 10 AND [blue] != 10)         
+        STYLE
+        COLOR -1 -1 -1 
+            #COLOR [value_list] # can't use this as the values have commas in? E.g. 59,77,21
+            #"[red] [green] [blue]"
+        END
+    END    
+
+    [y] [mapy] - difference?
