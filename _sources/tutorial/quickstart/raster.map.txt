@@ -3,7 +3,7 @@
 .. _qs_raster_map:
 
 Raster Map File
----------------------
+---------------
 
-.. literalinclude:: raster.map
+.. literalinclude:: mapfiles/raster.map
 	:language: mapfile
