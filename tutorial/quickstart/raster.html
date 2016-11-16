@@ -242,7 +242,7 @@ MapServer.</p>
         var view = new ol.View({
             //center: [-4.5703125, 37.265625],
             center: [0, 0],
-            zoom: 2,
+            zoom: 3,
             projection: 'EPSG:4326'
         });
 
@@ -257,7 +257,7 @@ MapServer.</p>
         function updateLayers(layerName) {
 
             if (!layerName) {
-                layerName = 'rgb';
+                document.querySelector('input[name="layer-radio"]:checked').value;
             }
 
             var msAddress = document.getElementById('mapserver-url').value;
