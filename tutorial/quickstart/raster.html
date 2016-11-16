@@ -257,7 +257,7 @@ MapServer.</p>
         function updateLayers(layerName) {
 
             if (!layerName) {
-                document.querySelector('input[name="layer-radio"]:checked').value;
+                layerName = document.querySelector('input[name="layer-radio"]:checked').value;
             }
 
             var msAddress = document.getElementById('mapserver-url').value;
