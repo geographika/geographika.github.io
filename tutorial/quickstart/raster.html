@@ -157,7 +157,7 @@ server to accept WMS requests, and allow &#8216;text/html&#8217; responses.</p>
 <div class="section" id="example">
 <h2>6.2. Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
 <p>You should be able to use the appropriate HTML and mapfiles to create the example below using your local
-MapServer.</p>
+MapServer. You can click on the map to return attribute values from the image using the template and the WMS GetFeatureInfo request.</p>
 <!DOCTYPE html>
 <html>
 <head>
@@ -205,6 +205,7 @@ MapServer.</p>
             <label for="mapserver-url">MapServer URL: </label>
             <input type="text" id="mapserver-url" value="http://mapserver.geographika.co.uk/cgi-bin/mapserv">
             <label for="mapfile-path">Map file path</label>
+            <label for="mapfile-path">Map file path</label>
             <input type="text" id="mapfile-path" value="/u02/mapfiles/raster.map">
             <label for="radio-1">RGB Raster</label>
             <input id="radio-1" type="radio" name="layer-radio" onclick="handleClick(this);" value="rgb" checked="checked" />
@@ -240,7 +241,6 @@ MapServer.</p>
         var source;
 
         var view = new ol.View({
-            //center: [-4.5703125, 37.265625],
             center: [0, 0],
             zoom: 3,
             projection: 'EPSG:4326'
@@ -280,6 +280,8 @@ MapServer.</p>
                     CRS: 'EPSG:4326',
                     VERSION: '1.3.0',
                     EXCEPTIONS: 'INIMAGE'
+                    //,FORMAT: 'jpeg'
+                    ,FORMAT: 'png8'
                 },
                 serverType: 'mapserver',
                 crossOrigin: 'anonymous'
@@ -308,6 +310,14 @@ MapServer.</p>
     </script>
 </body>
 </html>
+<div class="section" id="output-formats">
+<h3>6.2.1. Output Formats<a class="headerlink" href="#output-formats" title="Permalink to this headline">¶</a></h3>
+<p>As well as handling many input formats, MapServer has may output formats - for both raster and vector. In this example the OpenLayers client requests the images
+as <code class="docutils literal"><span class="pre">PNG8</span></code>. This is the PNG format but using only 256 colours, with each pixel stored in 8-bits, rather than the default <code class="docutils literal"><span class="pre">PNG32</span></code> which can contain up to 16 million
+different colours, allows for transparency, and uses 32-bits per pixel.</p>
+<p>A reduced image quality is used in this example to speed up load times - at zoom level 3 the <code class="docutils literal"><span class="pre">PNG8</span></code> is 570 KB in size versus <code class="docutils literal"><span class="pre">PNG32</span></code> which is 2.2 MB in size.
+MapServer allows full control over output formats, and has several default settings built in, see <a class="reference internal" href="../../mapfile/outputformat.html#outputformat"><span class="std std-ref">OUTPUTFORMAT</span></a> for details.</p>
+</div>
 </div>
 <div class="section" id="inspecting-raster-data">
 <h2>6.3. Inspecting Raster Data<a class="headerlink" href="#inspecting-raster-data" title="Permalink to this headline">¶</a></h2>
@@ -377,7 +387,10 @@ Band 3 Block=8192x1 Type=Byte, ColorInterp=Blue
   <ul>
 <li><a class="reference internal" href="#">6. Raster Data and Templating</a><ul>
 <li><a class="reference internal" href="#templating">6.1. Templating</a></li>
-<li><a class="reference internal" href="#example">6.2. Example</a></li>
+<li><a class="reference internal" href="#example">6.2. Example</a><ul>
+<li><a class="reference internal" href="#output-formats">6.2.1. Output Formats</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#inspecting-raster-data">6.3. Inspecting Raster Data</a></li>
 </ul>
 </li>

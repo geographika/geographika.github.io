@@ -66,10 +66,20 @@ Example
 -------
 
 You should be able to use the appropriate HTML and mapfiles to create the example below using your local
-MapServer. 
+MapServer. You can click on the map to return attribute values from the image using the template and the WMS GetFeatureInfo request. 
 
 .. raw:: html
 	:file: htmlfiles/raster.html
+
+Output Formats
+++++++++++++++
+
+As well as handling many input formats, MapServer has may output formats - for both raster and vector. In this example the OpenLayers client requests the images 
+as ``PNG8``. This is the PNG format but using only 256 colours, with each pixel stored in 8-bits, rather than the default ``PNG32`` which can contain up to 16 million 
+different colours, allows for transparency, and uses 32-bits per pixel. 
+
+A reduced image quality is used in this example to speed up load times - at zoom level 3 the ``PNG8`` is 570 KB in size versus ``PNG32`` which is 2.2 MB in size. 
+MapServer allows full control over output formats, and has several default settings built in, see :ref:`outputformat` for details. 
 
 Inspecting Raster Data
 ----------------------
@@ -136,3 +146,7 @@ Information similar to the following will be returned.
     END    
 
     [y] [mapy] - difference?
+    http://www.mapserver.org/mapfile/outputformat.html
+
+    docker cp /home/mapfiles/ 45bda0aaaa10:/u02
+    docker cp /home/data/ 45bda0aaaa10:/u02
